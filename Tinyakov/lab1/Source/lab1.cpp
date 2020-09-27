@@ -127,7 +127,7 @@ public:
         this->reader_writer = reader_writer;
         last_char = 0;
     }
-    ~Analyzer(){}
+    ~Analyzer() = default;
 
     void StartAnalyz(){
         bool correct  = CheckListParam();
