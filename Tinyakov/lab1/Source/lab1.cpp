@@ -1,21 +1,21 @@
 #include<iostream>
 #include<fstream>
+#include<string_view>
+/* For analyz from string */
+// #include<sstream>
 
 class ReaderWriter{
 private:
-    std::ifstream input;
-    std::ofstream output;
+    std::istream& input;
+    std::ostream& output;
 public:
-    ReaderWriter(const char* input_filename, const char* output_filename){
-        input.open(input_filename);
-        if(!input.is_open()) throw std::runtime_error("Can't open file for input");
-        output.open(output_filename);
-        if(!output.is_open()) throw std::runtime_error("Can't create/open file for output");
+    ReaderWriter(std::istream& in, std::ostream& out):
+    input(in),
+    output(out)
+    {
     }
     ~ReaderWriter(){
-        input.close();
         output << '\n';
-        output.close();
     }
     char GetNextChar(){
         char c;
@@ -40,13 +40,10 @@ public:
         output << c;
     }
 
-    void WriteString(const char* str){
+    void WriteString(std::string_view str){
         output << str;
     }
     
-    void WriteString(const std::string& str){
-        output << str;
-    }
 };
 
 class Analyzer{
@@ -152,12 +149,28 @@ int main(int argc, char** argv){
         return 1;
     }
     try{
-        ReaderWriter rw(argv[1], argv[2]);
-        Analyzer analyzer(&rw);
-        analyzer.StartAnalyz();
+        std::ifstream in(argv[1]);
+        std::ofstream out(argv[2]);
+        if(!in.is_open()){
+            std::cout << "Can't open file " << argv[1] << "\n";
+            return 2;
+        }
+        if(!out.is_open()){
+            std::cout << "Can't open/create file " << argv[2] << "\n";
+            return 2;
+        }
+        /* Example with string */
+        // std::stringstream in("AAA = 15\n");
+        {
+            ReaderWriter rw(in, out);
+            Analyzer analyzer(&rw);
+            analyzer.StartAnalyz();
+        }
+        in.close();
+        out.close();
     }catch(std::exception& e){
         std::cout << e.what() << "\n";
-        return 2;
+        return 3;
     }
     return 0;
 }
