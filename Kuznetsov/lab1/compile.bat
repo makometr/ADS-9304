@@ -1,0 +1,1 @@
+g++.exe Source/main.cpp -o main.exe
