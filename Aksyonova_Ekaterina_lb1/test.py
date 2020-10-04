@@ -17,7 +17,7 @@ test = { "TRUE" : "The string is correct",
         "( AND )": "The string is not correct"
         }
  
-os.system("g++ ./source/lab.cpp -o lab")
+os.system("g++ ./Source/lab.cpp -o lab")
 os.system('touch result.txt')
  
 for str in test.keys():
