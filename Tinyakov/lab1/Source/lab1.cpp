@@ -1,8 +1,7 @@
 #include<iostream>
 #include<fstream>
 #include<string_view>
-/* For analyz from string */
-// #include<sstream>
+#include<sstream>
 
 class ReaderWriter{
 private:
@@ -53,7 +52,6 @@ private:
     std::string error_msg;
 
     bool CheckListParam(){
-        ;
         if(CheckParam()){
             char next = reader_writer->GetAndWriteNextChar();
             if(next == ',') return CheckListParam();
@@ -69,7 +67,6 @@ private:
     }
     
     bool CheckParam(){
-        ;
         if(CheckName()){
             char next = reader_writer->GetAndWriteNextChar();
             if(next == '='){
@@ -127,7 +124,7 @@ public:
         this->reader_writer = reader_writer;
         last_char = 0;
     }
-    ~Analyzer() = default;
+    ~Analyzer(){}
 
     void StartAnalyz(){
         bool correct  = CheckListParam();
@@ -140,6 +137,15 @@ public:
             reader_writer->WriteString("\nIncorrect. ");
             reader_writer->WriteString(error_msg);
         }else reader_writer->WriteString("\nCorrect.\n");
+    }
+
+    void AnalyzString(const std::string& str){
+        ReaderWriter* old_reader_writer = reader_writer;
+        std::istringstream stream_str(str);
+        ReaderWriter new_reader_writer(stream_str, std::cout);
+        reader_writer = &new_reader_writer;
+        StartAnalyz();
+        reader_writer = old_reader_writer;
     }
 };
 
