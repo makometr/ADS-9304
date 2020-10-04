@@ -2,7 +2,7 @@
 
 int main(){
 
-	Test::start();
+	Test::StartTests();
 
 	return 0;
 }

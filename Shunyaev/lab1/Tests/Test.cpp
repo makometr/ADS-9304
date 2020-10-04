@@ -1,44 +1,14 @@
 #include "Test.h"
-#define IN1  "./Tests/output1.txt"
-#define ANS1 "./Tests/true_output1.txt"
-#define IN2	 "./Tests/output2.txt"
-#define ANS2 "./Tests/true_output2.txt"
-#define IN3  "./Tests/output3.txt"
-#define ANS3 "./Tests/output3.txt"
 
-Test::Test(int i) {
-	switch (i)
-	{
-	case 1:
-		in_test = IN1;
-		in_answer = ANS1;
-		break;
 
-	case 2:
-		in_test = IN2;
-		in_answer = ANS2;
-		break;
-
-	case 3:
-		in_test = IN3;
-		in_answer = ANS3;
-		break;
-
-	default:
-		break;
-	}
-	
-}
-
-void Test::start()
+void Test::StartTests()
 {
-	for (int i = 1; i < 4; i++) {
-		int number = 1;
-		Test test(i);
 
-		Test::InputTest(&test);
-		Test::InputAnswer(&test);
-		cout << "Testing #" << i << " output-file! \n\n";
+		int number = 1;
+		Test test;
+
+		test.InputTest();
+		test.InputAnswer();
 		while (test.tests.size() != 0) {
 	
 			if (test.tests.front() == test.answers.front()) {
@@ -52,16 +22,20 @@ void Test::start()
 			number++;
 		}
 		cout << endl;
-	}
+	
 }
 
-void Test::InputTest(Test* test)
+void Test::InputTest()
 {
-	ifstream input1(test->in_test);
+	ifstream input1("./Tests/output.txt");
 
-	if (input1.is_open()) {
-		while (getline(input1, test->str)) {
-			test->tests.push_back(test->str);
+	if (input1.is_open()) { 
+		while (getline(input1, this->str)) {
+			std::size_t check = this->str.find("Testing the"); 
+			
+			if(check != 0 && this->str.length() != 0){
+				this->tests.push_back(this->str);
+			}
 		}
 	}
 	else {
@@ -71,13 +45,16 @@ void Test::InputTest(Test* test)
 	input1.close();
 }
 
-void Test::InputAnswer(Test* test)
+void Test::InputAnswer()
 {
-	ifstream input2(test->in_answer);
+	ifstream input2("./Tests/true_output.txt");
 
 	if (input2.is_open()) {
-		while (getline(input2, test->str)) {
-			test->answers.push_back(test->str);
+		while (getline(input2, this->str)) {
+			std::size_t check = this->str.find("Testing the");  
+			if(check != 0 && this->str.length() != 0){
+				this->answers.push_back(this->str);
+			}
 		}
 	}
 	else {

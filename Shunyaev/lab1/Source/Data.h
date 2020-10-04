@@ -18,8 +18,8 @@ public:
 	list<string> strings;
 
 
-	Data(int i);
-	static void start();
+	Data();
+	static void StartDataProcessing();
 	string SpaceErase(string str);
 
 };

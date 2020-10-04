@@ -16,9 +16,8 @@ public:
 	list<string> tests;
 	list<string> answers;
 
-	Test(int i);
-	static void start();
-	static void InputTest(Test* test);
-	static void InputAnswer(Test* test);
+	static void StartTests();
+	void InputTest();
+	void InputAnswer();
 };
 

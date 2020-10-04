@@ -2,7 +2,7 @@
 
 int main(){
 
-	Data::start();
+	Data::StartDataProcessing();
 
 	return 0;
 }
