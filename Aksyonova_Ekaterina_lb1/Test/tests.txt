@@ -4,7 +4,7 @@
         "(TRUE AND FALSE)": "The string is correct",
         "TRUE AND NOT A": "The string is not correct",
         "(NOT A)": "The string is not correct",
-        "NOT     FALSE": "The string not correct",
+        "NOT     FALSE": "The string correct",
         "(NOT AND NOT NOT NOT A)": "The string is not correct",
         "False": "The string is not correct",
         "NOT (NOT NOT FALSE OR NOT NOT NOT A)": "The string is correct",
