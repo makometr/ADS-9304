@@ -3,18 +3,18 @@
 
 #define ELEMS "<>{}()"
 
-std::string isBrackets(std::string str);
-bool isArray(std::string::iterator &it);
-bool isList(std::string::iterator &it);
-bool isElem(std::string::iterator &it);
+std::string isBrackets(const std::string &str);
+bool isArray(std::string::const_iterator &it);
+bool isList(std::string::const_iterator &it);
+bool isElem(std::string::const_iterator &it);
 
 
 
-std::string isBrackets(std::string str){
+std::string isBrackets(const std::string &str){
 	if(str.size() == 0){
 		return "incorrect";
 	}
-	for(std::string::iterator it = str.begin();it != str.end();it++){ 
+	for(std::string::const_iterator it = str.begin();it != str.end();it++){ 
 		if(!isElem(it) && !isList(it)){
 			return "incorrect";
 		}
@@ -23,7 +23,7 @@ std::string isBrackets(std::string str){
 }
 
 
-bool isArray(std::string::iterator &it){
+bool isArray(std::string::const_iterator &it){
 	int n = 0;
 	while(*it != ']'){
 		if(isElem(it) || isList(it)){
@@ -43,7 +43,7 @@ bool isArray(std::string::iterator &it){
 	}
 }
 
-bool isList(std::string::iterator &it){
+bool isList(std::string::const_iterator &it){
     if(*it == 'N'){
 		return true;
 	}
@@ -54,7 +54,7 @@ bool isList(std::string::iterator &it){
 	return false;
 }
 
-bool isElem(std::string::iterator &it){
+bool isElem(std::string::const_iterator &it){
 	std::string elems(ELEMS);
 	for(int i = 0;i < elems.size();i++){
 		if(*it == elems[i])
