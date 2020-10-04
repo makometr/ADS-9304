@@ -5,11 +5,14 @@
 #include <algorithm>
 
 template <typename T>
-std::ostream& operator<<(std::ostream& out, const std::vector<T>& seq) {
-	for (const auto& i : seq)
-		out << i << " ";
+std::ostream& operator<<(std::ostream & out, const std::vector<T> & seq) {
+	out << *seq.begin();
+	for (auto it = seq.begin() + 1; it != seq.end(); it++) {
+		out << " " << *it;
+	}
 	return out;
 }
+
 
 template <typename T>
 std::istream& operator>>(std::istream& in, std::vector<T>& seq) {
@@ -23,28 +26,23 @@ std::istream& operator>>(std::istream& in, std::vector<T>& seq) {
 }
 
 int main() {
-	std::cout<<"Enter a sequence of words/numbers separated by a space\n";
 	std::vector<std::string> seq;
 	std::cin >> seq;
-	std::sort(seq.begin(), seq.end());
-	std::cout << "-------------------\n";
-
-	auto nextPermutation = [&seq](std::vector<std::string>::iterator begin, auto && nextPermutation) {
+	std::cout<<seq.size()<<"\n";
+	auto permutationGen = [&seq](std::vector<std::string>::iterator begin, auto && permutationGen) {
 		//printing
 		if (begin == seq.end()) {
 			std::cout << seq << '\n';
 			return;
 		}
-
 		//recource block
 		for (auto i = begin; i != seq.end(); i++) {
 			std::swap(*begin, *i);
-			nextPermutation(begin + 1, nextPermutation);
+			permutationGen(begin + 1, permutationGen);
 			std::swap(*begin, *i);
 		}
 	};
 
-	nextPermutation(seq.begin(), nextPermutation);
-	std::system("pause");
+	permutationGen(seq.begin(), permutationGen);
 	return 0;
 }
