@@ -5,3 +5,5 @@ do
 ./main.exe < Tests/test$i.txt > Tests/result.txt && ./unitTests.exe < Tests/result.txt
 done
 rm Tests/result.txt
+rm main.exe
+rm unitTests.exe
