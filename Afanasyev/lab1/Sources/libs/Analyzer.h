@@ -3,19 +3,12 @@
 
 #include <string>
 
-enum Mode
+enum Status
 {
-    kStart = 0,
-    kOper = 1,
-    kNumber = 2,
-    kNothing = -1
-};
-
-struct Object
-{
-    Mode mode;
-    char ch;
-    Object() : mode(kStart), ch(0) {}
+    kNothing,
+    kStart,
+    kOper,
+    kNumber
 };
 
 class Analyzer
@@ -23,7 +16,7 @@ class Analyzer
     const std::string &str;
     size_t index;
     size_t lastIndex;
-    Object oldMode;
+    Status oldObjStatus;
     inline void skipSome(const char *thing);
 
 public:
