@@ -3,9 +3,8 @@
 #include <vector>
 #include <sstream>
  
-using namespace std;
  
-void isOperationCorrect(int& i, int& result, vector<string> vec) {
+void isOperationCorrect(int& i, int& result, const std::vector<std::string> &vec) {
 	if (vec[i] == "AND") {
 		++i;
 		result += 0;
@@ -19,12 +18,11 @@ void isOperationCorrect(int& i, int& result, vector<string> vec) {
 	}
 }
 int main(int argc, char *argv[]) {
-	string str;
-	vector<string> vec;
+	std::string str;
+	std::vector<std::string> vec;
 	int result = 0;
-	string value;
+	std::string value;
 	int i = 0;
-	int counfOfRepition = 0;
 	auto isSimpleLOgicCorrect = [&vec, &result](int& i, auto&& isSimpleLOgicCorrect)->void {
 		if (vec[i][0] == '(') {
 			vec[i] = vec[i].substr(1);
@@ -76,7 +74,7 @@ int main(int argc, char *argv[]) {
 		}
 	};
 	if(argc < 2){
-                getline(cin, str, '\n');
+                getline(std::cin, str, '\n');
         }else{
                 for(int j = 1; argv[j]; j++){
                         for(int k = 0; argv[j][k]; k++){
@@ -90,11 +88,6 @@ int main(int argc, char *argv[]) {
  
 	std::stringstream ss(str);
  
-	for (int i = 0; i < str.size(); i++) {
-		if (str[i] == ' ') {
-			counfOfRepition++;
-		}
-	}
 	while (ss >> value)
 	{
 		vec.push_back(value);
@@ -104,23 +97,18 @@ int main(int argc, char *argv[]) {
 		}
 	}
  
-	if (counfOfRepition != vec.size() - 1) {
-		result += 1;
-	}
- 
  
 	isSimpleLOgicCorrect(i, isSimpleLOgicCorrect);
  
 	if (i != vec.size()) {
 		result += 1;
 	}
-	str.clear();
  
 	if (!result) {
-		cout << "The string is correct" << '\n';
+		std::cout << "The string is correct" << '\n';
 	}
 	else {
-		cout << "The string is not correct" << '\n';
+		std::cout << "The string is not correct" << '\n';
 	}
  
 }
