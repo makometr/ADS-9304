@@ -11,6 +11,9 @@ bool isElem(std::string::iterator &it);
 
 
 std::string isBrackets(std::string str){
+	if(str.size() == 0){
+		return "incorrect";
+	}
 	for(std::string::iterator it = str.begin();it != str.end();it++){ 
 		if(!isElem(it) && !isList(it)){
 			return "incorrect";
@@ -61,9 +64,7 @@ bool isElem(std::string::iterator &it){
 }
 
 
-int main(){
-	std::string str;
-	std::cin >> str;
-	std::cout << isBrackets(str) << '\n';
+int main(int argc, char* argv[]){
+	std::cout << isBrackets(argv[1]) << '\n';
 	return 0;
 }
