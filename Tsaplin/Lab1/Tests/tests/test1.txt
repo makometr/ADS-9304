@@ -1,0 +1,6 @@
+5
+Parent1 (Son1, Son2)
+Son2 ()
+Son1 (Grandson1)
+Grandson1 (Grandgrandson1)
+Grandgrandson1 ()
