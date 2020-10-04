@@ -30,6 +30,19 @@ std::string analysis (std::string str) {
                 }
             }
         }
+    } else if (str.find("NOT ") != std::string::npos) {
+        pos1 = str.find("NOT ");
+        pos2 = pos1 + 3;
+        if (str.find(' ', pos2 + 1) != std::string::npos)
+            pos3 = str.find(' ', pos2 + 1) - 1;
+        else
+            pos3 = str.size() - 1;
+        
+        if (!converter(str.substr(pos2 + 1, pos3 - pos2)))
+            str.replace(pos1, pos3 - pos1 + 1, "TRUE");
+        else
+            str.replace(pos1, pos3 - pos1 + 1, "FALSE");
+        str = analysis(str);
     } else if (str.find(" AND ") != std::string::npos) {
         pos1 = str.find(" AND ");
         pos2 = pos1 + 4;

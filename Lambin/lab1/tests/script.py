@@ -7,7 +7,9 @@ test = { "true and false" : "FALSE",
          "true and (true and (true and (true and false)))" : "FALSE",
          "   true    and   false or (  false  or  false   )    " : "FALSE",
          "TRUE AND (FALSE OR TRUE) OR (TRUE AND FALSE)" : "TRUE",
-         "TrUe Or FaLsE aNd TrUe" : "TRUE" }
+         "TrUe Or FaLsE aNd TrUe" : "TRUE",
+         "not true" : "FALSE",
+         "not true or false and not true and not (true or false)" : "FALSE" }
 
 os.system("g++ ../source/lab1.cpp -o lab1")
 os.system('touch result.txt')
