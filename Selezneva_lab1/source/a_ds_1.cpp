@@ -1,18 +1,7 @@
 #include <iostream>
 #include <string>
 #include <cctype>
-
-
-
-bool check_point(std::string s){
-    for( int l = 0; l < s.size(); ++l) {
-        if(s[l] == '.'){
-            return true;
-        }
-    }
-    return false;
-}
-
+#include <algorithm>
 
 int main(int argc, char* argv []) {
     bool existence_E = false;
@@ -37,7 +26,7 @@ int main(int argc, char* argv []) {
             ++i;
             Is_real_number(i, Is_real_number);
         }
-        else if(str[i] == 'E' && i != 0 && existence_E == false && check_point(str.substr(i)) == false && i != (str.size()-1) ){
+        else if(str[i] == 'E' && i != 0 && existence_E == false && count(str.begin()+i,str.end(),'.') == 0 && i != (str.size()-1) ){
             existence_E = true;
             ++i;
             Is_real_number(i, Is_real_number);

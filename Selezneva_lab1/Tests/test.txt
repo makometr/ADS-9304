@@ -1,0 +1,11 @@
+		 "12.3" : "The real number",
+	     "12.-3" : "This is not real number",
+	     "+12.3" : "The real number",
+	     "12E-1" : "The real number",
+	     "12E.1" : "This is not real number",
+	     "12E12." : "This is not real number",
+	     "+12.3E1" : "The real number",
+	     ".12" : "This is not real number",
+	     "E12" : "This is not real number",
+	     "+12.-3E1" : "This is not real number",
+	     "gjhgj679" : "This is not real number"
