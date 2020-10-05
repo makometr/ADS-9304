@@ -13,11 +13,11 @@ test = { "12.3" : "The real number",
 	     "+12.-3E1" : "This is not real number",
 	     "gjhgj679" : "This is not real number",}
 
-os.system("g++ a_ds_1.cpp -o a_ds_1")
+os.system("g++ ../source/a_ds_1.cpp -o a_ds_1")
 os.system('touch result.txt')
 
 for str in test.keys():
-    os.system("./a_ds_1 \"{}\" > result.txt".format(str))
+    os.system("../source/a_ds_1 \"{}\" > result.txt".format(str))
     file = open('result.txt', 'rt')
     res = file.read().split('\n')[0]
 
