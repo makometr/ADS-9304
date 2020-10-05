@@ -1,5 +1,4 @@
 #define _CRT_SECURE_NO_WARNINGS
-#include <cstdio>
 #include <iostream>
 #include <fstream>
 #include <set>
@@ -9,9 +8,7 @@
 #include <sstream>
 #include <iterator>
 
-#define RESFILE "result.txt"
-
-unsigned GLwordsInSeq, GLnumOfSeqs;
+unsigned GLwordsInSeq;
 
 std::istream& operator>>(std::istream& in, std::vector<std::string>& seq) {
 	for (int i = 0; i < GLwordsInSeq; i++) {
@@ -25,9 +22,7 @@ std::istream& operator>>(std::istream& in, std::vector<std::string>& seq) {
 }
 
 std::istream& operator>>(std::istream& in, std::string& seq) {
-	char* str = new char[128];
-	in.getline(str, 128);
-	seq = std::string(str);
+	getline(in, seq);
 	return in;
 }
 
@@ -62,9 +57,8 @@ std::string str(T begin, T end)
 }
 
 int main() {
-	//freopen(RESFILE, "r", stdin);
 	std::cin >> GLwordsInSeq;
-	GLnumOfSeqs = fact(GLwordsInSeq);
+	unsigned GLnumOfSeqs = fact(GLwordsInSeq);
 	std::vector<std::string> seq;
 	std::cin >> seq;
 	std::cout << "Running test [" << seq << "]...\n";
