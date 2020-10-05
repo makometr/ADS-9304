@@ -63,7 +63,7 @@ const bool Analyzer::analyzeCnstExpr() // подсчитал линейную с
 
 inline void Analyzer::skipSome(const char *thing)
 {
-    index = str.find_first_not_of(thing, index + 1); // сдвиг индекса к концу пробелов
+    index = str.find_first_not_of(thing, index + 1); // сдвиг индекса на следующий элемент после последовательности символов из thing
     if (index > lastIndex)
         index = lastIndex;
 }
