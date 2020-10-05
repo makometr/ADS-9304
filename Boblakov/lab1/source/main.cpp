@@ -4,13 +4,10 @@
 
 int main() {
     unsigned int from, to,n,i,j;
-    std::cout<<"N = ";
     std::cin>>n;
-    std::cout<<"from to\n";
     std::cin>>from>>to;
     from--;
     to--;
-    std::cout<<"enter pairs\n";
     int** arr=new int*[n];
     for (int k = 0; k < n; ++k) {
         arr[k]=new int[n];
@@ -40,8 +37,8 @@ int main() {
     }
     bool isTrue=recSearch(from,to,n,arr,watched);
     if (isTrue){
-        std::cout<<"true";
-    }    else std::cout<<"false";
+        std::cout<<"true\n";
+    }    else std::cout<<"false\n";
 
     for (int k = 0; k < n; ++k) {
         delete arr[k];
