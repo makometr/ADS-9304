@@ -20,7 +20,7 @@ class Analyzer
     inline void skipSome(const char *thing);
 
 public:
-    const bool analyzeCnstExpr();
+    const bool operator()();
     Analyzer(const std::string &otherStr, size_t start = 0, size_t end = std::string::npos);
     ~Analyzer() = default;
 };

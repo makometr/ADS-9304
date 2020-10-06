@@ -6,7 +6,7 @@ Analyzer::Analyzer(const std::string &otherStr, size_t start, size_t end) : str(
     oldObjStatus = kStart;
 }
 
-const bool Analyzer::analyzeCnstExpr() // подсчитал линейную скорость o(n)
+const bool Analyzer::operator()() // подсчитал линейную скорость o(n)
 {
     Status currentObj = kNothing;
     if (index < lastIndex)
@@ -41,10 +41,10 @@ const bool Analyzer::analyzeCnstExpr() // подсчитал линейную с
             } while (bar != 0 && index < lastIndex);
 
             Analyzer analyzer(str, firstIndex, index);
-            if (bar != 0 || analyzer.analyzeCnstExpr() == 0)
-                return 0;         // отрицатеьлный выход, если кол-во открытых и закрытых скобок не совпало, или, если внутри скобок была обнаружена проблема
-            ++index;              // иначе передвигаем индекс с закрывающей скобки на следующую позицию
-            currentObj = kNumber; // делаем вид, что наши скобки являлись числом, чтобы не было сразу после скобок числа
+            if (bar != 0 || analyzer() == 0) // рекурсивный вызов в скобках
+                return 0;                    // отрицатеьлный выход, если кол-во открытых и закрытых скобок не совпало, или, если внутри скобок была обнаружена проблема
+            ++index;                         // иначе передвигаем индекс с закрывающей скобки на следующую позицию
+            currentObj = kNumber;            // делаем вид, что наши скобки являлись числом, чтобы не было сразу после скобок числа
         }
         else if (str[index] != ' ' && str[index] != '\t')
             return 0; // отрицательный выход, если встречен неуместный знак
@@ -57,8 +57,8 @@ const bool Analyzer::analyzeCnstExpr() // подсчитал линейную с
     else if (currentObj == kNothing && oldObjStatus != kNothing)
         return 1; // положительный выход, если сейчас путо, но раньше что-то было (строка просто закончилась)
 
-    oldObjStatus = currentObj;          // передаем следующей итерации информацию о нынешней
-    return (analyzeCnstExpr()) ? 1 : 0; // рекурсия
+    oldObjStatus = currentObj;  // передаем следующей итерации информацию о нынешней
+    return ((*this)()) ? 1 : 0; // рекурсия
 }
 
 inline void Analyzer::skipSome(const char *thing)

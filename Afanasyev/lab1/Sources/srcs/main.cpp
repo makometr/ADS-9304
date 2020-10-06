@@ -12,7 +12,7 @@ int main(int amount, char **args)
     file.close();
 
     Analyzer analyzer(strToCheck);
-    std::cout << analyzer.analyzeCnstExpr() << '\n';
+    std::cout << analyzer() << '\n';
 
     return 0;
 }
