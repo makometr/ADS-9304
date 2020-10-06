@@ -7,7 +7,7 @@
 
 #include "my_exception.h"
 
-enum NamesType { kFalse = 0, kTrue, kAnd, kOr, kNot };
+enum class NamesType { kFalse = 0, kTrue, kAnd, kOr, kNot };
 
 class LogicalExpression {
  public:

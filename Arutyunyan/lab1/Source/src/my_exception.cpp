@@ -7,19 +7,19 @@ ErrorCode MyException::GetCode() { return code_; }
 
 std::ostream& operator<<(std::ostream& out, const MyException&& object) {
   switch (object.code_) {
-    case kNone:
+    case ErrorCode::kNone:
       out << "None";
       break;
-    case kIndexError:
+    case ErrorCode::kIndexError:
       out << "IndexError: " << object.str_;
       break;
-    case kValueError:
+    case ErrorCode::kValueError:
       out << "ValueError: " << object.str_;
       break;
-    case kSyntaxError:
+    case ErrorCode::kSyntaxError:
       out << "SyntaxError: " << object.str_;
       break;
-    case kRuntimeError:
+    case ErrorCode::kRuntimeError:
       out << "RuntimeError: " << object.str_;
       break;
   }

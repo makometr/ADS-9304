@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-enum ErrorCode {
+enum class ErrorCode {
   kNone = 0,
   kIndexError,
   kValueError,

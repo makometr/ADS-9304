@@ -1,7 +1,7 @@
 #include "../lib/logical_expression.h"
 
 LogicalExpression::LogicalExpression(const std::string &expr)
-    : error_(kNone), expr_(expr), index_(0) {
+    : error_(ErrorCode::kNone), expr_(expr), index_(0) {
   DeleteSpaces(expr_);
 }
 
@@ -9,7 +9,7 @@ bool LogicalExpression::Analyze() {
   try {
     CheckNextExpr();
     if (index_ != expr_.size()) {
-      throw MyException(kSyntaxError, "invalid syntax");
+      throw MyException(ErrorCode::kSyntaxError, "invalid syntax");
     }
   } catch (MyException &err) {
     error_ = err;
@@ -24,15 +24,15 @@ void LogicalExpression::CheckNextExpr() {
   } else if (IsNot()) {
     CheckBool(true);
   } else if (!(IsFalse() || IsTrue() || IsID())) {
-    throw MyException(kSyntaxError, "invalid syntax");
+    throw MyException(ErrorCode::kSyntaxError, "invalid syntax");
   }
 }
 
 MyException LogicalExpression::GetError() { return error_; }
 
-bool LogicalExpression::IsFalse() { return CompareStrings(kFalse); }
+bool LogicalExpression::IsFalse() { return CompareStrings(NamesType::kFalse); }
 
-bool LogicalExpression::IsTrue() { return CompareStrings(kTrue); }
+bool LogicalExpression::IsTrue() { return CompareStrings(NamesType::kTrue); }
 
 bool LogicalExpression::IsID() {
   char c = expr_[index_];
@@ -41,15 +41,15 @@ bool LogicalExpression::IsID() {
   return result;
 }
 
-bool LogicalExpression::IsAnd() { return CompareStrings(kAnd); }
+bool LogicalExpression::IsAnd() { return CompareStrings(NamesType::kAnd); }
 
-bool LogicalExpression::IsOr() { return CompareStrings(kOr); }
+bool LogicalExpression::IsOr() { return CompareStrings(NamesType::kOr); }
 
-bool LogicalExpression::IsNot() { return CompareStrings(kNot); }
+bool LogicalExpression::IsNot() { return CompareStrings(NamesType::kNot); }
 
 void LogicalExpression::CheckBool(bool is_not) {
   if (expr_[index_] != '(') {
-    throw MyException(kSyntaxError, "missing \"(\"");
+    throw MyException(ErrorCode::kSyntaxError, "missing \"(\"");
   }
 
   ++index_;
@@ -57,14 +57,14 @@ void LogicalExpression::CheckBool(bool is_not) {
 
   if (!is_not) {
     if (expr_[index_] != ',') {
-      throw MyException(kSyntaxError, "missing \",\"");
+      throw MyException(ErrorCode::kSyntaxError, "missing \",\"");
     }
     ++index_;
     CheckNextExpr();
   }
 
   if (expr_[index_] != ')') {
-    throw MyException(kSyntaxError, "missing \")\"");
+    throw MyException(ErrorCode::kSyntaxError, "missing \")\"");
   }
   ++index_;
 }
@@ -76,9 +76,10 @@ void LogicalExpression::DeleteSpaces(std::string &str) {
 }
 
 bool LogicalExpression::CompareStrings(NamesType type) {
-  bool result = !expr_.compare(index_, names_[type].size(), names_[type]);
+  bool result =
+      !expr_.compare(index_, names_[(int)type].size(), names_[(int)type]);
   if (result) {
-    index_ += names_[type].size();
+    index_ += names_[(int)type].size();
   }
   return result;
 }
