@@ -14,8 +14,10 @@ for i in range(number_of_tests):
 
     ans_1 = open(f'{path_to_correct_answers}{num}{exp}').readline().rstrip('\n')
     ans_2 = open(f'{path_to_answers}{num}{exp}').readline().rstrip('\n')
+    str_test = open(f'{path_to_tests}{num}{exp}').readline()
 
+    print(f'test_{num}:\n  string: {str_test}\n  answer: {ans_1}\n  result: ', end='')
     if ans_1 == ans_2:
-        print(f'test{num}: correct')
+        print(f'correct')
     else:
-        print(f'test{num}: incorrect')
+        print(f'incorrect')
