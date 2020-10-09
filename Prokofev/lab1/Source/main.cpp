@@ -11,7 +11,7 @@ int f(int n)
 }
 int main(int argc, char* argv[])
 {
-	char vvod[256]; int res=0;
+	int res=0;
 	res = atoi(argv[1]);
 	if(res<1) std::cout << "not answer\n";
 	else std::cout << f(res) << std::endl;
