@@ -1,0 +1,19 @@
+#!/bin/bash
+
+arg1=$(cat Tests/test1.txt)
+echo "Test 1:"
+echo "argument = $arg1"
+./lab1 ./Tests/test1.txt result1.txt
+cat result1.txt
+
+echo -e "\nTest 2:"
+arg2=$(cat Tests/test2.txt)
+echo "argument = $arg2"
+./lab1 ./Tests/test2.txt result2.txt
+cat result2.txt
+
+echo -e "\nTest 3:"
+arg3=$(cat Tests/test3.txt)
+echo "argument = $arg3"
+./lab1 ./Tests/test3.txt result3.txt
+cat result3.txt
