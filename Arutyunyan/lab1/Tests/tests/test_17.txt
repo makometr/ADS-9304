@@ -1,0 +1,1 @@
+AND(O(A, B), NOT(A))
