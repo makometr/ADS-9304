@@ -24,11 +24,14 @@ class TestParamAnalyzer(unittest.TestCase):
                    ]
         
         for test in subtests:
+            print("Test 0_", subtests.index(test), "\n", sep='')
             with open('input', 'w') as f:
                 f.write(test[0])
+            print("Input: ", test[0], "\nEnd input\n")
             p = subprocess.run(['./lab1','input','output'], cwd = self.cwd)
             with open('output', 'r') as f:
                 line = f.read()
+                print("Output: ", line, "\nEnd Output\n")
                 self.assertEqual(line, test[1])
     
     def test_1(self):
@@ -41,28 +44,37 @@ class TestParamAnalyzer(unittest.TestCase):
                    ]
         
         for test in subtests:
-                with open('input', 'w') as f:
-                    f.write(test[0])
-                p = subprocess.run(['./lab1','input','output'], cwd = self.cwd)
-                with open('output', 'r') as f:
-                    line = f.read()
-                    self.assertEqual(line, test[1])
+            print("Test 1_", subtests.index(test), "\n", sep='')
+            with open('input', 'w') as f:
+                f.write(test[0])
+            print("Input: ", test[0], "\nEnd input\n")
+            p = subprocess.run(['./lab1','input','output'], cwd = self.cwd)
+            with open('output', 'r') as f:
+                line = f.read()
+                print("Output: ", line, "\nEnd Output\n")
+                self.assertEqual(line, test[1])
 
     def test_2(self):
         subtests = [
                     ['Ssf = (AOE = 12,\n       FWA = 14,\n       ASF = 16,\n       VER = 20\n       ),\nFFF = 04, QWE=(AFA = (aas = 13,\n    vsd = ( yet = (faw = ( ker = ( ort = 95, not = 00,\n    trr = ( zzz = (kkk = (uuu = 14)))))))))','Ssf=(AOE=12,FWA=14,ASF=16,VER=20),FFF=04,QWE=(AFA=(aas=13,vsd=(yet=(faw=(ker=(ort=95,not=00,trr=(zzz=(kkk=(uuu=14)))))))))\nCorrect.\n\n'],
-                    ['asd = 00, fbk = 11, AAA = (OOO = 13),\nFFF = 12, BBB = 94, QQQ  = 93, KKK = 21,\nMMM = 21, NNN = 21, DDD = (EEE = (kad = 94)),\nDDD  = 64, VVV = 82,HHH=65, LLL = 08, ret = 42','asd=00,fbk=11,AAA=(OOO=13),FFF=12,BBB=94,QQQ=93,KKK=21,MMM=21,NNN=21,DDD=(EEE=(kad=94)),DDD=64,VVV=82,HHH=65,LLL=08,ret=42\nCorrect.\n\n']
+                    ['Ssf = (AOE = 12,\n       FWA = 14,\n       ASF = 16,\n       VER = 20\n       ),\nFFF = 04, QWE=(AFA = (aas = 13,\n    vsd = ( yet = (faw = ( ker = ( ort = 95, not = 00,\n    trr = ( zzz = (kkk = (uuu = 14))))))))','Ssf=(AOE=12,FWA=14,ASF=16,VER=20),FFF=04,QWE=(AFA=(aas=13,vsd=(yet=(faw=(ker=(ort=95,not=00,trr=(zzz=(kkk=(uuu=14))))))))\nIncorrect. Parameter Error: Expected character \')\', but end of input were reached.\n\n'],
+                    ['asd = 00, fbk = 11, AAA = (OOO = 13),\nFFF = 12, BBB = 94, QQQ  = 93, KKK = 21,\nMMM = 21, NNN = 21, DDD = (EEE = (kad = 94)),\nDDD  = 64, VVV = 82,HHH=65, LLL = 08, ret = 42','asd=00,fbk=11,AAA=(OOO=13),FFF=12,BBB=94,QQQ=93,KKK=21,MMM=21,NNN=21,DDD=(EEE=(kad=94)),DDD=64,VVV=82,HHH=65,LLL=08,ret=42\nCorrect.\n\n'],
+                    ['asd = 00, fbk = 11, AAA = (OOO = 13),\nFFF = 12, BBB = 94, QQQ  = 93, KKK = 21,\nMMM = 21, NNN = 21, DDD = (EEE = (kad = 94)),\nDDD  = 64, VVV = 82HHH=65, LLL = 08, ret = 42','asd=00,fbk=11,AAA=(OOO=13),FFF=12,BBB=94,QQQ=93,KKK=21,MMM=21,NNN=21,DDD=(EEE=(kad=94)),DDD=64,VVV=82H\nIncorrect. List of parameters Error: Expected character \',\', but were given \'H\'.\n\n']
                    ]
 
         for test in subtests:
-                with open('input', 'w') as f:
-                    f.write(test[0])
-                p = subprocess.run(['./lab1','input','output'], cwd = self.cwd)
-                with open('output', 'r') as f:
-                    line = f.read()
-                    self.assertEqual(line, test[1])
+            print("Test 2_", subtests.index(test), "\n", sep='')
+            with open('input', 'w') as f:
+                f.write(test[0])
+            print("Input: ", test[0], "\nEnd input\n")
+            p = subprocess.run(['./lab1','input','output'], cwd = self.cwd)
+            with open('output', 'r') as f:
+                line = f.read()
+                print("Output: ", line, "\nEnd Output\n")
+                self.assertEqual(line, test[1])
 
     def test_3(self):
+        print("Test 3")
         p = subprocess.run(['./lab1','input'], cwd = self.cwd, stdout = subprocess.PIPE)
         self.assertEqual(p.returncode, 1);
         p = subprocess.run(['./lab1','non_exist_file','output'], cwd = self.cwd, stdout = subprocess.PIPE)
