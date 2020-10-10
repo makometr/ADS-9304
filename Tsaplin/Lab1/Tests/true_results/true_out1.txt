@@ -1,0 +1,10 @@
+Parent1 - Son2
+Parent1 - Son1
+Parent1 - Grandson1
+Parent1 - Grandgrandson1
+Son2 - Son1
+Son2 - Grandson1
+Son2 - Grandgrandson1
+Son1 - Grandson1
+Son1 - Grandgrandson1
+Grandson1 - Grandgrandson1
