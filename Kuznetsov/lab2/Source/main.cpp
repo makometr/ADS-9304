@@ -5,6 +5,7 @@
 #include <memory>
 #include <vector>
 #include <stdexcept>
+#include <sstream>
 
 
 struct Node {
@@ -63,14 +64,24 @@ void getList(NodePtr node, std::string::iterator it, std::string::iterator end) 
 	} //while
 }
 
-std::ostream& operator<<(std::ostream& out, const NodePtr &list) {
-	if (!list)
-		return out <<')';
-	if (std::holds_alternative<NodePtr>(list->val))
-		out << '(' << std::get<NodePtr>(list->val);
-	else
-		out << std::get<char>(list->val);
-	return out << list->next;
+void getRepr(std::string &dest, const NodePtr& list) {
+	std::stringstream sstr;
+	auto dfs = [&sstr](const NodePtr& list, auto && dfs) {
+		if (!list){
+			sstr <<')';
+			return;
+		}
+		if (std::holds_alternative<NodePtr>(list->val)){
+			sstr << '(';
+			dfs(std::get<NodePtr>(list->val), dfs);
+		}
+		else
+			sstr << std::get<char>(list->val);
+		dfs(list->next, dfs);
+	};
+	dfs(list, dfs);
+	dest = std::move(sstr.str());
+	dest.pop_back();
 }
 
 void changeAllEntries(NodePtr node, char a, char b) {
@@ -84,13 +95,13 @@ void changeAllEntries(NodePtr node, char a, char b) {
 }
 
 int main() {
-	std::string input;
-	std::getline(std::cin, input);
+	std::string input, res;
 	char a, b;
-	std::cin >> a >> b;
+	std::cin>>input>>a>>b;
 	NodePtr list = std::make_shared<Node>();
 	getList(list, input.begin(), input.end());
 	changeAllEntries(list, a, b);
-	std::cout<<'('<<list;
+	getRepr(res, list);
+	std::cout<<res;
 	return 0;
 }
