@@ -17,4 +17,4 @@ do
     cat "./Tests/out/out$n.txt"
     printf "\n"  
 done
-#rm ./Tests/out/out*
+rm ./Tests/out/out*

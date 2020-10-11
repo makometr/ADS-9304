@@ -1,2 +1,0 @@
-15
-[a, b, c, d, e, f, g, x, y, z, k, i, j, l, m]
