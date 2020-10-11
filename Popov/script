@@ -17,3 +17,15 @@ arg3=$(cat Tests/test3.txt)
 echo "argument = $arg3"
 ./lab1 ./Tests/test3.txt result3.txt
 cat result3.txt
+
+echo -e "\nTest 4:"
+arg2=$(cat Tests/test4.txt)
+echo "argument = $arg2"
+./lab1 ./Tests/test4.txt result4.txt
+cat result4.txt
+
+echo -e "\nTest 5:"
+arg2=$(cat Tests/test5.txt)
+echo "argument = $arg2"
+./lab1 ./Tests/test5.txt result5.txt
+cat result5.txt

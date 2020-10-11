@@ -27,7 +27,6 @@ int main(int argc, char* argv[]){
 
     std::string strInput;
     getline(test, strInput);
-    strInput.c_str();
     bool flag = 0;
     for(int i = 0; strInput[i] != '\0'; i++){
         if(isdigit(strInput[i])){
@@ -65,7 +64,7 @@ int main(int argc, char* argv[]){
             for(int i = 0; i < myVector.size(); i++){
                 new_data += std::to_string(myVector[i]);
             }
-            logs.emplace_back("глубина[" + std::to_string(deep) + "] = " + std::move(new_data) + ' ' + '\n');
+            logs.emplace_back("Глубина[" + std::to_string(deep) + "] = " + std::move(new_data) + ' ' + '\n');
         deep--;
     };
 
