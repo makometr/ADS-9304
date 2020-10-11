@@ -3,8 +3,8 @@
 #include <string>
 
 std::string is_expression(std::string);
-bool is_iden(const std::string::iterator);
-bool is_sign(const std::string::iterator);
+bool is_iden(std::string::iterator&);
+bool is_sign(std::string::iterator&);
 bool is_bracketEx(std::string::iterator&);
 bool is_expression(std::string::iterator&);
 
@@ -55,11 +55,11 @@ bool is_bracketEx(std::string::iterator &iter)
     return true;
 }
 
-bool is_iden (const std::string::iterator iter) {
+bool is_iden (std::string::iterator& iter) {
     return std::isalpha(*iter);
 }
 
-bool is_sign (const std::string::iterator iter) {
+bool is_sign (std::string::iterator& iter) {
     std::string signs = "-+*";
     for(auto it = signs.begin(); it != signs.end(); it++) {
         if(*it == *iter) {
