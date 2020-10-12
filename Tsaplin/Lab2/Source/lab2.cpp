@@ -20,21 +20,21 @@ std::shared_ptr<Node<base>> makeList(typename std::vector<base>::const_iterator&
     for (++i; *i != ')' ; i++){
         if ( *i == '('){
             if (head == nullptr){
-                head = NodePtr (new Node<base>);
+                head = std::make_shared<Node<base>>();
                 head->value = makeList<base>(i);
                 cur = head;
             }else{
-                cur->next = NodePtr(new Node<base>);
+                cur->next = std::make_shared<Node<base>>();
                 cur = cur->next;
                 cur->value = makeList<base>(i);
             }
         }else {
             if (head == nullptr) {
-                head = NodePtr(new Node<base>);
+                head = std::make_shared<Node<base>>();
                 head->value = *i;
                 cur = head;
             } else {
-                cur->next = NodePtr(new Node<base>);
+                cur->next = std::make_shared<Node<base>>();
                 cur = cur->next;
                 cur->value = *i;
             }
@@ -72,11 +72,11 @@ void countList(std::shared_ptr<Node<base>> head, int& k, std::shared_ptr<Node<ba
         } else {
             k++;
             if (listHead == nullptr){
-                listHead = NodePtr(new Node<base>);
+                listHead = std::make_shared<Node<base>>();
                 listHead->value = std::get<char>(cur->value);
                 listCur = listHead;
             }else{
-                listCur->next = NodePtr(new Node<base>);
+                listCur->next = std::make_shared<Node<base>>();
                 listCur = listCur->next;
                 listCur->value = std::get<char>(cur->value);
             }
