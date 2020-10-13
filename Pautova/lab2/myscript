@@ -1,0 +1,15 @@
+#!/bin/bash
+for n in {1..6}
+do
+    arg=$(cat Tests/test$n.txt)
+    echo -e "\nTest $n"
+    echo "list = $arg"
+    ./lab2 Tests/test$n.txt result$n
+    res=$(cat result$n)
+    echo "$res"
+done
+echo -e "\nTest 7\nВеденная команда: ./lab2"
+./lab2
+echo -e "\nTest 8"
+./lab2 Tests/test8.txt result8
+echo -e
