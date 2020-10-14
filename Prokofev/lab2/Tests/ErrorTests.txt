@@ -1,0 +1,7 @@
+"(AND a (NOT b)"
+"(AND a(AND b(XOR c(OR d(AND f(OR e(AND x(OR y(NOT z b)))))))))"
+"(OR a)(AND b)(XOR c)"
+"(a b AND)"
+"(AND a b c d e f)"
+"(XOR a_b)"
+"0.5"
