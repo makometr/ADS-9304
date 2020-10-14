@@ -17,12 +17,12 @@ string value = [abc]", #6
 for i in range(1, 11):
     f = open(f"Tests/test{i}.txt", 'r')
     inp = f.read()
-    print(f"Starting test{i}:", f"[{inp}]");
+    trueRes = ans[i-1]
+    print(f"Starting test{i}:", f"[{inp}] ->", f"[{trueRes}]" if trueRes[0:5] != "ERROR" else f"[Invalid arg error]")
     f.close()
     f = open(f"Tests/testres{i}.txt", 'r')
     myRes = f.read()
     f.close()
-    trueRes = ans[i-1]
     if myRes == trueRes:
         print(f"\033[32mtest{i} completed successfully\033[m\n")
     else:
