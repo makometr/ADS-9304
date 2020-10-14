@@ -20,7 +20,7 @@ void getList(NodePtr &node, const std::string::iterator begin, const std::string
 	auto it = begin;
 	if (*it != '('){
 		std::cout << "ERROR: given string list is invalid (it has to start with '(' )\n" \
-						"\t string value = [" << std::move(std::string(begin, end)) << "]\n";
+						"string value = [" << std::move(std::string(begin, end)) << "]";
 		exit(EXIT_FAILURE);
 	}
 	it++;
@@ -37,7 +37,7 @@ void getList(NodePtr &node, const std::string::iterator begin, const std::string
 	while (it != end) {
 		if(depth<=0){
 			std::cout << "ERROR: given string list is invalid (there are more ')' than '(' )\n" \
-									"\t string value = [" << std::move(std::string(begin, end)) << "]\n";
+							"string value = [" << std::move(std::string(begin, end)) << "]";
 			exit(EXIT_FAILURE);
 		}
 		switch (*it) {
@@ -66,7 +66,7 @@ void getList(NodePtr &node, const std::string::iterator begin, const std::string
 	} //while
 	if(depth){
 		std::cout << "ERROR: given string list is invalid (there are more '(' than ')' )\n" \
-									"\t string value = [" << std::move(std::string(begin, end)) << "]\n";
+						"string value = [" << std::move(std::string(begin, end)) << "]";
 		exit(EXIT_FAILURE);
 	}
 }
