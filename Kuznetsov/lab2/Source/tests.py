@@ -10,7 +10,7 @@ string value = [(a((b)c)]", #5
 string value = [abc]", #6
     "(a(((f(hg)k))d)e)", #7
     "((c(de)f))", #8
-    "(a((c(e(kg))h)j)k)", #9
+    "(a((k(e(kg))k)j)k)", #9
     "(a(b(c)d))", #10
 ]
 
