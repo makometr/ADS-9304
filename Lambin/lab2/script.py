@@ -37,8 +37,6 @@ error = { '0 0' : 'Error: elements are equal',
     '2.1 2.1.1' : 'Error: elements are not in one sublist'
         }
 
-os.chdir('..')
-os.system('make')
 print()
 print('INPUT FILE:')
 with open('./tests/test.txt', 'rt') as file:
@@ -87,7 +85,4 @@ for str in error.keys():
             print('___\n')
             break
 os.system('rm -rf err.txt')
-
-os.system('make clean')
-os.system('rm -rf lab2')
 os.system('rm -rf result.txt')
