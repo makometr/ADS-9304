@@ -4,26 +4,29 @@
 #include <iterator>
 #include <memory>
 #include <vector>
-#include <stdexcept>
 #include <sstream>
-
 
 struct Node {
 	std::shared_ptr<Node> next {nullptr};
 	std::variant<std::shared_ptr<Node>, char> val;
 };
 using NodePtr = std::shared_ptr<Node>;
+#define NewNode std::make_shared<Node>
 
-void getList(NodePtr node, std::string::iterator it, std::string::iterator end) {
+void getList(NodePtr &node, const std::string::iterator begin, const std::string::iterator end) {
 	unsigned v_capacity = 10;
 	std::vector<NodePtr> levels(v_capacity, nullptr);
 	int depth = 1;
-	if (*it != '(')
-		throw std::invalid_argument("ERROR: given list is invalid (it has to start by '('");
+	auto it = begin;
+	if (*it != '('){
+		std::cout << "ERROR: given string list is invalid (it has to start with '(' )\n" \
+						"\t string value = [" << std::move(std::string(begin, end)) << "]\n";
+		exit(EXIT_FAILURE);
+	}
 	it++;
 	levels[0] = node;
 
-	auto connect = [&levels, &depth](NodePtr cur) {
+	auto connect = [&levels, &depth](const NodePtr &cur) {
 		if (levels[depth]) //if not first at this level
 			levels[depth]->next = cur;
 		else //if first at this level
@@ -32,20 +35,19 @@ void getList(NodePtr node, std::string::iterator it, std::string::iterator end) 
 	};
 
 	while (it != end) {
-		if(depth<=0)
-			throw std::invalid_argument("ERROR: given list is invalid (there are more ')' than '('");
+		if(depth<=0){
+			std::cout << "ERROR: given string list is invalid (there are more ')' than '(' )\n" \
+									"\t string value = [" << std::move(std::string(begin, end)) << "]\n";
+			exit(EXIT_FAILURE);
+		}
 		switch (*it) {
-		case '\n':
-			if (depth)
-				throw std::invalid_argument("ERROR: given list is invalid (there are more '(' than ')'");
-			return;
 		case '(':
 			{
-				if (depth - 1 == v_capacity) {
-					v_capacity << 1;
+				if (depth + 1 == v_capacity) {
+					v_capacity <<= 1;
 					levels.resize(v_capacity, nullptr);
 				}
-				NodePtr cur = std::make_shared<Node>();
+				NodePtr cur = NewNode();
 				connect(cur);
 				depth++;
 			}
@@ -55,13 +57,18 @@ void getList(NodePtr node, std::string::iterator it, std::string::iterator end) 
 			break;
 		default:
 			{
-				NodePtr cur = std::make_shared<Node>();
+				NodePtr cur = NewNode();
 				cur->val = *it;
 				connect(cur);
 			}
 		} //switch
 		it++;
 	} //while
+	if(depth){
+		std::cout << "ERROR: given string list is invalid (there are more '(' than ')' )\n" \
+									"\t string value = [" << std::move(std::string(begin, end)) << "]\n";
+		exit(EXIT_FAILURE);
+	}
 }
 
 void getRepr(std::string &dest, const NodePtr& list) {
@@ -84,23 +91,32 @@ void getRepr(std::string &dest, const NodePtr& list) {
 	dest.pop_back();
 }
 
-void changeAllEntries(NodePtr node, char a, char b) {
+void changeAllEntries(NodePtr &node, char a, const std::variant<char, NodePtr>& b){
 	if (node) {
 		if (std::holds_alternative<NodePtr>(node->val))
 			changeAllEntries(std::get<NodePtr>(node->val), a, b);
 		else if (std::get<char>(node->val) == a)
-			node->val = b;
+			if(std::holds_alternative<NodePtr>(b))
+				node = std::get<NodePtr>(b);
+			else
+				node->val = std::get<char>(b);
 		changeAllEntries(node->next, a, b);
 	}
 }
 
 int main() {
-	std::string input, res;
-	char a, b;
-	std::cin>>input>>a>>b;
-	NodePtr list = std::make_shared<Node>();
+	std::string input, res, b_str;
+	char a;
+	std::cin>>input>>a>>b_str;
+	NodePtr list = NewNode();
 	getList(list, input.begin(), input.end());
-	changeAllEntries(list, a, b);
+	if(b_str.size() == 1 && b_str[0] !='(')
+		changeAllEntries(list, a, b_str[0]);
+	else {
+		NodePtr b_list = NewNode();
+		getList(b_list, b_str.begin(), b_str.end());
+		changeAllEntries(list, a, b_list);
+	}
 	getRepr(res, list);
 	std::cout<<res;
 	return 0;
