@@ -33,8 +33,10 @@ MyList::MyList(const std::string_view &&str)
                 this->append(newNode);
             }
         }
-        else if (str[index] >= 'A' && str[index] <= 'Z' || str[index] >= 'a' && str[index] <= 'z' || str[index] >= '0' && str[index] <= '9' || str[index] == '-')
+        else if ((str[index] >= 'A' && str[index] <= 'Z') || (str[index] >= 'a' && str[index] <= 'z') || (str[index] >= '0' && str[index] <= '9') || str[index] == '-')
         {
+            if (isFirstBar == 1)
+                throw MyException(ExceptionsNames::ex_list_is_wrong);
             size_t leftIndex = index;
             index = str.find_first_not_of("0123456789QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm-", index + 1);
             const std::string_view newItem = str.substr(leftIndex, index - leftIndex);
@@ -43,7 +45,11 @@ MyList::MyList(const std::string_view &&str)
             this->append(newNode);
         }
         else if (str[index] == ' ' || str[index] == '\t' || str[index] == ')')
+        {
+            if (str[index] == ')' && isFirstBar == 1)
+                throw MyException(ExceptionsNames::ex_list_is_wrong);
             ++index;
+        }
         else
             throw MyException(ExceptionsNames::ex_list_is_wrong);
     }
@@ -111,7 +117,7 @@ const bool MyList::calculate(std::shared_ptr<Node> ptrNode, const MyList &listOf
         {
             const bool left = MyList::calculate(ptrNode->next, listOfValues, CheckArgumentFlag::NextIsArg);
             const bool right = MyList::calculate(ptrNode->next->next, listOfValues, CheckArgumentFlag::NextIsNothing);
-            return !left && right || left && !right;
+            return (!left && right) || (left && !right);
         }
         else if (str == "AND")
         {
