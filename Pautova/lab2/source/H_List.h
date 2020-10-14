@@ -11,11 +11,13 @@
 class H_List{
     char elem;
     bool is_elem;
+    int number_elem;
 public:
     Node* head;
 
     void set_element(char elem);
     char get_is_elem();
+    int get_number_elem();
     Node* read_node(std::string& list, int& i);
     void read_h_list(std::string& list, int& i);
     void print(Node* cur);
