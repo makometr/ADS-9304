@@ -1,6 +1,5 @@
 #include <iostream>
 #include <cstdlib>
-#include <string>
 
 struct Node{
     bool isDown;
@@ -36,21 +35,24 @@ public:
         this->counter = 0;
 
         if(listEndsChecker(st)){
-            int iter = 1, counter = 0, deep = 1;
+            int iter = 1, counter = 0;
             this->error = 0;
-            addNode(&this->head, iter, st, error, deep);
+            addNode(&this->head, iter, st, error);
             if(!error) {
                 getAtoms(this->head, this->argLine);
+                if(this->argLine != "") {
+                    counting(this->argLine, this->counter);
 
-                counting(this->argLine, this->counter);
+                    this->uniquePtr = createLinearList(argLine, this->counter);
 
-                this->uniquePtr = createLinearList(argLine, this->counter);
+                    printer(uniquePtr);
 
-                printer(uniquePtr);
+                    listDeleter(this->uniquePtr);
 
-                listDeleter(this->uniquePtr);
-
-                deleter(this->head);
+                    deleter(this->head);
+                }else{
+                    std::cout << "Correct!\n";
+                }
             }else{
                 std::cout << "Wrong expression!" << '\n';
                 if(this->head) {
@@ -71,7 +73,7 @@ public:
         }
     }
 
-    void addNode(Node** ptr, int& iter, const std::string& s, int& err, int& deep) {
+    void addNode(Node** ptr, int& iter, const std::string& s, int& err) {
         if(iter < this->length) {
             if (s[iter] != ')') {
                 if (s[iter] == ' ') {
@@ -98,10 +100,9 @@ public:
 
                         *ptr = tmp;
                         iter = iter + end;
-                        addNode(&((*ptr)->next), iter, s, err, deep);
+                        addNode(&((*ptr)->next), iter, s, err);
 
                     }else if (s[iter] == ')'){
-                        deep--;
                         iter = iter + 1;
                         return;
                     }else{
@@ -109,47 +110,26 @@ public:
                         return;
                     }
                     iter = iter + 1;
-                    addNode(&(*ptr)->next, iter, s, err, deep);
+                    addNode(&(*ptr)->next, iter, s, err);
                 }else{
-
-                    if(s[iter + 1] == ')'){
-                        err = 1;
-                        return;
-                    }
-                    int it = 0;
-                    while(s[iter + 1 + it] != ')'){
-                        it++;
-                    }
-                    int spaces = 0;
-                    while(s[iter + 1 + spaces] != ')'){
-                        if(s[iter + 1 + spaces] != ' '){
-                            break;
-                        }
-                        spaces++;
-                    }
-
-                    if(spaces != it) {
 
                         Node *tmp = new Node;
                         tmp->next = nullptr;
                         tmp->val = "";
                         tmp->isDown = true;
-                        tmp->down = nullptr;
+
+                        tmp->down = new Node;
+                        tmp->down->val = "";
+                        tmp->down->next = nullptr;
+                        tmp->down->isDown = false;
 
                         *ptr = tmp;
                         iter = iter + 1;
-                        deep++;
-                        addNode(&(*ptr)->down, iter, s, err, deep);
-                    }else{
-                        err = 1;
-                    }
+                        addNode(&(*ptr)->down->next, iter, s, err);
                 }
 
             }else{
-                if(iter == 1){
-                    err = 1;
-                    return;
-                }
+                
                 iter = iter + 1;
                 return;
             }
@@ -247,8 +227,19 @@ public:
 };
 
 int main(int argc, char* argv[]) {
-    std::string s(argv[1]);
-    linkedList list(s);
-    return 0;
+	if(argc == 1){
+		std::cout << "Wrong expression!" << '\n';
+		return 0;	
+	}
+	std::string s = "";
+	int i = 1;
+	while(argv[i]){
+		s = s + std::string(argv[i]) + ' ';
+		i++;
+	}
+	s.erase(s.length() - 1);
+    	linkedList list(s);
+    	return 0;
 }
+
 
