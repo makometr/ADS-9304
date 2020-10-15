@@ -180,7 +180,6 @@ public:
         }
         num = num - spaceCounter;
         num++;
-        std::cout << "Number of atoms is " << num << '\n';
     }
 
     Elem* createLinearList(std::string& args, int& count){
