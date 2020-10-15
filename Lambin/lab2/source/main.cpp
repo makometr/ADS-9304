@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
 #include <regex>
 #include "list.h"
 
@@ -15,29 +16,24 @@ int main(int argc, char *argv[]) {
         return 0;
     }
 
-    unsigned int size = 30, n = 0;
-    auto *text = new std::string[size];
-    while (std::getline(in, text[n++])) {
-        if (n == size) {
-            size += 30;
-            std::string *buf = text;
-            text = new std::string[size];
-            for (int i = 0; i < size - 30; i++)
-                text[i] = buf[i];
-            delete [] buf;
-        }
-    }
-    size = n - 1;
+    std::vector<std::string> text;
+    std::string temp;
+    while (std::getline(in, temp)) 
+        text.push_back(temp);
+
+    for (int i = 0; i < text.size(); i++)
+        std::cout << text[i] << '\n';
+
     in.close();
-    for (int i = 0; i<size; i++)
+    for (int i = 0; i < text.size(); i++)
         text[i].pop_back();
 
     std::regex target("(\n)");
-    for (unsigned int i = 0; i < size; i++) {
+    for (unsigned int i = 0; i < text.size(); i++) {
         text[i] = std::regex_replace(text[i], target, "");
     }
 
-    List *list = new List(text, size);
+    List *list = new List(text);
 
     std::string num1, num2;
     if (argc == 3) {
@@ -54,6 +50,5 @@ int main(int argc, char *argv[]) {
     out.close();
 
     delete list;
-    delete [] text;
     return 0;
 }

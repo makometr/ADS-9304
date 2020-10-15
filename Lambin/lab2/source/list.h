@@ -3,11 +3,12 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 #include "node.h"
 
 class List {
 public:
-    List (std::string *, unsigned int);
+    List (std::vector<std::string>);
     ~List ();
     friend std::ostream &operator<< (std::ostream &, const List &);
     int connect (std::string, std::string);
@@ -19,8 +20,7 @@ private:
     void changeNum (Node *, int *, int);
 
     Node *head;
-    std::string *text;
-    unsigned int size;
+    std::vector<std::string> text;
 
 };
 

@@ -1,11 +1,7 @@
 #include "list.h"
 
-List::List (std::string *text, unsigned int size) : text(text), size(size) {
-    this->text = new std::string [size];
-    for (int i = 0; i < size; i++)
-        this->text[i] = text[i];
+List::List (std::vector<std::string> text) : text(text) {
     this->head = createNode(0);
-    delete [] this->text;
 }
 
 List::~List () {
@@ -135,7 +131,7 @@ Node *List::createNode (unsigned int n) {
         str = "";
     }
 
-    if (n == size - 1) {
+    if (n == text.size() - 1) {
         return new Node(num, name, str, nullptr);
     } else {
         int curCount = 0;
@@ -150,7 +146,7 @@ Node *List::createNode (unsigned int n) {
         if (nextCount > curCount) { // node
             unsigned int next = 0;
             bool flag = false;
-            for (unsigned int j = n + 1; j < size; j++) {
+            for (unsigned int j = n + 1; j < text.size(); j++) {
                 int jCount = 0;
                 for (char i : text[j].substr(0, text[j].find(' ')))
                     if (i == '.')
