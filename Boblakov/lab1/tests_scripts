@@ -1,0 +1,15 @@
+#! /bin/bash
+
+echo Starting the program check:
+for n in {1..10}
+do
+    ./lab1 < "./Tests/tests/test$n.txt" > "./Tests/out/out$n.txt"
+    if cmp "./Tests/out/out$n.txt" "./Tests/true_results/true_out$n.txt" > /dev/null;
+    then
+	    echo "Test$n passed successfully"
+    else
+     	    echo "Test$n failed"
+    fi
+done
+rm ./Tests/out/out*
+
