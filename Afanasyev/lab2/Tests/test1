@@ -1,0 +1,1 @@
+"(XOR A (OR  512 (AND D (NOT G))))" "((A TRUE)(D -1)(G 0))"
