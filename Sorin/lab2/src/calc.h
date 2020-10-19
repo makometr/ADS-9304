@@ -9,7 +9,7 @@
 template <typename base>
 class calk {
 	std::shared_ptr<h_list<base>> H_List;
-	base VarValue['z' + 1];
+	base *VarValue['z' + 1];
 	void H_ListToValueOfRoot(std::shared_ptr<h_list<base>> &L, std::shared_ptr<h_list<base>>& save) {
 		std::shared_ptr<h_list<base>> Root = std::make_shared<h_list<base>>();
 		Root->value = save;
@@ -155,16 +155,13 @@ class calk {
 						tmp = tmp->next;
 						break;
 					}
-					else if (c == ')')
+					else if (c == ')' && IsO == 1)
 					{
-						if (IsO == 1)
-						{
 							IsO++;
 							std::cout << "\b \b";
 							std::cout << ')';
 							std::cout << ' ';
 							return;
-						}
 					}
 					else
 						c = _getch();
@@ -192,12 +189,20 @@ class calk {
 		std::cout << '(';
 		char k = _getch();
 		while (k < 'a' || k > 'z')
+		{
+			if (k == 13)
+			{
+				std::cout << ')';
+				return 0;
+			}
 			k = _getch();
+		}
 		std::cout << k << ' ';
 		char c = _getch();
 		while (c < '0' || c > '9')
 			c = _getch();
-		VarValue[k] = ReadNumber(c);
+		VarValue[k] = new (base);
+		*VarValue[k] = ReadNumber(c);
 		std::cout << ')';
 		k = _getch();
 		while (1)
@@ -223,7 +228,11 @@ class calk {
 				if (N.IsVar == 0)
 					Res = N.Num;
 				else
-					Res = VarValue[N.Var];
+				{
+					if (VarValue[N.Var] == 0)
+						throw std::invalid_argument("Uninitialized variable");
+					Res = *VarValue[N.Var];
+				}
 			}
 		else
 		{
@@ -238,7 +247,7 @@ class calk {
 				{
 					if (VarValue[N.Var] == 0)
 						throw std::invalid_argument("Uninitialized variable");
-					O1 = VarValue[N.Var];
+					O1 = *VarValue[N.Var];
 				}
 			}
 			tmp = tmp->next;
@@ -253,7 +262,7 @@ class calk {
 				{
 					if (VarValue[N.Var] == 0)
 						throw std::invalid_argument("Uninitialized variable");
-					O2 = VarValue[N.Var];
+					O2 = *VarValue[N.Var];
 				}
 			}
 			tmp = tmp->next;

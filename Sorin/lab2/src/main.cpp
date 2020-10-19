@@ -16,7 +16,7 @@ int main()
 	}
 	catch (const std::exception& Error)
 	{
-		std::cout << Error.what();
+		std::cout << '\n' << Error.what();
 	}
 	return 0;
 }
