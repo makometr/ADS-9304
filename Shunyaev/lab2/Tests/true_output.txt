@@ -1,0 +1,35 @@
+
+Testing the syntactic correctness
+
+() - INCORRECT!
+(()) - INCORRECT!
+(a*(b+(c-))) - INCORRECT!
+(ab(ac+)-) - INCORRECT!
+(aa(c*)(2/)+) - INCORRECT!
+((aaaaa+)(23*)+) - INCORRECT!
+(23(das+(adsas-)das+) - INCORRECT!
+(23(das(adsas-)+)das+) - INCORRECT!
+(aaaaaaa) - INCORRECT!
+(23d+) - CORRECT!
+asdas(asd*)+) - INCORRECT!
+(asdsa* - CORRECT!
+
+Testing the division
+
+(230d(ab+)/) - INCORRECT!
+(23d0/) - INCORRECT!
+(23d/) - CORRECT!
+(23d(0ab/)/) - INCORRECT!
+(23d(ab+)0d/) - INCORRECT!
+(0/) - INCORRECT!
+(a/) - CORRECT!
+(123(a0(fs0/)/)/) - INCORRECT!
+
+Testing the nesting of a hierarchical list
+
+(aa+) - CORRECT!
+(a(aa+)+) - INCORRECT!
+(a(aa(aaa+)+)+) - INCORRECT!
+(a(aa(aaa(aaaa+)+)+)+) - INCORRECT!
+(a(aa+)(aa+)+) - INCORRECT!
+(a(aa(aaa+)+)(aa(aaa+)+)+) - INCORRECT!
