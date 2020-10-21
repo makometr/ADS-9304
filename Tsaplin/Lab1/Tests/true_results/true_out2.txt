@@ -1,0 +1,10 @@
+Name1 - Name2
+Name1 - Name3
+Name1 - Name4
+Name1 - Name5
+Name2 - Name3
+Name2 - Name4
+Name2 - Name5
+Name3 - Name4
+Name3 - Name5
+Name4 - Name5

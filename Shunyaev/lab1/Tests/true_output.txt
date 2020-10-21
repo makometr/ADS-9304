@@ -1,0 +1,39 @@
+
+Testing the data that is breckets and whitespace ignoring
+
+A - THIS IS A BRACKETS
+( B A) A - THIS IS A BRACKETS
+(B A)A - THIS IS A BRACKETS
+(BA)A - THIS IS A BRACKETS
+(BA )A - THIS IS A BRACKETS
+(B ( B A) A) A - THIS IS A BRACKETS
+(B( B A)A)A - THIS IS A BRACKETS
+(B (BA) A) A - THIS IS A BRACKETS
+(B (B A )A) A - THIS IS A BRACKETS
+(B(BA)A)A - THIS IS A BRACKETS
+
+Testing the data that is not breckets  
+
+AA - THIS IS NOT A BRACKETS
+A A - THIS IS NOT A BRACKETS
+((B A) A - THIS IS NOT A BRACKETS
+(B A) - THIS IS NOT A BRACKETS
+( B ( B A)) A - THIS IS NOT A BRACKETS
+(BBA)A - THIS IS NOT A BRACKETS
+( B AA) A - THIS IS NOT A BRACKETS
+B A ) A - THIS IS NOT A BRACKETS
+A ( B A) A - THIS IS NOT A BRACKETS
+() - THIS IS NOT A BRACKETS
+
+Testing the data that is breckets and different level of recursion
+
+(B (B A) A) A - THIS IS A BRACKETS
+(B (B A) (B A) A) A - THIS IS A BRACKETS
+(B ( B (B A) A) A) A - THIS IS A BRACKETS
+(B ( B (B A) (B A) A) A) A - THIS IS A BRACKETS
+(B ( B (B (B A) A) A) A) A - THIS IS A BRACKETS
+(B ( B (B (B A) A) (B A) A) A) A - THIS IS A BRACKETS
+(B A) (B A) A - THIS IS A BRACKETS
+(B A) (B (B A) A) A - THIS IS A BRACKETS
+(B (B A) A) (B (B A) A) A - THIS IS A BRACKETS
+(B (B A) A) (B (B A) A) (B A) A - THIS IS A BRACKETS

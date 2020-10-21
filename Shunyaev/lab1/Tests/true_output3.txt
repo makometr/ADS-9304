@@ -1,0 +1,10 @@
+(B (B A) A) A - THIS IS A BRACKETS
+(B (B A) (B A) A) A - THIS IS A BRACKETS
+(B ( B (B A) A) A) A - THIS IS A BRACKETS
+(B ( B (B A) (B A) A) A) A - THIS IS A BRACKETS
+(B ( B (B (B A) A) A) A) A - THIS IS A BRACKETS
+(B ( B (B (B A) A) (B A) A) A) A - THIS IS A BRACKETS
+(B A) (B A) A - THIS IS A BRACKETS
+(B A) (B (B A) A) A - THIS IS A BRACKETS
+(B (B A) A) (B (B A) A) A - THIS IS A BRACKETS
+(B (B A) A) (B (B A) A) (B A) A - THIS IS A BRACKETS

@@ -1,0 +1,7 @@
+6
+Name1 (Name2, Name3, Name4)
+NoRelatives ()
+Name2 ()
+Name3 ()
+Name4 ()
+Name0 (Name1)

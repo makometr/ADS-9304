@@ -1,0 +1,1 @@
+OR(A, AND(B, OR(C, AND(OR(OR(A, TRUE), AND(NOT(OR(FALSE, d)), FALSE)),TRUE))))

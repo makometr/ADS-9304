@@ -1,0 +1,38 @@
+#!/bin/bash
+arg1=$(cat Tests/test1.txt)
+echo "Test 1"
+echo "argument = $arg1"
+./lab1 Tests/test1.txt result1
+cat result1
+echo -e "\nTest 2"
+arg2=$(cat Tests/test2.txt)
+echo "argument = $arg2"
+./lab1 Tests/test2.txt result2
+cat result2
+echo -e "\nTest 3"
+arg3=$(cat Tests/test3.txt)
+echo "argument = $arg3"
+./lab1 Tests/test3.txt result3
+cat result3
+echo -e "\nTest 4\nВеденная команда: ./lab1"
+./lab1
+echo -e "\nTest 5"
+arg5=$(cat Tests/test5.txt)
+echo "argument = $arg5"
+./lab1 Tests/test5.txt result5
+res5=$(cat result5)
+if [$res5 = ""]
+then
+rm result5
+fi
+echo -e "\nTest 6"
+arg6=$(cat Tests/test6.txt)
+echo "argument = $arg6"
+./lab1 Tests/test6.txt result6
+res6=$(cat result6)
+if [$res6 = ""]
+then
+rm result6
+fi
+echo -e "\nTest 7"
+./lab1 Tests/test7.txt result7

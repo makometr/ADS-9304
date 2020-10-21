@@ -1,0 +1,1 @@
+"(AND A(OR f (NOT false)))" "((A 0)(f FALSE))"
