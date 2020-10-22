@@ -10,10 +10,12 @@ class tester(unittest.TestCase):
 				s = line.replace('\n', '')
 				print("Input: ", s)
 				self.assertIn('Correct!\n', subprocess.check_output(["./lab2", s], universal_newlines=True))
-				s = s.replace('(', ' ')
-				s = s.replace(')', ' ');				
+				res = ''
+				for i in s:
+					if i != '(' and i != ')':
+						res += i		
 				print("Output: ")
-				print(s)
+				print(res)
 				print("Correct!")
 				
 

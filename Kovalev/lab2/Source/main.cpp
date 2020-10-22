@@ -1,11 +1,12 @@
 #include <iostream>
 #include <cstdlib>
+#include <variant>
 
 struct Node{
-    bool isDown;
+
     Node* next;
-    Node* down;
-    std::string val;
+    std::variant<Node*, std::string> data;
+
 };
 
 struct Elem{
@@ -35,7 +36,7 @@ public:
         this->counter = 0;
 
         if(listEndsChecker(st)){
-            int iter = 1, counter = 0;
+            int iter = 1;
             this->error = 0;
             addNode(&this->head, iter, st, error);
             if(!error) {
@@ -50,7 +51,7 @@ public:
                     listDeleter(this->uniquePtr);
 
                     deleter(this->head);
-                }else{
+            }else{
                     std::cout << "Correct!\n";
                 }
             }else{
@@ -65,7 +66,20 @@ public:
 
     bool listEndsChecker(const std::string& s) const{
         if(s[0] == '(' && s[length - 1] == ')') {
-            return true;
+            int br = 0;
+            for(int i = 0; i < length; i++){
+                if(s[i] == '('){
+                    br++;
+                }
+                if(s[i] == ')'){
+                    br--;
+                }
+            }
+            if(!br) {
+                return true;
+            }else{
+                return false;
+            }
         }
         else{
             std::cout << "Wrong expression!" << '\n';
@@ -94,9 +108,7 @@ public:
 
                         Node *tmp = new Node;
                         tmp->next = nullptr;
-                        tmp->val = el;
-                        tmp->isDown = false;
-                        tmp->down = nullptr;
+                        tmp->data = el;
 
                         *ptr = tmp;
                         iter = iter + end;
@@ -115,21 +127,15 @@ public:
 
                         Node *tmp = new Node;
                         tmp->next = nullptr;
-                        tmp->val = "";
-                        tmp->isDown = true;
-
-                        tmp->down = new Node;
-                        tmp->down->val = "";
-                        tmp->down->next = nullptr;
-                        tmp->down->isDown = false;
+                        tmp->data = nullptr;
 
                         *ptr = tmp;
-                        iter = iter + 1;
-                        addNode(&(*ptr)->down->next, iter, s, err);
-                }
 
+                        iter = iter + 1;
+                        addNode(&(std::get<Node*>((*ptr)->data)), iter, s, err);
+                }
+                addNode(&(*ptr)->next, iter, s, err);
             }else{
-                
                 iter = iter + 1;
                 return;
             }
@@ -139,10 +145,12 @@ public:
     void getAtoms(Node* ptr, std::string& argLine){
         Node* tmp = ptr;
         while(tmp){
-            if(tmp->isDown){
-                getAtoms(tmp->down, argLine);
+            if(std::holds_alternative<Node*>(tmp->data)){
+                getAtoms(std::get<Node*>(tmp->data), argLine);
             }
-            argLine = argLine + tmp->val + ' ';
+            if(std::holds_alternative<std::string>(tmp->data)) {
+                argLine = argLine + std::get<std::string>(tmp->data) + ' ';
+            }
             tmp = tmp->next;
         }
     }
@@ -212,8 +220,10 @@ public:
         if(tmp->next){
             deleter(tmp->next);
         }
-        if(tmp->isDown){
-            deleter(tmp->down);
+        if (std::holds_alternative<Node*>(tmp->data)){
+            if (std::get<Node*>(tmp->data)){
+                deleter(std::get<Node*>(tmp->data));
+            }
         }
         delete tmp;
     }
@@ -241,5 +251,9 @@ int main(int argc, char* argv[]) {
     	linkedList list(s);
     	return 0;
 }
+
+
+
+
 
 
