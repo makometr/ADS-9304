@@ -90,11 +90,11 @@ int levels_counter(Node* head, int &counter){
     Node* ptr = head;
     int flag = 1;
     while (ptr){
-        if (std::holds_alternative<Node*>(ptr -> val)){
-            if (flag){
-                counter++;
-            }
+        if (std::holds_alternative<std::string>(ptr -> val) && ptr ->next && flag){
+            counter++;
             flag = 0;
+        }
+        if (std::holds_alternative<Node*>(ptr -> val)){
             if(std::get<Node*>(ptr -> val)){
                 levels_counter(std::get<Node*>(ptr -> val), counter);
             }
