@@ -1,16 +1,16 @@
 
 all: lab
 
-lab: Source/main.o Source/Node.o Source/List.o
-	g++ Source/main.o Source/Node.o Source/List.o -std=c++17 -o lab
+lab: main.o Node.o List.o
+	g++ main.o Node.o List.o -std=c++17 -o lab
 
-Source/main.o: Source/main.cpp
+main.o: Source/main.cpp
 	g++ Source/main.cpp -c -std=c++17
 
-Source/Node.o: Source/Node.cpp
+Node.o: Source/Node.cpp
 	g++ Source/Node.cpp -c -std=c++17
 
-Source/List.o: Source/List.cpp
+List.o: Source/List.cpp
 	g++ Source/List.cpp -c -std=c++17
 
 run_tests:

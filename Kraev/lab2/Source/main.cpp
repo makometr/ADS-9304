@@ -6,29 +6,11 @@
 #include <fstream>
 #include <unistd.h>
 
-struct globalArgs_t {
-    int noIndex;              
-    char *langCode;            
-    const char *outFileName;    
-    FILE *outFile;
-    int verbosity;              
-    int numInputFiles;          
-    char **inputFiles;          
-} globalArgs;
-
 
 int main(int argc, char** argv){
-	List list("text.txt");
+	List list("Source/text.txt");
 
 	int opt =0;
-	globalArgs.noIndex = 0;     
-    globalArgs.langCode = NULL;
-    globalArgs.outFileName = NULL;
-    globalArgs.outFile = NULL;
-    globalArgs.verbosity = 0;
-    globalArgs.inputFiles = NULL;
-    globalArgs.numInputFiles = 0;
-	
 	std::vector<int> number, number2;
     std::string num;
 
