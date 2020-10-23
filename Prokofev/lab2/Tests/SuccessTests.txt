@@ -1,0 +1,3 @@
+"(AND a (NOT b))"
+"(AND a(AND b(XOR c(OR d(AND f(OR e(AND x(OR y(NOT z)))))))))"
+"(AND (OR a (XOR (NOT x)(AND y z)))(NOT c))"
