@@ -1,3 +1,0 @@
-(a b -)
-(a 3)
-Uninitialized variable

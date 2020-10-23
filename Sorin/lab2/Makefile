@@ -1,5 +1,5 @@
 lab2: ./src/main.cpp
-	g++ ./Src/main.cpp -std=c++17 -o lab2
+	g++ -std=c++17 ./Src/main.cpp -o lab2
 
-running_tests: lab2
-	./tests_script
+tests: ./lab2_tests/main.cpp
+	g++ -std=c++17 ./lab2_tests/main.cpp -o tests
