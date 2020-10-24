@@ -1,31 +1,52 @@
 #!/bin/bash
 
-arg1=$(cat Tests/test1.txt)
-echo "Test 1:"
-echo "argument = $arg1"
-./lab1 ./Tests/test1.txt result1.txt
-cat result1.txt
+arg1=$(cat Tests/test1-1.txt)
+arg2=$(cat Tests/test1-2.txt)
+echo -e "_______________________________________\n"
+echo -e "Test 1:\n"
+echo "    argument 1 ="
+echo "$arg1"
+echo "    argument 2 ="
+echo -e "$arg2\n"
+./lab2 ./Tests/test1-1.txt ./Tests/test1-2.txt
 
-echo -e "\nTest 2:"
-arg2=$(cat Tests/test2.txt)
-echo "argument = $arg2"
-./lab1 ./Tests/test2.txt result2.txt
-cat result2.txt
+arg1=$(cat Tests/test2-1.txt)
+arg2=$(cat Tests/test2-2.txt)
+echo -e "_______________________________________\n"
+echo -e "Test 2:\n"
+echo "    argument 1 ="
+echo "$arg1"
+echo "    argument 2 ="
+echo -e "$arg2\n"
+./lab2 ./Tests/test2-1.txt ./Tests/test2-2.txt
 
-echo -e "\nTest 3:"
-arg3=$(cat Tests/test3.txt)
-echo "argument = $arg3"
-./lab1 ./Tests/test3.txt result3.txt
-cat result3.txt
+arg1=$(cat Tests/test3-1.txt)
+arg2=$(cat Tests/test3-2.txt)
+echo -e "_______________________________________\n"
+echo -e "Test 3:\n"
+echo "    argument 1 ="
+echo "$arg1"
+echo "    argument 2 ="
+echo -e "$arg2\n"
+./lab2 ./Tests/test3-1.txt ./Tests/test3-2.txt
 
-echo -e "\nTest 4:"
-arg2=$(cat Tests/test4.txt)
-echo "argument = $arg2"
-./lab1 ./Tests/test4.txt result4.txt
-cat result4.txt
+arg1=$(cat Tests/test4-1.txt)
+arg2=$(cat Tests/test4-2.txt)
+echo -e "_______________________________________\n"
+echo -e "Test 4:\n"
+echo "    argument 1 ="
+echo "$arg1"
+echo "    argument 2 ="
+echo -e "$arg2\n"
+./lab2 ./Tests/test4-1.txt ./Tests/test4-2.txt
 
-echo -e "\nTest 5:"
-arg2=$(cat Tests/test5.txt)
-echo "argument = $arg2"
-./lab1 ./Tests/test5.txt result5.txt
-cat result5.txt
+arg1=$(cat Tests/test5-1.txt)
+arg2=$(cat Tests/test5-2.txt)
+echo -e "_______________________________________\n"
+echo -e "Test 5:\n"
+echo "    argument 1 ="
+echo "$arg1"
+echo "    argument 2 ="
+echo -e "$arg2\n"
+./lab2 ./Tests/test5-1.txt ./Tests/test5-2.txt
+echo -e "_______________________________________\n"
