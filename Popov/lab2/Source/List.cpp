@@ -101,63 +101,78 @@ bool List::checkStruct(){
 
 
 
+
 void List::createList(){
 
     // Создание списка на основе полученных данных.
 
-    size_t level = 0;
+    //size_t level = 0;
     size_t count = 0;
-    bool flag1 = 0;
+    //bool flag1 = 0;
+    int first = 0;
+    int second = 0;
+    std::string str = structList;
+    std::vector<int> vec = valueAtom;
+    std::vector<Node*> ptr = NodePtr;
+    firstElement = new Node;
+    ptr.emplace_back(firstElement);
     
+    auto PR = [&second, &str, &vec, &count, &ptr](int first, Node* next, auto &&PR){
 
-    for(size_t i = 0; i < structList.size(); i++){
+        second++;
 
-        if(structList[i] == '('){
-            
-            if(!level){
-                firstElement = new Node;
-                level++;
-                NodePtr.emplace_back(firstElement);
-                flag1 = 1;
-                continue;
+        if(str[first] == '(' && str[second] == ')'){
+            if(second - first == 1){
+                next->setValue(nullptr);
             }
+            return;
+        }
 
-            if(flag1){
-                NodePtr[level - 1]->setValue(new Node);
-                NodePtr.emplace_back(std::get<Node*>(NodePtr[level - 1]->getValue()));
+        if(str[first] == '(' && str[second] == '('){
+            if(second - first == 1){
+                next->setValue(new Node);
+                ptr.emplace_back(std::get<Node*>(next->getValue()));
+                PR(second, std::get<Node*>(next->getValue()), PR);
             }else{
-                NodePtr[level]->setNextPtr(new Node);
-                NodePtr.emplace_back(NodePtr[level]->getNextPtr());
-                flag1 = 1;
+                Node* tmp = std::get<Node*>(next->getValue());
+                for(;;){
+                    if(tmp->getNextPtr() == nullptr){
+                        break;
+                    }else{
+                        tmp = tmp->getNextPtr();
+                    }
+                }
+                tmp->setNextPtr(new Node);
+                ptr.emplace_back(tmp->getNextPtr());
+                PR(second, tmp->getNextPtr(), PR);
             }
-
-            level++;
         }
 
-        if(structList[i] == ')'){
-
-            if(flag1){
-                NodePtr[level - 1]->setValue(nullptr);
-                flag1 = 0;
-            }
-            level--;
-        }
-
-        if(isalpha(structList[i])){
-
-            if(flag1){
-                NodePtr[level - 1]->setValue(new Node(valueAtom[count]));
-                NodePtr.emplace_back(std::get<Node*>(NodePtr[level - 1]->getValue()));
+        if(str[first] == '(' && isalpha(str[second])){
+            if(second - first == 1){
+                next->setValue(new Node(vec[count]));
+                count++;
+                ptr.emplace_back(std::get<Node*>(next->getValue()));
             }else{
-                NodePtr[level]->setNextPtr(new Node(valueAtom[count]));
-                NodePtr.emplace_back(NodePtr[level]->getNextPtr());
+                Node* tmp = std::get<Node*>(next->getValue());
+                for(;;){
+                    if(tmp->getNextPtr() == nullptr){
+                        break;
+                    }else{
+                        tmp = tmp->getNextPtr();
+                    }
+                }
+                tmp->setNextPtr(new Node(vec[count]));
+                count++;
+                ptr.emplace_back(tmp->getNextPtr());
             }
-
-            count++;
-            flag1 = 0;
         }
-    }
 
+        PR(first, next, PR);
+    };
+    
+    PR(first, firstElement, PR);
+    NodePtr = ptr;
 }
 
 

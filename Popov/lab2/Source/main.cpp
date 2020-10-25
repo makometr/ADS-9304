@@ -9,10 +9,6 @@
 
 
 
-Node* createList(std::string, std::vector<int>);
-
-
-
 int main(int argc, char* argv[]){
 
     setlocale(LC_ALL, "ru");
