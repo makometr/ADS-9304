@@ -101,23 +101,20 @@ bool List::checkStruct(){
 
 
 
-
 void List::createList(){
 
     // Создание списка на основе полученных данных.
 
-    //size_t level = 0;
     size_t count = 0;
-    //bool flag1 = 0;
-    int first = 0;
-    int second = 0;
+    size_t first = 0;
+    size_t second = 0;
     std::string str = structList;
     std::vector<int> vec = valueAtom;
     std::vector<Node*> ptr = NodePtr;
     firstElement = new Node;
     ptr.emplace_back(firstElement);
     
-    auto PR = [&second, &str, &vec, &count, &ptr](int first, Node* next, auto &&PR){
+    auto PR = [&second, &str, &vec, &count, &ptr](size_t first, Node* next, auto &&PR){
 
         second++;
 
