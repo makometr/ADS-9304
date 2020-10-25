@@ -1,2 +1,0 @@
-Binsearch:	Yes
-Pyramid:	No

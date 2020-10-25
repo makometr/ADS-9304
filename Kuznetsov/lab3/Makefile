@@ -1,7 +1,7 @@
 test: resgen compile Source/test.py
 	python Source/test.py
 	for i in 1 2 3 4 5 6 7 8 9 10; do \
-	if [ -f Tests/testres$$i ]; then rm Tests/testres$$i.txt; fi; \
+	if [ -f Tests/testres$$i.txt ]; then rm Tests/testres$$i.txt; fi; \
 	done
 
 resgen: compile
@@ -15,5 +15,5 @@ compile: Source/main.cpp
 clean: 
 	if [ -f main ]; then rm main; fi ; \
 	for i in 1 2 3 4 5 6 7 8 9 10; do \
-	if [ -f Tests/testres$$i ]; then rm Tests/testres$$i.txt; fi; \
+	if [ -f Tests/testres$$i.txt ]; then rm Tests/testres$$i.txt; fi; \
 	done
