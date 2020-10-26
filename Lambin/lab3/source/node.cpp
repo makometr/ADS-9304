@@ -1,8 +1,8 @@
 #include "node.h"
 
-Node::Node (Node *left, Node *right, char data) : left(left), right(right), data(data) {}
+Node::Node (std::shared_ptr<Node> left, std::shared_ptr<Node> right, char data) : left(left), right(right), data(data) {}
 
-std::ostream &operator<< (std::ostream &out, const Node *cur) {
+std::ostream &operator<< (std::ostream &out, const std::shared_ptr<Node> cur) {
     if (cur->left)
         out << "(" << cur->left << cur->data << cur->right << ")";
     else

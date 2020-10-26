@@ -6,10 +6,6 @@ Tree::Tree (std::string &formula) {
     this->root = createNode(formula);
 }
 
-Tree::~Tree () {
-    deleteNode(this->root);
-}
-
 std::ostream &operator<< (std::ostream &out, const Tree &cur) {
     out << cur.root;
     return out;
@@ -86,9 +82,11 @@ bool Tree::recursionCheck (std::string str) {
 
 }
 
-Node *Tree::createNode (std::string expr) {
-    if (expr.size() == 1)
-        return new Node(nullptr, nullptr, expr[0]);
+std::shared_ptr<Node> Tree::createNode (std::string expr) {
+    if (expr.size() == 1) {
+        std::shared_ptr<Node> node(new Node(nullptr, nullptr, expr[0]));
+        return node;
+    }
 
     std::string left, right;
     char sign;
@@ -108,25 +106,16 @@ Node *Tree::createNode (std::string expr) {
         left = expr.substr(0, 1);
     }
     sign = expr[++pos];
-    //if (sign != '+' && sign != '')
     if (expr[pos + 1] == '(') {
         right = expr.substr(pos + 2, expr.size() - pos - 3);
     } else {
         right = expr.substr(pos + 1, 1);
     }
-
-    return new Node(createNode(left), createNode(right), sign);
+    std::shared_ptr<Node> node(new Node(createNode(left), createNode(right), sign));
+    return node;
 }
 
-void Tree::deleteNode (Node *cur) {
-    if (cur->left)
-        deleteNode(cur->left);
-    if (cur->right)
-        deleteNode(cur->right);
-    delete cur;
-}
-
-void Tree::transformNode (Node *cur) {
+void Tree::transformNode (std::shared_ptr<Node> cur) {
     if (cur->left)
         transformNode(cur->left);
     if (cur->right)
@@ -134,22 +123,18 @@ void Tree::transformNode (Node *cur) {
 
     if (cur->data == '+' && cur->left->data == '*' && cur->right->data == '*') {
         if (cmp(cur->left->left, cur->right->left)) {
-            deleteNode(cur->right->left);
             cur->right->left = cur->left->right;
-            Node *temp = cur->left->left;
+            std::shared_ptr<Node> temp = cur->left->left;
             cur->left->left = nullptr;
             cur->left->right = nullptr;
-            deleteNode(cur->left);
             cur->left = temp;
             cur->data = '*';
             cur->right->data = '+';
         } else if (cmp(cur->right->right, cur->left->right)) {
-            deleteNode(cur->left->right);
             cur->left->right = cur->right->left;
-            Node *temp = cur->right->right;
+            std::shared_ptr<Node> temp = cur->right->right;
             cur->right->left = nullptr;
             cur->right->right = nullptr;
-            deleteNode(cur->right);
             cur->right = temp;
             cur->data = '*';
             cur->left->data = '+';
@@ -157,7 +142,7 @@ void Tree::transformNode (Node *cur) {
     }
 }
 
-bool Tree::cmp (Node *node1, Node *node2) {
+bool Tree::cmp (std::shared_ptr<Node> node1, std::shared_ptr<Node> node2) {
     if (node1->data != node2->data)
         return false;
 

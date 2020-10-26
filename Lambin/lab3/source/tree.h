@@ -3,23 +3,22 @@
 
 #include <iostream>
 #include <string>
+#include <memory>
 #include "node.h"
 
 class Tree {
 public:
     Tree (std::string &);
-    ~Tree ();
     friend std::ostream &operator<< (std::ostream &, const Tree &);
     void transform ();
     static bool checkString (std::string);
     static bool recursionCheck (std::string);
 
 private:
-    Node *createNode (std::string);
-    void deleteNode (Node *);
-    void transformNode (Node *);
-    bool cmp (Node *, Node *);
-    Node *root;
+    std::shared_ptr<Node> createNode (std::string);
+    void transformNode (std::shared_ptr<Node>);
+    bool cmp (std::shared_ptr<Node>, std::shared_ptr<Node>);
+    std::shared_ptr<Node> root;
 
 };
 
