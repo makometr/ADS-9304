@@ -10,7 +10,7 @@ public:
 	bool IsVar = false;
 	bool IsOp = false;
 	char Var = 0;
-	base Num = 0;
+	base Num;
 };
 
 template <typename base>

@@ -5,12 +5,12 @@
 #include <stdexcept>
 #include <conio.h>
 #include <sstream>
-
+#include <unordered_map>
 
 template <typename base>
 class calk {
 	std::shared_ptr<h_list<base>> H_List;
-	base *VarValue['z' + 1];
+	std::unordered_map<char, base> VarValueMap;
 	void H_ListToValueOfRoot(std::shared_ptr<h_list<base>> &L, std::shared_ptr<h_list<base>>& save) {
 		std::shared_ptr<h_list<base>> Root = std::make_shared<h_list<base>>();
 		Root->value = save;
@@ -18,7 +18,7 @@ class calk {
 		L = save;
 	}
 	base ReadNumber(char k, std::stringstream& Stream) {
-		base Num = 0;
+		base Num;
 
 		if (k == '0')
 		{
@@ -31,16 +31,16 @@ class calk {
 				int I = 0;
 				if (!Stream.get(k))
 					throw std::invalid_argument("Error while entering expression");
-				if (k < '0' || k > '9')
+				if (!std::isdigit(k))
 					throw std::invalid_argument("Error while entering expression");
-				Num += 0.1 * ((base)k - '0');
+				Num = 0.1 * ((base)k - '0');
 				I++;
 				std::cout << k;
 				while (1)
 				{
 					if (!Stream.get(k))
 						throw std::invalid_argument("Error while entering expression");
-					if (k >= '0' && k <= '9')
+					if (std::isdigit(k))
 					{
 						base deg = 0.1;
 						for (int i = 0; i < I; i++)
@@ -62,15 +62,15 @@ class calk {
 			
 			return Num;
 		}
-		if (k < '0' || k > '9')
+		if (!std::isdigit(k))
 			throw std::invalid_argument("Error while entering expression");
-		Num += ((base)k - '0');
+		Num = ((base)k - '0');
 		std::cout << k;
 		while (1)
 		{
 			if (!Stream.get(k))
 				throw std::invalid_argument("Error while entering expression");
-			if (k >= '0' && k <= '9')
+			if (std::isdigit(k))
 			{
 				Num *= 10;
 				Num += ((base)k - '0');
@@ -84,7 +84,7 @@ class calk {
 				int I = 0;
 				if (!Stream.get(k))
 					throw std::invalid_argument("Error while entering expression");
-				if (k < '0' || k > '9')
+				if (!std::isdigit(k))
 					throw std::invalid_argument("Error while entering expression");
 				Num += 0.1 * ((base)k - '0');
 				I++;
@@ -93,7 +93,7 @@ class calk {
 				{
 					if (!Stream.get(k))
 						throw std::invalid_argument("Error while entering expression");
-					if (k >= '0' && k <= '9')
+					if (std::isdigit(k))
 					{
 						base deg = 0.1;
 						for (int i = 0; i < I; i++)
@@ -155,7 +155,7 @@ class calk {
 		{
 			if (IsO < 2)
 			{
-				if (c >= '0' && c <= '9')
+				if (std::isdigit(c))
 				{
 					ReadNumberToH_List(tmp, c, Stream);
 					tmp->AddNext();
@@ -241,8 +241,7 @@ class calk {
 				throw std::invalid_argument("Error while entering expression");
 			if (!Stream.get(c))
 				throw std::invalid_argument("Error while entering expression");
-			VarValue[k] = new (base);
-			*VarValue[k] = ReadNumber(c, Stream);
+			VarValueMap.emplace(k, ReadNumber(c, Stream));
 			std::cout << ')';
 			if (!Stream.get(c))
 				throw std::invalid_argument("Error while entering expression");
@@ -264,7 +263,7 @@ class calk {
 	}
 	base CalcExprRec(std::shared_ptr<h_list<base>> tmp) {
 		base O1, O2, Res = 0;
-
+		
 		if (tmp->next == nullptr && std::holds_alternative<std::shared_ptr<h_list<base>>>(tmp->value) && std::get<std::shared_ptr<h_list<base>>>(tmp->value) == nullptr)
 			throw std::invalid_argument("Empty hierarchical list");
 		if (tmp->next == nullptr || (tmp->next->next == nullptr && std::holds_alternative<std::shared_ptr<h_list<base>>>(tmp->next->value) && std::get<std::shared_ptr<h_list<base>>>(tmp->next->value) == nullptr))
@@ -277,9 +276,10 @@ class calk {
 					Res = N.Num;
 				else
 				{
-					if (VarValue[N.Var] == 0)
+					auto Iter = VarValueMap.find(N.Var);
+					if (Iter == VarValueMap.end())
 						throw std::invalid_argument("Uninitialized variable");
-					Res = *VarValue[N.Var];
+					Res = Iter->second;
 				}
 			}
 		else
@@ -293,9 +293,10 @@ class calk {
 					O1 = N.Num;
 				else
 				{
-					if (VarValue[N.Var] == 0)
+					auto Iter = VarValueMap.find(N.Var);
+					if (Iter == VarValueMap.end())
 						throw std::invalid_argument("Uninitialized variable");
-					O1 = *VarValue[N.Var];
+					O1 = Iter->second;
 				}
 			}
 			tmp = tmp->next;
@@ -308,9 +309,10 @@ class calk {
 					O2 = N.Num;
 				else
 				{
-					if (VarValue[N.Var] == 0)
+					auto Iter = VarValueMap.find(N.Var);
+					if (Iter == VarValueMap.end())
 						throw std::invalid_argument("Uninitialized variable");
-					O2 = *VarValue[N.Var];
+					O2 = Iter->second;
 				}
 			}
 			tmp = tmp->next;

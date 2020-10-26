@@ -3,8 +3,7 @@
 #include <string>
 #include "Calc.h"
 
-int main()
-{
+int main() {
 	try
 	{
 		h_list<double> L;
