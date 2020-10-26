@@ -9,6 +9,10 @@
 class Tree {
 public:
     Tree (std::string &);
+    Tree (const Tree &);
+    Tree (Tree &&);
+    Tree &operator = (const Tree &);
+    Tree &operator = (Tree &&);
     friend std::ostream &operator<< (std::ostream &, const Tree &);
     void transform ();
     static bool checkString (std::string);
@@ -16,6 +20,7 @@ public:
 
 private:
     std::shared_ptr<Node> createNode (std::string);
+    std::shared_ptr<Node> copyNode (std::shared_ptr<Node>);
     void transformNode (std::shared_ptr<Node>);
     bool cmp (std::shared_ptr<Node>, std::shared_ptr<Node>);
     std::shared_ptr<Node> root;

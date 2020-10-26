@@ -1,9 +1,35 @@
 #include "tree.h"
 
 Tree::Tree (std::string &formula) {
-    formula.erase(formula.size() - 1, 1);
-    formula.erase(0, 1);
-    this->root = createNode(formula);
+    if (formula.size() < 3) {
+        this->root = nullptr;
+    } else {
+        formula.erase(formula.size() - 1, 1);
+        formula.erase(0, 1);
+        this->root = createNode(formula);
+    }
+}
+
+Tree::Tree (const Tree &other) {
+    this->root = copyNode(other.root);
+}
+
+Tree::Tree (Tree &&other) {
+    this->root = std::move(other.root);
+}
+
+Tree &Tree::operator = (const Tree &other) {
+    if (&other == this)
+        return *this;
+    this->root = copyNode(other.root);
+    return *this;
+}
+
+Tree &Tree::operator = (Tree &&other) {
+    if (&other == this)
+        return *this;
+    this->root = std::move(other.root);
+    return *this;
 }
 
 std::ostream &operator<< (std::ostream &out, const Tree &cur) {
@@ -113,6 +139,16 @@ std::shared_ptr<Node> Tree::createNode (std::string expr) {
     }
     std::shared_ptr<Node> node(new Node(createNode(left), createNode(right), sign));
     return node;
+}
+
+std::shared_ptr<Node> Tree::copyNode (std::shared_ptr<Node> cur) {
+    if (cur->left) {
+        std::shared_ptr<Node> node(new Node(copyNode(cur->left), copyNode(cur->right), cur->data));
+        return node;
+    } else {
+        std::shared_ptr<Node> node(new Node(nullptr, nullptr, cur->data));
+        return node;
+    }
 }
 
 void Tree::transformNode (std::shared_ptr<Node> cur) {

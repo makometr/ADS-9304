@@ -11,10 +11,10 @@ for i in range(1, 6):
 	inputFile = open(inputFileDirection, 'r')
 	outputFile = open(outputFileDirection, 'r')
 	result = open('result.txt', 'r')
-	out = outputFile.read()
+	res = result.read()
 	print('INPUT:\n\t{}'.format(inputFile.read()))
-	print('OUTPUT:\n\t{}'.format(out))
-	if out == result.read():
+	print('OUTPUT:\n\t{}'.format(res))
+	if res == outputFile.read():
 		print('CORRECT')
 	else:
 		print('INCORRECT')
