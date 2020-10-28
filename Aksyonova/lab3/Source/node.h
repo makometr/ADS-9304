@@ -5,6 +5,7 @@
 class Node {
 public:
 	Node();
+	Node(std::shared_ptr<Node>,std::shared_ptr<Node>,char);
 private:
 	std::shared_ptr<Node> left, right;
 	char data;

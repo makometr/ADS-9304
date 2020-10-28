@@ -50,7 +50,8 @@ int main() {
 		return 0;
 	}
 	Tree tree(str2);
+	Tree tree1 = Tree(tree);
 	std::cout << tree.maxRoute(tree.root) << '\n';
 	std::cout << tree.sumRoute(tree.root) << '\n';
-	//tree.printTree(tree.root);
+	tree1.printTree(tree1.root);
 }

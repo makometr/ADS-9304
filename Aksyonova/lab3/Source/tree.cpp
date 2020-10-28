@@ -2,6 +2,39 @@
 Tree::Tree(std::string& str) {
 	root = createTree(str);
 }
+
+Tree::Tree(const Tree& tree){
+	root = copyTree(tree.root);
+}
+Tree::Tree(Tree&& tree){
+	std::swap(tree.root, root);
+}
+Tree& Tree::operator = (const Tree & tree){
+	root = copyTree(tree.root);
+	return *this;
+}
+Tree& Tree::operator = (Tree && tree){
+	root = std::move(tree.root);
+	return *this;
+}
+std::shared_ptr<Node> Tree::copyTree(std::shared_ptr<Node> tree){
+	if (tree->left!=nullptr&&tree->right!=nullptr) {
+		std::shared_ptr<Node> node(new Node(copyTree(tree->left), copyTree(tree->right), tree->data));
+		return node;
+	}
+	if (tree->left==nullptr&&tree->right!=nullptr) {
+		std::shared_ptr<Node> node(new Node(nullptr, copyTree(tree->right), tree->data));
+		return node;
+	}
+	if (tree->left!=nullptr&&tree->right==nullptr) {
+		std::shared_ptr<Node> node(new Node(copyTree(tree->left), nullptr, tree->data));
+		return node;
+	}
+	if (tree->left==nullptr&&tree->right==nullptr) {
+		std::shared_ptr<Node> node(new Node(nullptr, nullptr, tree->data));
+		return node;
+	}
+}
 Tree::~Tree() {
 }
 std::shared_ptr<Node> Tree::createTree(std::string& str) {
