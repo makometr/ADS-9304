@@ -3,6 +3,7 @@
 #include <string>
 #include <sstream>
 #include "tree.h"
+
  
 bool checkString(std::string str) {
 	int size = str.size();
