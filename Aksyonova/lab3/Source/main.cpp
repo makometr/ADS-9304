@@ -3,8 +3,6 @@
 #include <string>
 #include <sstream>
 #include "tree.h"
-
- 
 bool checkString(std::string str) {
 	int size = str.size();
 	if (size < 3) {
@@ -49,9 +47,9 @@ int main() {
 		std::cout<<"You entered wrong string"<<'\n';
 		return 0;
 	}
-	Tree tree(str2);
-	Tree tree1 = Tree(tree);
+	Tree<char> tree(str2);
+	Tree<char> tree1 = Tree<char>(tree);
 	std::cout << tree.maxRoute(tree.root) << '\n';
 	std::cout << tree.sumRoute(tree.root) << '\n';
-	tree1.printTree(tree1.root);
+	//tree1.printTree(tree1.root);
 }
