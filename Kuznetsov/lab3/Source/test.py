@@ -1,5 +1,3 @@
-import subprocess
-
 ans = [
     "Binsearch:\tYes\nPyramid:\tYes\n;B+P+", #1
     "Binsearch:\tYes\nPyramid:\tYes\n;B+P+", #2
