@@ -51,5 +51,13 @@ int main() {
 	Tree<char> tree1 = Tree<char>(tree);
 	std::cout << tree.maxRoute(tree.root) << '\n';
 	std::cout << tree.sumRoute(tree.root) << '\n';
+	//tree.LKP(tree.root);
+	//std::cout << '\n';
+	//tree.insert(tree.root,'A');
+	//tree.printTree(tree.root);
+	//std::cout << '\n';
+	//tree.deletion(tree.root,'A');
+	//tree.printTree(tree.root);
+	//std::cout << '\n';
 	//tree1.printTree(tree1.root);
 }

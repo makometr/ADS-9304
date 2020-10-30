@@ -30,6 +30,37 @@ public:
 		root = std::move(tree.root);
 		return *this;
 	}
+	
+	void insert(std::shared_ptr<Node<T>> root, T elem){
+		while(root->left)
+			root = root->left;
+		
+		root->left = std::make_shared<Node<T>>();
+		root->left->left = nullptr;
+		root->left->right = nullptr;
+		root->left->data = elem;
+	}
+	void deletion(std::shared_ptr<Node<T>> root, T elem){
+		if(root->left!=nullptr && root->left->data == elem){
+			root->left = nullptr;	
+		}
+		if(root->right!=nullptr && root->right->data == elem){
+			root->right = nullptr;		
+		}
+		if(root->left!=nullptr)
+			deletion(root->left, elem);
+		if(root->right!=nullptr)	
+			deletion(root->right, elem);	
+	}
+	void LKP(std::shared_ptr<Node<T>> root){
+		if(root->left){
+			LKP(root->left);
+		}
+		std::cout<<root->data;
+		if(root->right){
+			LKP(root->right);
+		}
+	}
 
 	std::shared_ptr<Node<T>> copyTree(std::shared_ptr<Node<T>> tree){
 		if (tree->left!=nullptr&&tree->right!=nullptr) {
