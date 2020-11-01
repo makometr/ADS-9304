@@ -1,0 +1,8 @@
+Enter the nodes in the LEFT ROOT RIGHT order
+Enter the nodes in the LEFT RIGHT ROOT order
+ the nodes in the ROOT LEFT RIGHT order:
+125367
+Picture of a Binary Tree:
+ 1 3 7
+     6
+   2 5

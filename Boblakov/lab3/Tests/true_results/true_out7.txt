@@ -1,0 +1,12 @@
+Enter the nodes in the LEFT ROOT RIGHT order
+Enter the nodes in the LEFT RIGHT ROOT order
+ the nodes in the ROOT LEFT RIGHT order:
+-*+abc/d+e*fg
+Picture of a Binary Tree:
+ - / + * g
+         f
+       e
+     d
+   * c
+     + b
+       a
