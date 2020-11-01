@@ -5,7 +5,6 @@
 #define SIZE 128
 
 
-
 template <typename Elem>
 class Node{
     Elem data;
