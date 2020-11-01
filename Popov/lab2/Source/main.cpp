@@ -3,6 +3,7 @@
 #include <variant>
 #include <vector>
 #include <cctype>
+#include <memory>
 
 #include "Node.h"
 #include "List.h"
@@ -47,8 +48,8 @@ int main(int argc, char* argv[]){
     getline(file2, structList2);
     getline(file2, valueAtom2);
 
-    List *list1 = new List(structList1, valueAtom1);
-    List *list2 = new List(structList2, valueAtom2);
+    std::unique_ptr<List> list1(new List(structList1, valueAtom1));
+    std::unique_ptr<List> list2(new List(structList2, valueAtom2));
 
     if(list1->getFirstElement() == nullptr){
 
@@ -67,9 +68,6 @@ int main(int argc, char* argv[]){
     }else{
         std::cout << "Это разные списки!" << std::endl;
     }
-
-    delete list1;
-    delete list2;
 
     return 0;
 }
