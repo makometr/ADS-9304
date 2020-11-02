@@ -42,7 +42,8 @@ public:
 				it++;
 				return;
 			}
-			if (*(it++) != '(' || it == end)invStringArg();
+			if (*(it++) != '(' || it == end)
+				invStringArg();
 			node = std::make_shared<Node<int>>(getInt(it, end));
 			makeBinTree(node->left, makeBinTree);
 			makeBinTree(node->right, makeBinTree);
