@@ -58,7 +58,7 @@ public:
 		_copy(head, val.head);
 	}
 	bool BinSearchCheck() {
-		int min = INT_MIN;
+		long min = LONG_MIN;
 		bool isBinSearch = true;
 		auto binCheck = [&isBinSearch, &min](const NodePtr<T> & node, auto && binCheck) {
 			if (!node || !isBinSearch)
