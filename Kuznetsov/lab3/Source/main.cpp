@@ -79,6 +79,18 @@ public:
 		};
 		return _pyramideCheck(head, _pyramideCheck);
 	}
+	void debug_print(){
+		std::cout<<"Binary tree: [ ";
+		auto traverse = [](const NodePtr<T> & node, auto && traverse) {
+			if (!node)
+				return;
+			traverse(node->left, traverse);
+			std::cout << node->data <<' ';
+			traverse(node->right, traverse);
+		};
+		traverse(head, traverse);
+		std::cout<<"]\n";
+	}
 private:
 	NodePtr<T> head;
 	void _copy(NodePtr<T> & dest, const NodePtr<T> & source){
@@ -93,6 +105,7 @@ int main() {
 	std::string input;
 	std::getline(std::cin, input);
 	BinTree<int> tree(input.begin(), input.end());
+	tree.debug_print();
 	std::cout << "Binsearch:\t" << (tree.BinSearchCheck() ? "Yes" : "No") \
 		<< "\nPyramid:\t" << (tree.PyramideCheck() ? "Yes" : "No") << '\n';
 	return 0;
