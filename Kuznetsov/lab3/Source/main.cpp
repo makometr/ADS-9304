@@ -80,16 +80,23 @@ public:
 		return _pyramideCheck(head, _pyramideCheck);
 	}
 	void debug_print(){
-		std::cout<<"Binary tree: [ ";
-		auto traverse = [](const NodePtr<T> & node, auto && traverse) {
-			if (!node)
-				return;
-			traverse(node->left, traverse);
-			std::cout << node->data <<' ';
-			traverse(node->right, traverse);
-		};
-		traverse(head, traverse);
-		std::cout<<"]\n";
+		std::queue<NodePtr<T>> que;
+		std::cout<<"Binary tree:\n|";
+		que.push(head);
+		que.push(nullptr);
+		while(que.size()>1){
+			NodePtr<T>& front = que.front();
+			que.pop();
+			if(!front){
+				std::cout<<"\n|";
+				que.push(nullptr);
+				continue;
+			}
+			std::cout<<front->data<<' ';
+			if(front->left) que.push(front->left);
+			if(front->right) que.push(front->right);
+		}
+		std::cout<<"\n-----\n";
 	}
 private:
 	NodePtr<T> head;
