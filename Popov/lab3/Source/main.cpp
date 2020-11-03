@@ -246,9 +246,9 @@ int main(int argc, char* argv[]){
     getline(std::cin, findElem);
 
     BT->result(findElem);
-    BT->newNode(new Node('b'));
-    BT->deleteNode('a');
-    BT->lkpTrip();
+    //BT->newNode(new Node('b'));
+    //BT->deleteNode('a');
+    //BT->lkpTrip();
     
 
     return 0;
