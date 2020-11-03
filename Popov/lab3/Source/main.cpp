@@ -5,6 +5,7 @@
 #define SIZE 128
 
 
+
 template <typename Elem>
 class Node{
     Elem data;
@@ -81,7 +82,7 @@ public:
     }
     ~Tree(){
         for(size_t i = 0; i < arrNode.size(); i++){
-            if(arrNode[i]){
+            if(arrNode[i] != nullptr){
                 delete arrNode[i];
             }
         }
@@ -126,6 +127,51 @@ public:
                 std::cout << "Длинна пути до ближайшего элемента: " << count << std::endl;
             }else{
                 std::cout << "-1" << std::endl;
+            }
+        }
+    }
+    void lkpTrip(){
+        std::vector<Node<Elem>*> ptr = arrNode;
+        int count = 0;
+
+        auto PR = [&ptr](int count, auto &&PR){
+            if(!ptr[count]){
+                return;
+            }
+            PR(count * 2 + 1, PR);
+            std::cout << ptr[count]->getData() << ' ';
+            PR(count * 2 + 2, PR);
+        };
+
+        PR(count,PR);
+        std::cout << '\n';
+    }
+    void newNode(Node<Elem>* node){
+        for(size_t i = 0; i < arrNode.size(); i++){
+            if(!arrNode[i]){
+                arrNode[i] = node;
+                break;
+            }
+        }
+    }
+    void deleteNode(Elem node){
+        int count = 0;
+        bool flag = 0;
+        for(size_t i = 0; i < arrNode.size(); i++){
+            if(arrNode[i]->getData() == node){
+                count = i;
+                flag = 1;
+                break;
+            }
+        }
+        if(flag){
+            for(size_t i = arrNode.size() - 1; i >= 0; i--){
+                if(arrNode[i]){
+                    delete arrNode[count];
+                    arrNode[count] = arrNode[i];
+                    arrNode[i] = nullptr;
+                    break;
+                }
             }
         }
     }
@@ -200,6 +246,10 @@ int main(int argc, char* argv[]){
     getline(std::cin, findElem);
 
     BT->result(findElem);
+    BT->newNode(new Node('b'));
+    BT->deleteNode('a');
+    BT->lkpTrip();
+    
 
     return 0;
 }
