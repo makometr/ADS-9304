@@ -6,6 +6,7 @@
 #include <vector>
 #include <memory>
 #include <iostream>
+#include <queue>
 
 #include "BinTreeNode.h"
 
@@ -25,10 +26,10 @@ public:
 
     void read_tree(std::string& tree);
     
-
     void printBinTree(std::shared_ptr<BinTreeNode> cur);
     void back_tracking(std::shared_ptr<BinTreeNode> cur); //обход ЛКП
     void insert(Elem data_to_insert);
+    void deleted(Elem data_to_delete, std::shared_ptr<BinTreeNode> cur);
 
     std::shared_ptr<BinTreeNode> get_head();
     int get_number_E();
@@ -36,6 +37,8 @@ public:
 
 private:
     std::shared_ptr<BinTreeNode> read_node(std::string& tree);
+    std::shared_ptr<BinTreeNode> delete_left(std::shared_ptr<BinTreeNode> cur);
+    std::shared_ptr<BinTreeNode> delete_right(std::shared_ptr<BinTreeNode> cur);
     Elem E;
     int number_E;
     int path;

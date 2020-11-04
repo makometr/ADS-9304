@@ -49,7 +49,6 @@ int main(int argc, char** argv){
     bin_tree.set_E(E);
     bin_tree.read_tree(tree);
     bin_tree.back_tracking(bin_tree.get_head());
-
     if (argc == 3){
         std::ofstream out(argv[2]);
         if (!out.is_open()){
@@ -69,7 +68,7 @@ int main(int argc, char** argv){
     else{
         if (bin_tree.get_number_E()){
             std::cout << E <<" is found (" << bin_tree.get_number_E() << " times)\n";
-            std::cout << "path length = " << bin_tree.get_min_path();
+            std::cout << "path length = " << bin_tree.get_min_path() << "\n";
         }
         else{
             std::cout << E <<" isn't found\n";

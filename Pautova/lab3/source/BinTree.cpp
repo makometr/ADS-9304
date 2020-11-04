@@ -139,6 +139,61 @@ void BinTree::insert(Elem data_to_insert){
     }
 }
 
+void BinTree::deleted(Elem data_to_delete, std::shared_ptr<BinTreeNode> cur){
+    if (!cur){
+        return;
+    }
+    if (this->head->data == data_to_delete){
+        this->head = nullptr;
+        return;
+    }
+    if(data_to_delete == cur->data){
+        if (!cur->left && !cur->right){
+            return;
+        }
+        else{
+            if (cur->left){
+                cur->data = cur->left->data;
+                cur->left = delete_left(cur->left);
+            }
+            if(cur->right){
+                cur->data = cur->right->data;
+                cur->right = delete_right(cur->right);
+            }             
+        }
+    }
+    deleted(data_to_delete, cur->left);
+    if (cur->left)
+        if(data_to_delete == cur->left->data)
+            cur->left = nullptr;
+    deleted(data_to_delete, cur->right);
+    if (cur->right)
+        if(data_to_delete == cur->right->data)
+            cur->right = nullptr;
+}
+
+std::shared_ptr<BinTreeNode> BinTree::delete_left(std::shared_ptr<BinTreeNode> cur){
+    if (cur->left){
+        cur->data = cur->left->data;
+        cur->left = delete_left(cur->left);
+        return cur;
+    }
+    else{
+        return nullptr;
+    }
+}
+
+std::shared_ptr<BinTreeNode> BinTree::delete_right(std::shared_ptr<BinTreeNode> cur){
+    if (cur->right){
+        cur->data = cur->right->data;
+        cur->right = delete_right(cur->right);
+        return cur;
+    }
+    else{
+        return nullptr;
+    }
+}
+
 std::shared_ptr<BinTreeNode> BinTree::get_head(){
     return this->head;
 }
