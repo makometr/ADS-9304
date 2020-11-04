@@ -6,6 +6,7 @@ class Node{
 public:
     Node(base newData);
     base getData();
+    void setData(base newData);
 };
 
 
@@ -18,4 +19,11 @@ Node<base>::Node(base newData){
 template<typename base>
 base Node<base>::getData(){
     return data;
+}
+
+
+
+template<typename base>
+void Node<base>::setData(base newData){
+    data = newData;
 }

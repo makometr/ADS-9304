@@ -32,15 +32,17 @@ int main(int argc, char* argv[]){
      
     std::unique_ptr<Tree<char>> myTree(new Tree<char>(structTree));
 
-    std::vector<Node<char>*> vec = myTree->getArr();
-
-    if(vec.size() == 0){
+    if(myTree->getArr().size() == 0){
         std::cout << "Неверная структура дерева!" << std::endl;
         return -1;
     }
-
+    
+    //myTree->removeNode(0);
+    //myTree->addNode('p');
     myTree->findLeafs();
     myTree->nodesOnLevel(levelFind);
+    //myTree->lkp();
+
 
     return 0;
 }

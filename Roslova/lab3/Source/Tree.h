@@ -22,6 +22,8 @@ public:
     void findLeafs();
     void nodesOnLevel(std::string levelFind);
     void addNode(base newData);
+    void removeNode(size_t index);
+    void lkp();
 };
 
 
@@ -254,4 +256,51 @@ void Tree<base>::addNode(base newData){
             break;
         }
     }
+}
+
+
+
+template<typename base>
+void Tree<base>::removeNode(size_t index){
+
+    if(index > vec.size()){
+        std::cout << "Индекс удаления выходит за пределы масива!" << std::endl;
+    }else{
+        if(vec[index]){
+            base newData;
+            for(size_t i = vec.size() - 1; i >= 0; i--){
+                if(vec[i]){
+                    newData = vec[i]->getData();
+                    delete vec[i];
+                    vec[i] = nullptr;
+                    break;
+                }
+            }
+            vec[index]->setData(newData);
+        }else{
+            std::cout << "Элемент на заданном индексе отсутствует!" << std::endl;
+        }
+    }
+}
+
+
+
+template<typename base>
+void Tree<base>::lkp(){
+    std::vector<Node<base>*> arrNode = vec;
+    size_t index = 0;
+
+    auto LKP = [&arrNode](size_t index, auto &&LKP){
+        
+        if(!arrNode[index]){
+            return;
+        }else{
+            LKP(index * 2 + 1, LKP);
+            std::cout << arrNode[index]->getData() << ' ';
+            LKP(index * 2 + 2, LKP);
+        }
+    };
+
+    LKP(index, LKP);
+    std::cout << '\n';
 }
