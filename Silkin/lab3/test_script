@@ -1,6 +1,9 @@
 for i in {1..5}
 do
     ./lab3.exe <"./tests/test_$i.txt"> "./tests/out_$i.txt"
+    cat "./tests/test_$i.txt"
+    echo "\n"
+    cat "./tests/out_$i.txt"
     if cmp "./tests/out_$i.txt" "./tests/true_out_$i.txt" > /dev/null; then
         echo "test $i pass"
     else

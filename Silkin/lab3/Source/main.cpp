@@ -45,85 +45,6 @@ private:
         }
     }
 
-public:
-    std::shared_ptr<Node<T>> head;
-
-    Tree<T>(std::string& str) {
-        this->head = construct(str);
-        this->print_expression_KLP(this->head);
-        std::cout << '\n';
-        this->print_expression_LPK(this->head);
-        std::cout << '\n' << "Expression: ";
-        if(!isalnum(this->head->data)) {
-            print_expression(this->head);
-        } else {
-            std::cout << '(' << this->head->data << ')';
-        }
-        std::cout << '\n';
-        if(!scan_char(this->head)) {
-            std::cout << "Expression = " << count_tree(this->head) << '\n';
-        }
-    }
-
-    void print_KLP(std::shared_ptr<Node<T>>& node_ptr) {
-        std::cout << node_ptr->data << ' ';
-        if(node_ptr->left != nullptr) {
-            print_KLP(node_ptr->left);
-        }
-        if(node_ptr->right != nullptr) {
-            print_KLP(node_ptr->right);
-        }
-    }
-
-    void print_LPK(std::shared_ptr<Node<T>>& node_ptr) {
-        if(node_ptr->left != nullptr) {
-            print_LPK(node_ptr->left);
-        }
-        if(node_ptr->right != nullptr) {
-            print_LPK(node_ptr->right);
-        }
-        std::cout << node_ptr->data << ' ';
-    }
-
-    bool scan_char(std::shared_ptr<Node<T>>& node_ptr) {
-        if(node_ptr == nullptr) {
-            return false;
-        }
-        return (isalpha(node_ptr->data) || scan_char(node_ptr->left) || scan_char(node_ptr->right));
-    }
-
-    int count_tree(std::shared_ptr<Node<T>>& node_ptr) {
-        int a,b;
-        if(node_ptr->left != nullptr) {
-            if(isdigit(node_ptr->left->data)) {
-                a = node_ptr->left->data - '0';
-            } else {
-                a = count_tree(node_ptr->left);
-            }
-        } else {
-            a = 0;
-        }
-        if(node_ptr->right != nullptr) {
-            if(isdigit(node_ptr->right->data)) {
-                b = node_ptr->right->data - '0';
-            } else {
-                b = count_tree(node_ptr->right);
-            }
-        } else {
-            b = 0;
-        }
-        if(node_ptr->data == '*') {
-            return a*b;
-        } else if(node_ptr->data == '-') {
-            return a-b;
-        } else if(node_ptr->data == '+') {
-            return a+b;
-        } else {
-            std::cerr << "Err: unexpected symbol";
-            exit(1);
-        }
-    }
-
     void print_expression(std::shared_ptr<Node<T>>& node_ptr) {
         std::string math_sym = "*-+";
         std::cout << '(';
@@ -198,6 +119,131 @@ public:
         std::cout << node_ptr->data;
         std::cout << ')';
     }
+
+public:
+    std::shared_ptr<Node<T>> head;
+
+    Tree<T>(std::string& str) {
+        this->head = construct(str);
+        if(!isalnum(this->head->data)) {
+            print_KLP();
+            print_LPK();
+            print_LKP();
+        } else {
+            std::cout << "Expression: (" << this->head->data << ")\n";
+        }
+        if(!scan_char(this->head)) {
+            std::cout << "Expression = " << count_tree(this->head) << '\n';
+        }
+    }
+
+    void print_KLP() {
+        this->print_expression_KLP(this->head);
+        std::cout << '\n';
+    }
+
+    void print_LPK() {
+        this->print_expression_LPK(this->head);
+        std::cout << '\n';
+    }
+
+    void print_LKP() {
+        std::cout << "Expression: ";
+        this->print_expression(this->head);
+        std::cout << '\n';
+    }
+
+    bool scan_char(std::shared_ptr<Node<T>>& node_ptr) {
+        if(node_ptr == nullptr) {
+            return false;
+        }
+        return (isalpha(node_ptr->data) || scan_char(node_ptr->left) || scan_char(node_ptr->right));
+    }
+
+    int count_tree(std::shared_ptr<Node<T>>& node_ptr) {
+        int a,b;
+        if(node_ptr->left != nullptr) {
+            if(isdigit(node_ptr->left->data)) {
+                a = node_ptr->left->data - '0';
+            } else {
+                a = count_tree(node_ptr->left);
+            }
+        } else {
+            a = 0;
+        }
+        if(node_ptr->right != nullptr) {
+            if(isdigit(node_ptr->right->data)) {
+                b = node_ptr->right->data - '0';
+            } else {
+                b = count_tree(node_ptr->right);
+            }
+        } else {
+            b = 0;
+        }
+        if(node_ptr->data == '*') {
+            return a*b;
+        } else if(node_ptr->data == '-') {
+            return a-b;
+        } else if(node_ptr->data == '+') {
+            return a+b;
+        } else {
+            std::cerr << "Err: unexpected symbol";
+            exit(1);
+        }
+    }
+
+    void insert_node(std::shared_ptr<Node<T>> path, std::string side, T data) {
+        std::string math_sym = "*-+";
+        bool is_left = !side.compare("left");
+        bool is_right = !side.compare("right");
+        if(math_sym.find_first_of(path->data) != std::string::npos) {
+            if(is_left) {
+                path->left = std::make_shared<Node<T>>();
+                path->left->left = nullptr;
+                path->left->right = nullptr;
+                path->left->data = data;
+            } else if(is_right) {
+                path->right = std::make_shared<Node<T>>();
+                path->right->left = nullptr;
+                path->right->right = nullptr;
+                path->right->data = data;
+            } else {
+                std::cout << "Wrong side\nNode was not included\n";
+            }
+        } else {
+            std::cout << "Path node is terminal\nNode was not included\n";
+        }
+    }
+
+    void delete_node(std::shared_ptr<Node<T>> path, std::string side) {
+        std::string math_sym = "*-+";
+        bool is_left = !side.compare("left");
+        bool is_right = !side.compare("right");
+        if(is_left) {
+            if(math_sym.find_first_of(path->left->data) != std::string::npos) {
+                if(path->left->left != nullptr) {
+                    delete_node(path->left, "left");
+                }
+                if(path->left->right != nullptr) {
+                    delete_node(path->left, "right");
+                }       
+            }
+            path->left = nullptr;
+        } else if (is_right) {
+            if(math_sym.find_first_of(path->right->data) != std::string::npos) {
+                if(path->right->left != nullptr) {
+                    delete_node(path->right, "left");
+                }
+                if(path->right->right != nullptr) {
+                    delete_node(path->right, "right");
+                }       
+            }
+            path->right = nullptr;
+        } else {
+            std::cout << "Wrong side\nNode was not deleted\n";
+        }
+    }
+
 /*
 1 * 2
 ()
@@ -210,6 +256,20 @@ public:
 Постфикс: ab+cd-*
 */
 };
+
+bool checktreestring(std::string& str) {
+    std::string math_sym = "*-+";
+    for(int i = 0; i< str.length()-1; i++) {
+        if(math_sym.find_first_of(str[i]) != std::string::npos && (str[i-1] != ')' || str[i+1] != '(')) {
+            return false;
+        } else if(isalnum(str[i]) && (str[i-1] != '(' || str[i+1] != ')')) {
+            return false;
+        } else if(str[i] == ')' && str[i+1] == '(') {
+            return false;
+        }
+    }
+    return true;
+}
 
 bool checkstring(std::string& str) {
     std::string good_char = "*-+()";
@@ -234,7 +294,10 @@ bool checkstring(std::string& str) {
         return false;
     }
     str = new_str;
-    return true;
+    if(str[0] != '(' || str[str.length()-1] != ')') {
+        return false;
+    }
+    return checktreestring(str);
 }
 
 int main() {
@@ -245,6 +308,9 @@ int main() {
         std::cout << "Incorrect string!\n";
         return 0;
     }
+    //str = "(((a)*(b))+((c)*()))";
     Tree<char> tree(str);
+    //tree.insert_node(tree.head->right, "right", '6');
+    //tree.print_LKP();
     return 0;
 }
