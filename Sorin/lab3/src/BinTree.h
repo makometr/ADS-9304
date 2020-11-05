@@ -96,6 +96,21 @@ public:
 		}
 		return false;
 	}
+
+	void OrderLKP(void (* func)(bin_tree_node<base> BTnode), int Ind = 0) {
+		if (Ind < size)
+		{
+			if (head[Ind].LeftElemNum != -1)
+				OrderLKP(func, head[Ind].LeftElemNum);
+			func(head[Ind]);
+			if (head[Ind].RightElemNum != -1)
+				OrderLKP(func, head[Ind].RightElemNum);
+		}
+		return;
+	}
+	static void PrintNode(bin_tree_node<base> BTnode) {
+		std::cout << (char)BTnode.Value;
+	}
 private:
 	std::shared_ptr<bin_tree_node<base>[]> head;
 	size_t size;
