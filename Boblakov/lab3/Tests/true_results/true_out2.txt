@@ -1,0 +1,7 @@
+Enter the nodes in the LEFT ROOT RIGHT order
+Enter the nodes in the LEFT RIGHT ROOT order
+ the nodes in the ROOT LEFT RIGHT order:
+098
+Picture of a Binary Tree:
+ 0 8
+   9

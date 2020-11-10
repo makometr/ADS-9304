@@ -1,0 +1,4 @@
+Enter the nodes in the LEFT ROOT RIGHT order
+Enter the nodes in the LEFT RIGHT ROOT order
+
+Error: incorrect write of the tree!
