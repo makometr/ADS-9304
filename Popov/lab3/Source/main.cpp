@@ -2,31 +2,20 @@
 #include <vector>
 #include <memory>
 
-#define SIZE 128
+static constexpr auto SIZE = 128;
 
 
 
-template <typename Elem>
-class Node{
-    Elem data;
-public:
-    Node(Elem newData):data(newData){}
-    Elem getData(){
-        return data;
-    }
-};
-
-
-template <typename Elem>
+template <typename T>
 class Tree{
-    std::vector<Node<Elem>*> arrNode;
+    std::vector<T> arrNode;
     void createBinTree(std::string BT){
 
         size_t first = 0;
         size_t iter = 0;
         size_t count = 0;
         size_t arrLevel = 1;
-        std::vector<Node<Elem>*> nodePtr = arrNode;
+        std::vector<T> nodePtr = arrNode;
 
         auto rec = [&iter, &nodePtr, &BT, &arrLevel](size_t count, size_t first, auto &&rec){
 
@@ -34,10 +23,10 @@ class Tree{
 
             while(count > nodePtr.size()){
                 arrLevel++;
-                std::vector<Node<Elem>*> newArr;
+                std::vector<T> newArr;
                 newArr.resize(SIZE * arrLevel);
                 for(size_t i = 0; i < nodePtr.size(); i++){
-                    if(nodePtr[i] != nullptr){
+                    if(nodePtr[i] != 0){
                         newArr[i] = nodePtr[i];
                     }
                 }
@@ -59,9 +48,9 @@ class Tree{
             if(BT[first] == '(' && isalpha(BT[iter])){
 
                 if(!first){
-                    nodePtr[0] = new Node<Elem>(BT[iter]);
+                    nodePtr[0] = BT[iter];
                 }else{
-                    nodePtr[count] = new Node<Elem>(BT[iter]);
+                    nodePtr[count] = BT[iter];
                 }
 
                 count++;
@@ -80,13 +69,6 @@ public:
         arrNode.resize(SIZE);
         createBinTree(BT);
     }
-    ~Tree(){
-        for(size_t i = 0; i < arrNode.size(); i++){
-            if(arrNode[i] != nullptr){
-                delete arrNode[i];
-            }
-        }
-    }
     Tree(Tree&& tree){
         std::swap(tree.arrNode, arrNode);
     }
@@ -94,8 +76,8 @@ public:
         arrNode = std::move(tree.arrNode);
         return *this;
     }
-    void result(std::string findElem){
-        if(findElem.size() != 1){
+    void result(std::string findT){
+        if(findT.size() != 1){
             std::cout << "Некорректный элемент для поиска!" << std::endl;
         }else{
             size_t position = 0;
@@ -103,9 +85,9 @@ public:
             bool flag = 1;
             for(size_t i = 0; i < arrNode.size(); i++){
                 if(arrNode[i]){
-                    if(arrNode[i]->getData() == *findElem.c_str()){
+                    if(arrNode[i] == *findT.c_str()){
                         if(flag){
-                            std::cout << "Элемент " << findElem << " присутствует в дереве!\n";
+                            std::cout << "Элемент " << findT << " присутствует в дереве!\n";
                             position = i;
                             flag = 0;
                         }
@@ -131,7 +113,7 @@ public:
         }
     }
     void lkpTrip(){
-        std::vector<Node<Elem>*> ptr = arrNode;
+        std::vector<T> ptr = arrNode;
         int count = 0;
 
         auto PR = [&ptr](int count, auto &&PR){
@@ -139,14 +121,14 @@ public:
                 return;
             }
             PR(count * 2 + 1, PR);
-            std::cout << ptr[count]->getData() << ' ';
+            std::cout << ptr[count] << ' ';
             PR(count * 2 + 2, PR);
         };
 
         PR(count,PR);
         std::cout << '\n';
     }
-    void newNode(Node<Elem>* node){
+    void newNode(T node){
         for(size_t i = 0; i < arrNode.size(); i++){
             if(!arrNode[i]){
                 arrNode[i] = node;
@@ -154,11 +136,11 @@ public:
             }
         }
     }
-    void deleteNode(Elem node){
+    void deleteNode(T node){
         int count = 0;
         bool flag = 0;
         for(size_t i = 0; i < arrNode.size(); i++){
-            if(arrNode[i]->getData() == node){
+            if(arrNode[i] == node){
                 count = i;
                 flag = 1;
                 break;
@@ -167,14 +149,14 @@ public:
         if(flag){
             for(size_t i = arrNode.size() - 1; i >= 0; i--){
                 if(arrNode[i]){
-                    delete arrNode[count];
                     arrNode[count] = arrNode[i];
-                    arrNode[i] = nullptr;
+                    arrNode[i] = 0;
                     break;
                 }
             }
         }
     }
+    
 };
 
 
@@ -242,11 +224,11 @@ int main(int argc, char* argv[]){
 
     std::unique_ptr<Tree<char>> BT(new Tree<char>(inputString));
 
-    std::string findElem {};
-    getline(std::cin, findElem);
+    std::string findT {};
+    getline(std::cin, findT);
 
-    BT->result(findElem);
-    //BT->newNode(new Node('b'));
+    BT->result(findT);
+    //BT->newNode('b');
     //BT->deleteNode('a');
     //BT->lkpTrip();
     
