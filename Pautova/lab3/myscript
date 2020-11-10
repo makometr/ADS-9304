@@ -1,0 +1,19 @@
+#!/bin/bash
+for n in {1..6}
+do
+    arg=$(cat Tests/test$n.txt)
+    echo -e "\nTest $n"
+    echo "BinTree = $arg"
+    ./lab3 Tests/test$n.txt result$n
+    res=$(find . -name "result$n")
+    if [ "$res" \> "" ]
+    then
+    cat result$n
+    fi
+done
+echo -e "\nTest 7\nВеденная команда: ./lab3"
+./lab3
+echo -e "\nTest 8"
+./lab3 Tests/test8.txt result8
+echo -e
+rm result*
