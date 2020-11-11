@@ -15,6 +15,7 @@ public:
 	~BTree();
 
 	void Print(int tab, int iter, std::ofstream& file);
+	void PrintTest(int iter, std::ofstream& test_file);
 	void Simplify();
 	void TreeInit(std::string& str, int tree_iter, int& str_iter);
 
@@ -52,7 +53,7 @@ void BTree<T1>::Print(int tab, int iter, std::ofstream& file)
 	if (tree[iter].is_set) {
 		if (std::holds_alternative<T1>(this->tree[iter].data_)) {
 			if (std::get<T1>(this->tree[iter].data_) < 0) {
-				file << str << " 0 - " << abs(std::get<T1>(this->tree[iter].data_)) << '\n';
+				file << str << "0 - " << abs(std::get<T1>(this->tree[iter].data_)) << '\n';
 			}
 			else {
 				file << str << std::get<T1>(this->tree[iter].data_) << '\n';
@@ -67,6 +68,38 @@ void BTree<T1>::Print(int tab, int iter, std::ofstream& file)
 			{
 				this->Print(tab + 1, (2 * iter) + 1, file);
 				this->Print(tab + 1, (2 * iter) + 2, file);
+			}
+		}
+	}
+}
+
+template<typename T1>
+void BTree<T1>::PrintTest(int iter, std::ofstream& test_file)
+{
+	if (tree[iter].is_set) {
+		if (std::holds_alternative<T1>(this->tree[iter].data_)) {
+			if (std::get<T1>(this->tree[iter].data_) < 0) {
+				test_file << " 0 - " << abs(std::get<T1>(this->tree[iter].data_)) << ' ';
+			}
+			else {
+				test_file << std::get<T1>(this->tree[iter].data_) << ' ';
+			}
+
+		}
+		else {
+			//file << str << std::get<char>(this->tree[iter].data_) << '\n';
+
+			if (std::get<char>(this->tree[iter].data_) == '+' || std::get<char>(this->tree[iter].data_) == '-' ||
+				std::get<char>(this->tree[iter].data_) == '*' || std::get<char>(this->tree[iter].data_) == '/')
+			{
+				test_file << "( ";
+				this->PrintTest((2 * iter) + 1, test_file);
+				test_file << std::get<char>(this->tree[iter].data_) << ' ';
+				this->PrintTest((2 * iter) + 2, test_file);
+				test_file << ") ";
+			}
+			else {
+				test_file << std::get<char>(this->tree[iter].data_) << ' ';
 			}
 		}
 	}
@@ -176,6 +209,7 @@ void BTree<T1>::TreeInit(std::string& str, int tree_iter, int& str_iter)
 int main() {
 	InputData data;
 	std::ofstream file("./Tests/output.txt");
+	std::ofstream test_file("./Tests/output_test.txt");
 	int iter = 1;
 
 
@@ -183,16 +217,25 @@ int main() {
 	{
 		BTree<int> b_tree(data.list.front());
 
-		file << "\n -----------< Tree #" << iter << " >----------- \n";
+		file << "\n\n -----------< Tree #" << iter << " >----------- \n\n";
+		test_file << "\n\n -----------< Tree #" << iter << " >----------- \n\n";
+
 		b_tree.Print(0,0, file);
+		b_tree.PrintTest(0, test_file);
+
 		b_tree.Simplify();
-		file << "\n -----------< Simplified Tree #" << iter << " >----------- \n\n";
+
+		file << "\n\n -----------< Simplified Tree #" << iter << " >----------- \n\n";
+		test_file << "\n\n -----------< Simplified Tree #" << iter << " >----------- \n\n";
+
 		b_tree.Print(0,0, file);
+		b_tree.PrintTest(0, test_file);
 
 		data.list.pop_front();
 		iter++;
 	}
 
+	test_file.close();
 	file.close();
 	return 0;
 }
