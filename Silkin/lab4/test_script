@@ -1,0 +1,15 @@
+for i in {1..5}
+do
+    echo "Test $i: "
+    ./lab4.exe <"./tests/test_$i.txt"> "./tests/out_$i.txt"
+    echo ""
+    cat "./tests/test_$i.txt"
+    echo ""
+    echo ""
+    echo "Output:"
+    echo ""
+    echo ""
+    cat "./tests/out_$i.txt"
+    echo ""
+    echo ""
+done
