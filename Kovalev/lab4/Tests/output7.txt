@@ -1,0 +1,58 @@
+Sorting by Solomon:
+
+Throwing stones:
+
+Added element 14 to heap with index 14
+Heap with index 14: 14 
+Added element 1 to heap with index 1
+Heap with index 1: 1 
+Added element 3 to heap with index 3
+Heap with index 3: 3 
+Added element 12 to heap with index 12
+Heap with index 12: 12 
+Added element 17 to heap with index 17
+Heap with index 17: 17 
+Added element 2 to heap with index 2
+Heap with index 2: 2 
+Added element 10 to heap with index 10
+Heap with index 10: 10 
+Added element 1 to heap with index 1
+Heap with index 1: 1 1 
+Added element 1 to heap with index 1
+Heap with index 1: 1 1 1 
+Added element 17 to heap with index 17
+Heap with index 17: 17 17 
+Added element 0 to heap with index 0
+Heap with index 0: 0 
+Added element 23 to heap with index 23
+Heap with index 23: 23 
+
+Picking up stones:
+
+Picked heap with index 0 and pushed element to original vector.
+Original vector is: 0 
+Picked heap with index 1 and pushed more than two elements to original vector.
+Vector is: 0 1 1 1 
+Picked heap with index 2 and pushed element to original vector.
+Original vector is: 0 1 1 1 2 
+Picked heap with index 3 and pushed element to original vector.
+Original vector is: 0 1 1 1 2 3 
+Picked heap with index 10 and pushed element to original vector.
+Original vector is: 0 1 1 1 2 3 10 
+Picked heap with index 12 and pushed element to original vector.
+Original vector is: 0 1 1 1 2 3 10 12 
+Picked heap with index 14 and pushed element to original vector.
+Original vector is: 0 1 1 1 2 3 10 12 14 
+Picked heap with index 17 and pushed two elements back to original vector.
+Vector is: 0 1 1 1 2 3 10 12 14 17 17 
+Picked heap with index 23 and pushed element to original vector.
+Original vector is: 0 1 1 1 2 3 10 12 14 17 17 23 
+
+Sorted vector:
+
+0 1 1 1 2 3 10 12 14 17 17 23 
+
+Sorted by std::sort:
+
+0 1 1 1 2 3 10 12 14 17 17 23 
+

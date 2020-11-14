@@ -1,0 +1,76 @@
+Sorting by Solomon:
+
+Throwing stones:
+
+Added element g to heap with index 6
+Heap with index 6: g 
+Added element l to heap with index 11
+Heap with index 11: l 
+Added element a to heap with index 0
+Heap with index 0: a 
+Added element v to heap with index 21
+Heap with index 21: v 
+Added element d to heap with index 3
+Heap with index 3: d 
+Added element e to heap with index 4
+Heap with index 4: e 
+Added element t to heap with index 19
+Heap with index 19: t 
+Added element h to heap with index 7
+Heap with index 7: h 
+Added element a to heap with index 0
+Heap with index 0: a a 
+Added element n to heap with index 13
+Heap with index 13: n 
+Added element l to heap with index 11
+Heap with index 11: l l 
+Added element d to heap with index 3
+Heap with index 3: d d 
+Added element e to heap with index 4
+Heap with index 4: e e 
+Added element y to heap with index 24
+Heap with index 24: y 
+Added element u to heap with index 20
+Heap with index 20: u 
+Added element i to heap with index 8
+Heap with index 8: i 
+Added element o to heap with index 14
+Heap with index 14: o 
+
+Picking up stones:
+
+Picked heap with index 0 and pushed two elements back to original vector.
+Vector is: a a 
+Picked heap with index 3 and pushed two elements back to original vector.
+Vector is: a a d d 
+Picked heap with index 4 and pushed two elements back to original vector.
+Vector is: a a d d e e 
+Picked heap with index 6 and pushed element to original vector.
+Original vector is: a a d d e e g 
+Picked heap with index 7 and pushed element to original vector.
+Original vector is: a a d d e e g h 
+Picked heap with index 8 and pushed element to original vector.
+Original vector is: a a d d e e g h i 
+Picked heap with index 11 and pushed two elements back to original vector.
+Vector is: a a d d e e g h i l l 
+Picked heap with index 13 and pushed element to original vector.
+Original vector is: a a d d e e g h i l l n 
+Picked heap with index 14 and pushed element to original vector.
+Original vector is: a a d d e e g h i l l n o 
+Picked heap with index 19 and pushed element to original vector.
+Original vector is: a a d d e e g h i l l n o t 
+Picked heap with index 20 and pushed element to original vector.
+Original vector is: a a d d e e g h i l l n o t u 
+Picked heap with index 21 and pushed element to original vector.
+Original vector is: a a d d e e g h i l l n o t u v 
+Picked heap with index 24 and pushed element to original vector.
+Original vector is: a a d d e e g h i l l n o t u v y 
+
+Sorted vector:
+
+a a d d e e g h i l l n o t u v y 
+
+Sorted by std::sort:
+
+a a d d e e g h i l l n o t u v y 
+
