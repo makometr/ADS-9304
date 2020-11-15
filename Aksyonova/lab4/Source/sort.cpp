@@ -4,6 +4,7 @@
 #include <sstream>
 #include <vector>
  
+ 
 std::ostream& operator << (std::ostream& out, const std::vector<int>& vec) {
 	out << '[';
 	for (int i = 0; i < vec.size(); i++) {
