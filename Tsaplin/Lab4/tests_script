@@ -1,0 +1,10 @@
+#! /bin/bash
+
+printf "\nRunning tests...\n\n"
+for n in {1..8}
+do
+    printf "Test$n:\n"
+    ./lab4 < "./Tests/test$n.txt"
+    printf "\n"
+done
+
