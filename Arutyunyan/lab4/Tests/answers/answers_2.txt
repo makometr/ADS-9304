@@ -1,0 +1,14 @@
+In:
+    a b + c * d e f g * + - - 
+Step №1:
+    (a) (b) (+) (c) (*) (d) (e) (f) (g) (*) (+) (-) (-)
+Step №2:
+    (a b) (+ c) (* d) (e f) (* g) (+ -) (-)
+Step №3:
+    (+ a b c) (* d e f) (* + - g) (-)
+Step №4:
+    (* + a b c d e f) (* + - - g)
+Out:
+    * * + + - - a b c d e f g 
+std::sort:
+    * * + + - - a b c d e f g 

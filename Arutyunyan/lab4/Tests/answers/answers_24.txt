@@ -1,0 +1,14 @@
+In:
+    gkjkzlk klzjdi jw88 8888 l 23hj j23 hsdjkfkajl kjh ajksdf alksdj iwjnvkj skjei 
+Step №1:
+    (gkjkzlk) (klzjdi) (jw88) (8888) (l) (23hj) (j23) (hsdjkfkajl) (kjh) (ajksdf) (alksdj) (iwjnvkj) (skjei)
+Step №2:
+    (gkjkzlk klzjdi) (8888 jw88) (23hj l) (hsdjkfkajl j23) (ajksdf kjh) (alksdj iwjnvkj) (skjei)
+Step №3:
+    (8888 gkjkzlk jw88 klzjdi) (23hj hsdjkfkajl j23 l) (ajksdf alksdj iwjnvkj kjh) (skjei)
+Step №4:
+    (23hj 8888 gkjkzlk hsdjkfkajl j23 jw88 klzjdi l) (ajksdf alksdj iwjnvkj kjh skjei)
+Out:
+    23hj 8888 ajksdf alksdj gkjkzlk hsdjkfkajl iwjnvkj j23 jw88 kjh klzjdi l skjei 
+std::sort:
+    23hj 8888 ajksdf alksdj gkjkzlk hsdjkfkajl iwjnvkj j23 jw88 kjh klzjdi l skjei 
