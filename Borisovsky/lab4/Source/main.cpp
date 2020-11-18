@@ -6,7 +6,7 @@
 
 template <typename T>
 void comb_sort(std::vector<T> &data){
-    double factor = 1.2473309;
+    const double factor = 1.2473309; // добавлен const
     int step = data.size() - 1;
     int permutation_counter = 0;
     std::vector<T> check_vect = data;
@@ -54,27 +54,44 @@ void comb_sort(std::vector<T> &data){
     }
 }
 
+
+
+// использована специализация шаблона функции
 template <typename T>
-std::vector<T> create_rand_vect(int size){
-    std::vector<T> vect;
+std::vector<T> create_random_vector(int size);
+
+template <>
+std::vector<int> create_random_vector(int size){
+    std::vector<int> vect;
     srand(time(0));
-    if (sizeof(T) == sizeof(int)){
-        for (int i = 0; i < size; i++){
-            vect.push_back(rand() % 5000);
-        }
-    } else if (sizeof(T) == sizeof(char)){
-        for (int i = 0; i < size; i++){
-            vect.push_back((char)(rand() % 95 + 32));
-        }
-    } else if (sizeof(T) == sizeof(double)){
-        for (int i = 0; i < size; i++){
-            vect.push_back((rand() % 5000) * 0.1);
-        }
+    for (int i = 0; i < size; i++){
+        vect.push_back(rand() % 5000);
     }
     return vect;
 }
 
-bool string_to_int(char* str){
+template <>
+std::vector<double> create_random_vector(int size){
+    std::vector<double> vect;
+    srand(time(0));
+    for (int i = 0; i < size; i++){
+        vect.push_back((rand() % 5000) * 0.1);
+    }
+    return vect;
+}
+
+template <>
+std::vector<char> create_random_vector(int size){
+    std::vector<char> vect;
+    srand(time(0));
+    for (int i = 0; i < size; i++){
+        vect.push_back((char)(rand() % 95 + 32));
+    }
+    return vect;
+}
+
+
+bool string_to_int_checker(char* str){
     char* endptr;
     strtol(str, &endptr, 10);
     if (*endptr) {
@@ -96,13 +113,13 @@ void key(int argc, char** argv, int size){
     int long_index;
     opt = getopt_long(argc, argv, opts, long_opts, &long_index);
     if (opt == 'c'){
-        std::vector<char> arr = create_rand_vect<char>(size);
+        std::vector<char> arr = create_random_vector<char>(size);
         comb_sort(arr);
     } else if (opt == 'i'){
-        std::vector<int> arr = create_rand_vect<int>(size);
+        std::vector<int> arr = create_random_vector<int>(size);
         comb_sort(arr);
     } else if (opt == 'd'){
-        std::vector<double> arr = create_rand_vect<double>(size);
+        std::vector<double> arr = create_random_vector<double>(size);
         comb_sort(arr);
     } else {
         std::cout << "no such key";
@@ -113,10 +130,10 @@ int main(int argc, char** argv){
     int size = 0;
     char *endptr;
     if (argc == 3){
-        if (string_to_int(argv[1])){
+        if (string_to_int_checker(argv[1])){
             size = strtol(argv[1], &endptr, 10);
             key(argc, argv, size);
-        } else if (string_to_int(argv[2])){
+        } else if (string_to_int_checker(argv[2])){
             size = strtol(argv[2], &endptr, 10);
             key(argc, argv, size);
         } else {
