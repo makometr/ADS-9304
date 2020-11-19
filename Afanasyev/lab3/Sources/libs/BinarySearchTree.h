@@ -22,6 +22,7 @@ class BinarySearchTree
     void recursiveInsert(const T &val, std::shared_ptr<BinarySearchTreeNode<T>> &ptrNode, const std::shared_ptr<BinarySearchTreeNode<T>> &ptrParent = nullptr);
     void recursiveRemove(const T &val, std::shared_ptr<BinarySearchTreeNode<T>> &ptrNode, const std::shared_ptr<BinarySearchTreeNode<T>> &ptrParent = nullptr);
     std::shared_ptr<BinarySearchTreeNode<T>> recursiveCopy(const std::shared_ptr<BinarySearchTreeNode<T>> &ptrNodeToCopy, const std::shared_ptr<BinarySearchTreeNode<T>> &ptrParent = nullptr);
+
     //для задания:
     bool checkTaskBin(const std::shared_ptr<BinarySearchTreeNode<T>> &ptrNode);
     std::shared_ptr<BinarySearchTreeNode<T>> recursiveConstructorFromStr(const std::string &str, std::shared_ptr<BinarySearchTreeNode<T>> &ptrNode, const std::shared_ptr<BinarySearchTreeNode<T>> &ptrParent = nullptr);
@@ -206,7 +207,7 @@ void BinarySearchTree<char>::recursiveSimplifyTheFormula(std::shared_ptr<BinaryS
 {
     if (ptrNode != nullptr)
     {
-        if (ptrNode->obj == '+')
+        if (ptrNode->obj == '+' && (*(ptrNode->left) == *(ptrNode->right)))
         {
             ptrNode->obj = '*';
             ptrNode->left->obj = '2';

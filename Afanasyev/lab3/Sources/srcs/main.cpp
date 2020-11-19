@@ -8,7 +8,7 @@ int main(int argc, char const *argv[])
     {
         BinarySearchTree<char> treeChar(argv[1]);
         treeChar.simplifyTheFormula();
-        std::cout << treeChar;
+        std::cout << treeChar << '\n';
     }
     return 0;
 }

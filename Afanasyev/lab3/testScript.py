@@ -36,14 +36,14 @@ else:
         os.system("./" + programName + ' ' + inputData + " > " + testDir + ansDirInTestDir + ansName + str(i) + " 2>&1 " + "\n")
 
         fileAnswer = open(testDir + ansDirInTestDir + ansName + str(i))
-        answer = fileAnswer.readline()
+        answer = fileAnswer.readline().rstrip()
         #sys.stdin = open(testDir + ansDirInTestDir + ansName + str(i), mode = 'r')
         
         #sys.stdin.close()
 
         fileCorrectAnswer = open(testDir + correctAnsDir + correctAnsName + str(i))
         #sys.stdin = open(testDir + correctAnsDir + correctAnsName + str(i), mode = 'r')
-        correctAnswer = fileCorrectAnswer.readline()
+        correctAnswer = fileCorrectAnswer.readline().rstrip()
         #sys.stdin.close()
 
 
