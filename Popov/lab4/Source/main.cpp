@@ -3,9 +3,11 @@
 #include <cmath>
 #include <iterator>
 #include <sstream>
+#include <algorithm>
 
 
 void radix(std::vector<int>& digitArr);     // Поразрядная сортировка
+
 
 
 int main(){
@@ -33,6 +35,13 @@ int main(){
 
 void radix(std::vector<int>& digitArr){
 
+    int nim = *std::min_element(digitArr.begin(), digitArr.end());
+
+    for(size_t i = 0; i < digitArr.size(); i++){
+        digitArr[i] -= nim;
+    }
+   
+
     std::vector<std::vector<int>> vec {};   // Для каждого разряда свой блок
     unsigned deegre = 0;                    // Разряд числа
     unsigned level;                         // Позиция блока в массиве
@@ -44,13 +53,11 @@ void radix(std::vector<int>& digitArr){
         // Разбрасываем по соответствующим блокам
         deegre++;
         for(size_t i = 0; i < digitArr.size(); i++){
-            if(digitArr[i] >= 0){
-                level = digitArr[i] / ((int)pow(10, deegre - 1)) % 10;
-                if(level){
-                    checkRank = 1;
-                }
-                vec[level].emplace_back(digitArr[i]);
+            level = digitArr[i] / ((int)pow(10, deegre - 1)) % 10;
+            if(level){
+                checkRank = 1;
             }
+            vec[level].emplace_back(digitArr[i]);
         }
 
         // Перезапись базового вектора
@@ -60,7 +67,7 @@ void radix(std::vector<int>& digitArr){
                 digitArr.emplace_back(vec[i][j]);
             }
         }
-
+        
         // Если все элементы в 0 блоке - ливаем
         if(!checkRank){
             break;
@@ -74,7 +81,7 @@ void radix(std::vector<int>& digitArr){
             if(vec[i].size()){
                 std::cout << "Блок " << i << ": [";
                 for(size_t j = 0; j < vec[i].size(); j++){
-                    std::cout << vec[i][j];
+                    std::cout << vec[i][j] + nim << ' ';
                     if(!(j == vec[i].size() - 1)){
                         std::cout << ", ";
                     }
@@ -84,7 +91,7 @@ void radix(std::vector<int>& digitArr){
         }
         std::cout << "Объединение блоков: ";
         for(const auto& digit : digitArr){
-            std::cout << digit << ' ';
+            std::cout << digit + nim << ' ';
         }
         std::cout << "\n";
 
@@ -94,4 +101,9 @@ void radix(std::vector<int>& digitArr){
         }
         
     }
+    
+    for(size_t i = 0; i < digitArr.size(); i++){
+        digitArr[i] += nim;
+    }
+    
 }

@@ -10,4 +10,6 @@ lab4: $(OBJ)
 	$(CC) $(CFLAG) -c $<
 
 .PHONY: clean
+
+clean:
 	rm *.o lab4
