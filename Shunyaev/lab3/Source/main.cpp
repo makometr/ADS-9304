@@ -112,10 +112,10 @@ void BTree<T1>::Simplify()
 		if (tree[i].is_set) {
 			if (std::holds_alternative<char>(this->tree[i].data_) && std::get<char>(this->tree[i].data_) == '-')
 			{
-				if (std::holds_alternative<int>(this->tree[(2 * i) + 1].data_)
-					&& std::holds_alternative<int>(this->tree[(2 * i) + 2].data_))
+				if (std::holds_alternative<T1>(this->tree[(2 * i) + 1].data_)
+					&& std::holds_alternative<T1>(this->tree[(2 * i) + 2].data_))
 				{
-					tree[i].data_ = std::get<int>(this->tree[(2 * i) + 1].data_) - std::get<int>(this->tree[(2 * i) + 2].data_);
+					tree[i].data_ = std::get<T1>(this->tree[(2 * i) + 1].data_) - std::get<T1>(this->tree[(2 * i) + 2].data_);
 					tree[(2 * i) + 1].is_set = false;
 					tree[(2 * i) + 2].is_set = false;
 				}
