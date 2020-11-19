@@ -106,9 +106,9 @@ void BinarySearchTree<T>::recursiveRemove(const T &val, std::shared_ptr<BinarySe
     if (ptrNode != nullptr)
     {
         if (ptrNode->obj < val)
-            recursiveRemove(val, ptrNode->left, ptrNode);
-        else if (ptrNode->obj > val)
             recursiveRemove(val, ptrNode->right, ptrNode);
+        else if (ptrNode->obj > val)
+            recursiveRemove(val, ptrNode->left, ptrNode);
         else
         {
             std::shared_ptr<BinarySearchTreeNode<T>> ptrMin = nullptr;
