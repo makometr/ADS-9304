@@ -79,7 +79,7 @@ void radix(std::vector<int>& digitArr){
         std::cout << "Итерация " << deegre << ":\n";
         for(size_t i = 0; i < vec.size(); i++){
             if(vec[i].size()){
-                std::cout << "Блок " << i << ": [";
+                std::cout << "Блок " << i << ": [ ";
                 for(size_t j = 0; j < vec[i].size(); j++){
                     std::cout << vec[i][j] + nim << ' ';
                     if(!(j == vec[i].size() - 1)){
