@@ -1,0 +1,12 @@
+In:
+    i3 2k la ka kans, jas .kasjd 
+Step №1:
+    (i3) (2k) (la) (ka) (kans,) (jas) (.kasjd)
+Step №2:
+    (2k i3) (ka la) (jas kans,) (.kasjd)
+Step №3:
+    (2k i3 ka la) (.kasjd jas kans,)
+Out:
+    .kasjd 2k i3 jas ka kans, la 
+std::sort:
+    .kasjd 2k i3 jas ka kans, la 

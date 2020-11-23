@@ -1,0 +1,12 @@
+In:
+    fa qwe lfa nsn alsdk kewn jas 
+Step №1:
+    (fa) (qwe) (lfa) (nsn) (alsdk) (kewn) (jas)
+Step №2:
+    (fa qwe) (lfa nsn) (alsdk kewn) (jas)
+Step №3:
+    (fa lfa nsn qwe) (alsdk jas kewn)
+Out:
+    alsdk fa jas kewn lfa nsn qwe 
+std::sort:
+    alsdk fa jas kewn lfa nsn qwe 

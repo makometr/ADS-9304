@@ -1,0 +1,12 @@
+In:
+    t d t * + t 
+Step №1:
+    (t) (d) (t) (*) (+) (t)
+Step №2:
+    (d t) (* t) (+ t)
+Step №3:
+    (* d t t) (+ t)
+Out:
+    * + d t t t 
+std::sort:
+    * + d t t t 
