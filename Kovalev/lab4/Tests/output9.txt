@@ -1,0 +1,66 @@
+Sorting by Solomon:
+
+Throwing stones:
+
+Added element h to heap with index 7
+Heap with index 7: h 
+Added element o to heap with index 14
+Heap with index 14: o 
+Added element p to heap with index 15
+Heap with index 15: p 
+Added element w to heap with index 22
+Heap with index 22: w 
+Added element e to heap with index 4
+Heap with index 4: e 
+Added element n to heap with index 13
+Heap with index 13: n 
+Added element c to heap with index 2
+Heap with index 2: c 
+Added element a to heap with index 0
+Heap with index 0: a 
+Added element s to heap with index 18
+Heap with index 18: s 
+Added element r to heap with index 17
+Heap with index 17: r 
+Added element g to heap with index 6
+Heap with index 6: g 
+Added element h to heap with index 7
+Heap with index 7: h h 
+Added element y to heap with index 24
+Heap with index 24: y 
+
+Picking up stones:
+
+Picked heap with index 0 and pushed element to original vector.
+Original vector is: a 
+Picked heap with index 2 and pushed element to original vector.
+Original vector is: a c 
+Picked heap with index 4 and pushed element to original vector.
+Original vector is: a c e 
+Picked heap with index 6 and pushed element to original vector.
+Original vector is: a c e g 
+Picked heap with index 7 and pushed two elements back to original vector.
+Vector is: a c e g h h 
+Picked heap with index 13 and pushed element to original vector.
+Original vector is: a c e g h h n 
+Picked heap with index 14 and pushed element to original vector.
+Original vector is: a c e g h h n o 
+Picked heap with index 15 and pushed element to original vector.
+Original vector is: a c e g h h n o p 
+Picked heap with index 17 and pushed element to original vector.
+Original vector is: a c e g h h n o p r 
+Picked heap with index 18 and pushed element to original vector.
+Original vector is: a c e g h h n o p r s 
+Picked heap with index 22 and pushed element to original vector.
+Original vector is: a c e g h h n o p r s w 
+Picked heap with index 24 and pushed element to original vector.
+Original vector is: a c e g h h n o p r s w y 
+
+Sorted vector:
+
+a c e g h h n o p r s w y 
+
+Sorted by std::sort:
+
+a c e g h h n o p r s w y
+
