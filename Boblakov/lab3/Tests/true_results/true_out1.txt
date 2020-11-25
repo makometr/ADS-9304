@@ -1,0 +1,7 @@
+Enter the nodes in the LEFT ROOT RIGHT order
+Enter the nodes in the LEFT RIGHT ROOT order
+ the nodes in the ROOT LEFT RIGHT order:
+CBA
+Picture of a Binary Tree:
+ C A
+   B

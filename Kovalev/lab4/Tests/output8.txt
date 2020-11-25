@@ -1,0 +1,66 @@
+Sorting by Solomon:
+
+Throwing stones:
+
+Added element g to heap with index 6
+Heap with index 6: g 
+Added element k to heap with index 10
+Heap with index 10: k 
+Added element e to heap with index 4
+Heap with index 4: e 
+Added element i to heap with index 8
+Heap with index 8: i 
+Added element l to heap with index 11
+Heap with index 11: l 
+Added element a to heap with index 0
+Heap with index 0: a 
+Added element b to heap with index 1
+Heap with index 1: b 
+Added element d to heap with index 3
+Heap with index 3: d 
+Added element w to heap with index 22
+Heap with index 22: w 
+Added element q to heap with index 16
+Heap with index 16: q 
+Added element m to heap with index 12
+Heap with index 12: m 
+Added element l to heap with index 11
+Heap with index 11: l l 
+Added element d to heap with index 3
+Heap with index 3: d d 
+Added element e to heap with index 4
+Heap with index 4: e e 
+
+Picking up stones:
+
+Picked heap with index 0 and pushed element to original vector.
+Original vector is: a 
+Picked heap with index 1 and pushed element to original vector.
+Original vector is: a b 
+Picked heap with index 3 and pushed two elements back to original vector.
+Vector is: a b d d 
+Picked heap with index 4 and pushed two elements back to original vector.
+Vector is: a b d d e e 
+Picked heap with index 6 and pushed element to original vector.
+Original vector is: a b d d e e g 
+Picked heap with index 8 and pushed element to original vector.
+Original vector is: a b d d e e g i 
+Picked heap with index 10 and pushed element to original vector.
+Original vector is: a b d d e e g i k 
+Picked heap with index 11 and pushed two elements back to original vector.
+Vector is: a b d d e e g i k l l 
+Picked heap with index 12 and pushed element to original vector.
+Original vector is: a b d d e e g i k l l m 
+Picked heap with index 16 and pushed element to original vector.
+Original vector is: a b d d e e g i k l l m q 
+Picked heap with index 22 and pushed element to original vector.
+Original vector is: a b d d e e g i k l l m q w 
+
+Sorted vector:
+
+a b d d e e g i k l l m q w 
+
+Sorted by std::sort:
+
+a b d d e e g i k l l m q w
+

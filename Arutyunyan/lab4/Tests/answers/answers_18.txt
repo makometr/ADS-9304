@@ -1,0 +1,14 @@
+In:
+    h i 1 + h e l l o + - * + - * 
+Step №1:
+    (h) (i) (1) (+) (h) (e) (l) (l) (o) (+) (-) (*) (+) (-) (*)
+Step №2:
+    (h i) (+ 1) (e h) (l l) (+ o) (* -) (+ -) (*)
+Step №3:
+    (+ 1 h i) (e h l l) (* + - o) (* + -)
+Step №4:
+    (+ 1 e h h i l l) (* * + + - - o)
+Out:
+    * * + + + - - 1 e h h i l l o 
+std::sort:
+    * * + + + - - 1 e h h i l l o 

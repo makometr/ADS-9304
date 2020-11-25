@@ -1,0 +1,14 @@
+In:
+    ajsdklfmczxjkweio 138 78173 kljadkjhsk jh128 sdkalj jkaosdaklj 32989 klalsls 
+Step №1:
+    (ajsdklfmczxjkweio) (138) (78173) (kljadkjhsk) (jh128) (sdkalj) (jkaosdaklj) (32989) (klalsls)
+Step №2:
+    (138 ajsdklfmczxjkweio) (78173 kljadkjhsk) (jh128 sdkalj) (32989 jkaosdaklj) (klalsls)
+Step №3:
+    (138 78173 ajsdklfmczxjkweio kljadkjhsk) (32989 jh128 jkaosdaklj sdkalj) (klalsls)
+Step №4:
+    (138 32989 78173 ajsdklfmczxjkweio jh128 jkaosdaklj kljadkjhsk sdkalj) (klalsls)
+Out:
+    138 32989 78173 ajsdklfmczxjkweio jh128 jkaosdaklj klalsls kljadkjhsk sdkalj 
+std::sort:
+    138 32989 78173 ajsdklfmczxjkweio jh128 jkaosdaklj klalsls kljadkjhsk sdkalj 

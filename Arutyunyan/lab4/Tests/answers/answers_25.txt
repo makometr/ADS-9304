@@ -1,0 +1,14 @@
+In:
+    jkasdjfiwejfk akjn 1993 2 akdksj 1939 103lkj 13099 1l 10 
+Step №1:
+    (jkasdjfiwejfk) (akjn) (1993) (2) (akdksj) (1939) (103lkj) (13099) (1l) (10)
+Step №2:
+    (akjn jkasdjfiwejfk) (1993 2) (1939 akdksj) (103lkj 13099) (10 1l)
+Step №3:
+    (1993 2 akjn jkasdjfiwejfk) (103lkj 13099 1939 akdksj) (10 1l)
+Step №4:
+    (103lkj 13099 1939 1993 2 akdksj akjn jkasdjfiwejfk) (10 1l)
+Out:
+    10 103lkj 13099 1939 1993 1l 2 akdksj akjn jkasdjfiwejfk 
+std::sort:
+    10 103lkj 13099 1939 1993 1l 2 akdksj akjn jkasdjfiwejfk 

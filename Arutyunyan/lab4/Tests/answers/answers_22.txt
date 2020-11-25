@@ -1,0 +1,14 @@
+In:
+    lkja jsd kj 193 lkj kjai jij 1390 90klj asd jialk klasd nf mas kdljmn 
+Step №1:
+    (lkja) (jsd) (kj) (193) (lkj) (kjai) (jij) (1390) (90klj) (asd) (jialk) (klasd) (nf) (mas) (kdljmn)
+Step №2:
+    (jsd lkja) (193 kj) (kjai lkj) (1390 jij) (90klj asd) (jialk klasd) (mas nf) (kdljmn)
+Step №3:
+    (193 jsd kj lkja) (1390 jij kjai lkj) (90klj asd jialk klasd) (kdljmn mas nf)
+Step №4:
+    (1390 193 jij jsd kj kjai lkj lkja) (90klj asd jialk kdljmn klasd mas nf)
+Out:
+    1390 193 90klj asd jialk jij jsd kdljmn kj kjai klasd lkj lkja mas nf 
+std::sort:
+    1390 193 90klj asd jialk jij jsd kdljmn kj kjai klasd lkj lkja mas nf 

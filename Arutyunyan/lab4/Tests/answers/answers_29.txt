@@ -1,0 +1,12 @@
+In:
+    welcome hello bye thank you friend man women 
+Step №1:
+    (welcome) (hello) (bye) (thank) (you) (friend) (man) (women)
+Step №2:
+    (hello welcome) (bye thank) (friend you) (man women)
+Step №3:
+    (bye hello thank welcome) (friend man women you)
+Out:
+    bye friend hello man thank welcome women you 
+std::sort:
+    bye friend hello man thank welcome women you 

@@ -1,0 +1,6 @@
+Enter the nodes in the LEFT ROOT RIGHT order
+Enter the nodes in the LEFT RIGHT ROOT order
+ the nodes in the ROOT LEFT RIGHT order:
+qwertyuiop
+Picture of a Binary Tree:
+ q w e r t y u i o p

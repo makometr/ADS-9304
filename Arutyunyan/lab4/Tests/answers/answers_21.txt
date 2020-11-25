@@ -1,0 +1,12 @@
+In:
+    absd sakdljf asldkfjk bsdkj jsklw nksl l vlisw 
+Step №1:
+    (absd) (sakdljf) (asldkfjk) (bsdkj) (jsklw) (nksl) (l) (vlisw)
+Step №2:
+    (absd sakdljf) (asldkfjk bsdkj) (jsklw nksl) (l vlisw)
+Step №3:
+    (absd asldkfjk bsdkj sakdljf) (jsklw l nksl vlisw)
+Out:
+    absd asldkfjk bsdkj jsklw l nksl sakdljf vlisw 
+std::sort:
+    absd asldkfjk bsdkj jsklw l nksl sakdljf vlisw 
