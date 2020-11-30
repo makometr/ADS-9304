@@ -1,10 +1,16 @@
 #include <iostream>
 #include <memory>
 
+#define PRINT
+
+#ifdef PRINT
+
 #define RED "\033[1;31m"
 #define BLACK "\033[1;30m"
 #define BLUE "\033[1;34m"
 #define NORMAL "\033[0m"
+
+#endif
 
 template<typename T>
 class RedBlackTreeNode{
@@ -287,6 +293,7 @@ public:
         os << "\n";
     }
 
+    #ifdef PRINT
     void Print(std::ostream& os = std::cout){
         int deep = 0;
         std::string tab = "";
@@ -311,6 +318,7 @@ public:
         print(head, print);
         os << "\n";
     }
+    #endif
 
     int Find(T find_data){
         int count = 0;
@@ -341,7 +349,9 @@ int main(){
         int temp;
         std::cin >> temp;
         rbt.Insert(temp);
+        #ifdef PRINT
         std::cout << rbt;
+        #endif
     }
     std::cin >> find;
     rbt.PrintData();
