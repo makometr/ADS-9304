@@ -46,40 +46,32 @@ public:
     }
 
     void searchAndDelete(T elem, std::shared_ptr<Node<T>>& ptr){
-       if(ptr) {
-	    if(ptr == head && !ptr->left && !ptr->right){
+        if(ptr){
+            if(ptr == head && !ptr->left && !ptr->right){
                 head = nullptr;
                 return;
             }
-            if (elem < ptr->data) {
+            if(elem < ptr->data){
                 searchAndDelete(elem, ptr->left);
-            } else if (elem > ptr->data) {
+            }else if (elem > ptr->data){
                 searchAndDelete(elem, ptr->right);
-            } else if (elem == ptr->data) {
-                if (ptr->counter > 1) {
+            }else if (elem == ptr->data){
+                if (ptr->counter > 1){
                     ptr->counter -= 1;
                     return;
-                } else {
-                    if (!ptr->left && !ptr->right) {//если нет потомков
+                }else{
+                    if(!ptr->left && !ptr->right){
                         findParent(elem, head);
                         return;
-                    } else if (ptr->right) {
-                        std::shared_ptr<Node<T>> leftSon = std::make_shared<Node<T>>();
-                        leftSon = findMin(ptr->right);
-                        T value = leftSon->data;
-                        int ct = leftSon->counter;
-                        searchAndDelete(leftSon->data, leftSon);
-                        ptr->counter = ct;
-                        ptr->data = value;
+                    }else if (ptr->right){
+                        T leftSon = findMin(ptr->right, ptr->counter);
+                        searchAndDelete(leftSon, head);
+                        ptr->data = leftSon;
                         return;
-                    } else if (ptr->left) {
-                        std::shared_ptr<Node<T>> rightSon = std::make_shared<Node<T>>();
-                        rightSon = findMax(ptr->left);
-                        T value = rightSon->data;
-                        int ct = rightSon->counter;
-                        searchAndDelete(rightSon->data, rightSon);
-                        ptr->counter = ct;
-                        ptr->data = value;
+                    }else if (ptr->left){
+                        T rightSon = findMax(ptr->left, ptr->counter);
+                        searchAndDelete(rightSon, head);
+                        ptr->data = rightSon;
                         return;
                     }
                 }
@@ -117,22 +109,24 @@ public:
         }
     }
 
-    std::shared_ptr<Node<T>> findMin(std::shared_ptr<Node<T>> p){
+    T findMin(std::shared_ptr<Node<T>> p, int& ct){
         std::shared_ptr<Node<T>> temp = std::make_shared<Node<T>>();
         temp = p;
         while(temp->left){
             temp = temp->left;
         }
-        return temp;
+        ct = temp->counter;
+        return temp->data;
     }
 
-    std::shared_ptr<Node<T>> findMax(std::shared_ptr<Node<T>> p){
+    T findMax(std::shared_ptr<Node<T>> p, int& ct){
         std::shared_ptr<Node<T>> temp = std::make_shared<Node<T>>();
         temp = p;
         while(temp->right){
             temp = temp->right;
         }
-        return temp;
+        ct = temp->counter;
+        return temp->data;
     }
 
     void klp(std::shared_ptr<Node<T>> tmp) {
@@ -142,6 +136,7 @@ public:
             if (tmp->right) klp(tmp->right);
         }
     }
+
 };
 
 bool digitChecker(std::string& s){
