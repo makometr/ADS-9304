@@ -47,6 +47,10 @@ public:
 
     void searchAndDelete(T elem, std::shared_ptr<Node<T>>& ptr){
        if(ptr) {
+	    if(ptr == head && !ptr->left && !ptr->right){
+                head = nullptr;
+                return;
+            }
             if (elem < ptr->data) {
                 searchAndDelete(elem, ptr->left);
             } else if (elem > ptr->data) {
