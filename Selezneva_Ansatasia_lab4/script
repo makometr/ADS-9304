@@ -1,8 +1,0 @@
-#!/bin/bash
-
-for n in {1..6}
-do
-    arg=$(cat Tests/test$n.txt)
-    echo -e "\nTest $n:"
-    ./lab4 < Tests/test$n.txt
-done 
