@@ -1,5 +1,5 @@
 compiler = g++
-flags = -c -g -std=c++17 -Wall
+flags = -c -std=c++17 -Wall
 appname = lab5
 lib_dir = Sources/libs/
 src_dir = Sources/srcs/

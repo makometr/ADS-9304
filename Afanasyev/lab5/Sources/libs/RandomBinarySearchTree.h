@@ -11,7 +11,6 @@
 #include <algorithm>
 
 #include "BinaryTreeNode.h"
-#include "MyException.h"
 
 template <typename T>
 class RandomBinarySearchTree
@@ -23,7 +22,7 @@ class RandomBinarySearchTree
     void recursivePostfixTraverse(std::vector<T> &vectorOfNodes, const std::shared_ptr<BinaryTreeNode<T>> &nodePtr) const;
     void recursiveInfixTraverse(std::vector<T> &vectorOfNodes, const std::shared_ptr<BinaryTreeNode<T>> &nodePtr) const;
     void recursiveInsert(const T &val, std::shared_ptr<BinaryTreeNode<T>> &ptrNode, const std::shared_ptr<BinaryTreeNode<T>> &ptrParent = nullptr);
-    void recursiveRemove(const T &val, std::shared_ptr<BinaryTreeNode<T>> &ptrNode, const std::shared_ptr<BinaryTreeNode<T>> &ptrParent = nullptr);
+    void recursiveRemove(const T &val, std::shared_ptr<BinaryTreeNode<T>> &ptrNode);
     const size_t recursiveSize(const std::shared_ptr<BinaryTreeNode<T>> &ptrNode) const;
     std::shared_ptr<BinaryTreeNode<T>> recursiveCopy(const std::shared_ptr<BinaryTreeNode<T>> &ptrNodeToCopy, const std::shared_ptr<BinaryTreeNode<T>> &ptrParent = nullptr);
     void insertAtRoot(const T &val, std::shared_ptr<BinaryTreeNode<T>> &nodePtr, const std::shared_ptr<BinaryTreeNode<T>> &ptrParent);
@@ -49,6 +48,7 @@ public:
     const size_t height() const;
     const size_t find(const T &val) const;
     bool empty() const;
+    void erase();
     void insert(const T &val);
     void remove(const T &val);
     const size_t taskFindAndInsert(const T &val);
@@ -56,6 +56,12 @@ public:
     template <typename C>
     friend std::ostream &operator<<(std::ostream &out, const RandomBinarySearchTree<C> &bTree);
 };
+
+template <typename T>
+void RandomBinarySearchTree<T>::erase()
+{
+    this->head = nullptr;
+}
 
 template <typename T>
 const size_t RandomBinarySearchTree<T>::taskFindAndInsert(const T &val)
@@ -236,17 +242,32 @@ void RandomBinarySearchTree<T>::remove(const T &val)
 }
 
 template <typename T>
-void RandomBinarySearchTree<T>::recursiveRemove(const T &val, std::shared_ptr<BinaryTreeNode<T>> &ptrNode, const std::shared_ptr<BinaryTreeNode<T>> &ptrParent)
+void RandomBinarySearchTree<T>::recursiveRemove(const T &val, std::shared_ptr<BinaryTreeNode<T>> &ptrNode)
 {
     if (ptrNode != nullptr)
     {
         if (ptrNode->getData() < val)
-            recursiveRemove(val, ptrNode->right, ptrNode);
+            recursiveRemove(val, ptrNode->right);
         else if (ptrNode->getData() > val)
-            recursiveRemove(val, ptrNode->left, ptrNode);
+            recursiveRemove(val, ptrNode->left);
         else
         {
-            ptrNode = this->merge(ptrNode->left, ptrNode->right);
+            std::shared_ptr<BinaryTreeNode<T>> ptrParent = ptrNode->parent.lock();
+            std::shared_ptr<BinaryTreeNode<T>> ptrTmp = this->merge(ptrNode->left, ptrNode->right);
+            ptrNode->parent = ptrParent;
+            if (ptrTmp == nullptr)
+            {
+                if (ptrParent != nullptr)
+                {
+                    if (ptrParent->right == ptrNode)
+                        ptrParent->right = nullptr;
+                    else
+                        ptrParent->left = nullptr;
+                }
+                if (this->head == ptrNode)
+                    this->head = nullptr;
+            }
+            ptrNode = ptrTmp;
         }
     }
 }
@@ -261,8 +282,8 @@ std::shared_ptr<BinaryTreeNode<T>> RandomBinarySearchTree<T>::merge(std::shared_
     if (totalSize != 0)
     {
         srand(time(0));
-        const size_t randNum = (size_t)rand() % totalSize;
-        if (randNum < leftSize)
+        const size_t randNum = 1 + ((size_t)rand() % totalSize);
+        if (randNum <= leftSize)
         {
             ptrNode = ptrLeft;
             ptrNode->right = merge(ptrNode->right, ptrRight);
@@ -270,7 +291,7 @@ std::shared_ptr<BinaryTreeNode<T>> RandomBinarySearchTree<T>::merge(std::shared_
         else
         {
             ptrNode = ptrRight;
-            ptrNode->right = merge(ptrNode->left, ptrLeft);
+            ptrNode->left = merge(ptrLeft, ptrNode->left);
         }
     }
     return ptrNode;

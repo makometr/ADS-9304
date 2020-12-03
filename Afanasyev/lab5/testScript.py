@@ -8,6 +8,8 @@ if not os.path.isfile("testScript.conf"):
     f.write("DirNameOfTests=\n")
     f.write("NameOfTestFile=\n")
     f.write("AmountOfTests=\n")
+    f.write("DirNameOfAnswers=\n")
+    f.write("NameOfAnswerFile=")
     f.close()
     print("Please fill the config file")
 else:
@@ -16,6 +18,8 @@ else:
     testDir = input()[len("DirNameOfTests=")::] + '/'
     testName = input()[len("NameOfTestFile=")::]
     amountOfTests = int(input()[len("AmountOfTests=")::])
+    correctAnsDir = input()[len("DirNameOfAnswers=")::] + '/'
+    correctAnsName = input()[len("NameOfAnswerFile=")::]
     sys.stdin.close()
 
     if not os.path.isdir(testDir + "ProgramAns/"):
@@ -28,16 +32,17 @@ else:
     amountOfSuccesses = 0
     for i in range(0, amountOfTests):
         fil = open(testDir + testName + str(i))
-        inputData = fil.readline()
-        os.system("./" + programName + ' ' + inputData + " > " + testDir + ansDirInTestDir + ansName + str(i) + " 2>&1 " + "\n")
+        inputData = fil.readline().rstrip()
+        os.system("./" + programName + ' ' + inputData + " > " + testDir + ansDirInTestDir + ansName + str(i) + " 2>&1\n")
 
-        fileAnswer = open(testDir + ansDirInTestDir + ansName + str(i))
+        sys.stdin = open(testDir + ansDirInTestDir + ansName + str(i), mode = 'r')
+        answer = input()
+        sys.stdin.close()
 
-        answer = fileAnswer.readlines()[-3].rstrip()
+        sys.stdin = open(testDir + correctAnsDir + correctAnsName + str(i), mode = 'r')
+        correctAnswer = input()
+        sys.stdin.close()
 
-        fileCorrectAnswer = open(testDir + ansDirInTestDir + ansName + str(i))
-
-        correctAnswer = fileCorrectAnswer.readlines()[-1].rstrip()
 
         print(testName + str(i) + ":\nInput: " + inputData + "\nCorrectAnswer: " + correctAnswer + "\nAnswer: " + answer + "\nResult: ", end = "")
         if answer == correctAnswer:

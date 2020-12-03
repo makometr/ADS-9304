@@ -22,9 +22,64 @@ public:
     template <typename C>
     friend bool operator==(const BinaryTreeNode<C> &left, const BinaryTreeNode<C> &right);
 
+    BinaryTreeNode(BinaryTreeNode<T> &&toMove);
+    BinaryTreeNode(const BinaryTreeNode<T> &toCopy);
+    BinaryTreeNode<T> &operator=(BinaryTreeNode<T> &&toMove);
+    BinaryTreeNode<T> &operator=(const BinaryTreeNode<T> &toMove);
+
     template <typename C>
     friend std::ostream &operator<<(std::ostream &out, const BinaryTreeNode<C> &right);
 };
+
+template <typename T>
+BinaryTreeNode<T> &BinaryTreeNode<T>::operator=(const BinaryTreeNode<T> &toMove)
+{
+    if (this != &toMove)
+    {
+        this->data = toMove->data;
+        this->left = toMove->left;
+        this->right = toMove->right;
+        this->parent = toMove->parent;
+    }
+    return *this;
+}
+
+template <typename T>
+BinaryTreeNode<T> &BinaryTreeNode<T>::operator=(BinaryTreeNode<T> &&toMove)
+{
+    if (this != &toMove)
+    {
+        this->data = toMove->data;
+        this->left = toMove->left;
+        this->right = toMove->right;
+        this->parent = toMove->parent;
+        toMove->left = nullptr;
+        toMove->right = nullptr;
+        toMove->parent = nullptr;
+    }
+    return *this;
+}
+
+template <typename T>
+BinaryTreeNode<T>::BinaryTreeNode(BinaryTreeNode<T> &&toMove)
+{
+    this->data = toMove->data;
+    this->left = toMove->left;
+    this->right = toMove->right;
+    this->parent = toMove->parent;
+    toMove->left = nullptr;
+    toMove->right = nullptr;
+    toMove->parent = nullptr;
+}
+
+template <typename T>
+BinaryTreeNode<T>::BinaryTreeNode(const BinaryTreeNode<T> &toCopy)
+{
+    this->data = toCopy->data;
+    this->left = toCopy->left;
+    this->right = toCopy->right;
+    this->parent = toCopy->parent;
+}
 
 template <typename T>
 const size_t BinaryTreeNode<T>::size() const
