@@ -1,0 +1,9 @@
+#!/bin/bash
+
+for n in {1..9}
+do
+    arg=$(cat Tests/test$n.txt)
+    echo -e "\nTest $n:"
+    echo "Test string = $arg"
+    ./lab5 < Tests/test$n.txt
+done
