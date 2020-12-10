@@ -9,8 +9,8 @@
 
 class Node{
 public:
-    char c;
-    int count;
+    char c{};
+    int count{};
     std::string string;
     std::shared_ptr<Node> left {nullptr};
     std::shared_ptr<Node> right {nullptr};
@@ -38,16 +38,16 @@ void print_help(){
     std::cout<<"to encode: -e -f input_file\nto decode: -d pairs_file -f binary_file [-o <file_name> to save output]\n";
 }
 
-std::string readText(std::string file){
-    std::ifstream f;
-    f.open(file);
-    std::string text, line;
-    while(getline(f, line)){
-        text+=line;
+std::string load_from_file(const std::string& filename){
+    std::string data;
+    std::string string;
+    std::ifstream file;
+    file.open(filename);
+    while(getline(file, string)){
+        data+=string;
     }
-    if(f.is_open())
-        f.close();
-    return text;
+    file.close();
+    return data;
 }
 
 void print_vector(const std::vector<std::shared_ptr<Node>>& vector)
@@ -77,11 +77,11 @@ void printTree(std::shared_ptr<Node> node, int n =0 ){
     }
 }
 
-bool comp(std::shared_ptr<Node> &a, std::shared_ptr<Node> &b){
-    return a->count > b->count;
+bool comp(std::shared_ptr<Node> &left, std::shared_ptr<Node> &right){
+    return left->count > right->count;
 }
 
-std::vector<std::shared_ptr<Node>> countSymbols(const std::string& string){
+std::vector<std::shared_ptr<Node>> count_symbols(const std::string& string){
     std::vector<std::shared_ptr<Node>> vector;
 
     bool exist;
@@ -139,32 +139,30 @@ std::shared_ptr<Node> make_tree( std::vector<std::shared_ptr<Node>>& vector){
     return head;
 }
 
-void make_pairs( std::shared_ptr<Node>& head, std::vector<Pair>& pairs,std::string code){
+void make_pairs( std::shared_ptr<Node>& head, std::vector<Pair>& pairs,std::string string){
 
-    if(head->right == nullptr &&  head->left == nullptr){
-        pairs.push_back({head->string, code});
+    if(head->left == nullptr &&  head->right == nullptr){
+        pairs.push_back({head->string, string});
     }
-    if(head->left != nullptr)
-        make_pairs(head->left,pairs,code+"0");
-    if(head->right != nullptr)
-        make_pairs(head->right,pairs,code+"1");
-
+    if(head->left != nullptr) {
+        make_pairs(head->left, pairs, string + "0");
+    }
+    if(head->right != nullptr) {
+        make_pairs(head->right, pairs, string + "1");
+    }
 }
-void print_pairs(const std::vector<Pair>& pairs, const std::string& filename="pairs.txt"){
+void unload_pairs(const std::vector<Pair>& pairs, const std::string& filename= "pairs.txt"){
     std::ofstream file;
     file.open(filename);
-
-    for(auto & pair : pairs)
-        file << pair.symbol << " - " << pair.code << '\n';
-
-    if(file.is_open())
-        file.close();
+    for(auto & pair : pairs){
+        file<<pair.symbol<<" - "<< pair.code <<"\n";
+    }
+    file.close();
 }
 
 void encode(const std::string string, std::vector<Pair> pairs, std::string filename){
     std::ofstream file;
     file.open(filename);
-
     for(char i : string){
         for(auto & pair : pairs){
             if(pair.symbol[0] == i)
@@ -172,42 +170,42 @@ void encode(const std::string string, std::vector<Pair> pairs, std::string filen
         }
     }
     file<<"\n";
-    if(file.is_open())
-        file.close();
+    file.close();
 }
-std::vector<Pair> read_pairs(std::string filename){
+
+std::vector<Pair> read_pairs(const std::string& filename){
     std::vector<Pair> vector;
     std::ifstream file(filename);
-    std::string line, code, c;
-    while(getline(file, line, '\n')){
-        c = line[0];
-        for(int i = 4;line[i] != '\0';i++)
-            code.push_back(line[i]);
-        vector.push_back({c, code});
+    std::string string;
+    std::string symbol;
+    std::string code;
+    while(getline(file, string, '\n')){
         code.clear();
+        symbol = string[0];
+        for(int i = 4; i < string.size(); ++i){
+            code.push_back(string[i]);
+        }
+        vector.push_back({symbol, code});
     }
-
     return vector;
 }
-void decode(std::string encodedText, std::string decoded, std::vector<Pair> codes){
+void decode(std::string encodedText, const std::string& decoded, const std::vector<Pair>& codes){
     std::ofstream file;
     file.open(decoded);
     std::string code;
-
-    std::string::const_iterator it = encodedText.begin();
-    while(it != encodedText.end()){
-        code += *it;
+    std::string::iterator iterator = encodedText.begin();
+    while(encodedText.end() != iterator){
+        code += *iterator;
         for(auto & i : codes){
             if(i.code == code){
                 file << i.symbol;
                 code.clear();
             }
         }
-        it++;
+        iterator++;
     }
     file << "\n";
-    if(file.is_open())
-        file.close();
+    file.close();
 }
 
 
@@ -227,21 +225,21 @@ void process(const Config& config, int argc , char** argv){
         }
     }
     if (config.from_file==1){
-        string = readText(config.ifile);
+        string = load_from_file(config.ifile);
     }
 
     if (config.encode==1){
         std::vector<std::shared_ptr<Node>> vector;
-        vector=countSymbols(string);
+        vector= count_symbols(string);
         std::shared_ptr<Node> head;
         head = make_tree(vector);
         std::vector<Pair> pairs;
         make_pairs(head, pairs,"");
-        print_pairs(pairs);
+        unload_pairs(pairs);
         encode(string,pairs,config.ofile);
     }
     if (config.decode==1){
-        string = readText(config.ifile);
+        string = load_from_file(config.ifile);
         std::vector<Pair> pairs = read_pairs(config.pairs);
         decode(string,config.ofile, pairs);
     }
