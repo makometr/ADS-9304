@@ -113,8 +113,6 @@ bool isCorrect(const std::string str) {
 	return true;
 }
 
-
-
 int main() {
 	std::vector<elem> out_1;
 	std::string x;
