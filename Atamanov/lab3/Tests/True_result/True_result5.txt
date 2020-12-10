@@ -1,0 +1,6 @@
+Forest
+a
+Binary tree
+a
+Elements in horizontal search:
+a 
