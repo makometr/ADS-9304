@@ -48,4 +48,4 @@ do
 	echo
 done
 
-#rm -rf "./Tests/Output"
+rm -rf "./Tests/Output"
