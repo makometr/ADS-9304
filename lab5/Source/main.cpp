@@ -1,8 +1,7 @@
 #include <iostream>
 #include <memory>
 #include <vector>
-#include <queue>
-#include <iomanip>
+
 
 
 struct Elem_Pair{
@@ -116,6 +115,7 @@ void Merge(std::shared_ptr<bin_tree_node> &t, std::shared_ptr<bin_tree_node> lef
 void Erase(std::shared_ptr<bin_tree_node> &t, int key, int prior){
     if (t -> key == key && t -> prior == prior){
         Merge(t, t -> left, t -> right);
+        return;
     } else {
         if (key < t -> key){
             Erase(t -> left, key, prior);
@@ -123,6 +123,7 @@ void Erase(std::shared_ptr<bin_tree_node> &t, int key, int prior){
             Erase(t -> right, key, prior);
         }
     }
+    std::cout << "Element with stack parameters not found\n";
 }
 
 bool string_checker(std::string &str, int &index, std::vector<int> &vec){
@@ -218,10 +219,26 @@ int main(int argc, char* argv[]) {
         std::cout << "success\n";
         head = Treaps_Building(seq, vec);
         display_Treap(head);
+        int key, prior;
+        while (true){
+            char what_to_do;
+            std::cout << "if you want to exit press 'e' and if you want to delete an item press 'd': ";
+            std::cin >> what_to_do;
+            if (what_to_do == 'e'){
+                return 0;
+            } else if (what_to_do == 'd'){
+                std::cout << "Enter the key and priority of the item you want to remove: ";
+                std::cin >> key >> prior;
+                Erase(head, key, prior);
+                std::cout << "\n\n\n";
+                display_Treap(head);
+            } else {
+                std::cout << "You entered an invalid character. Try again\n";
+            }
+        }
 
     } else {
         std::cout << "wrong string\n";
         return 0;
     }
-    return 0;
 }
