@@ -113,6 +113,10 @@ void Merge(std::shared_ptr<bin_tree_node> &t, std::shared_ptr<bin_tree_node> lef
 
 
 void Erase(std::shared_ptr<bin_tree_node> &t, int key, int prior){
+    if (!t){
+        std::cout << "Element with stack parameters not found\n";
+        return;
+    }
     if (t -> key == key && t -> prior == prior){
         Merge(t, t -> left, t -> right);
         return;
@@ -123,7 +127,6 @@ void Erase(std::shared_ptr<bin_tree_node> &t, int key, int prior){
             Erase(t -> right, key, prior);
         }
     }
-    std::cout << "Element with stack parameters not found\n";
 }
 
 bool string_checker(std::string &str, int &index, std::vector<int> &vec){
