@@ -4,14 +4,14 @@ mkdir "./Tests/Output"
 
 echo "Running tests...\n"
 
-for i in {1..14}
+for i in {1..13}
 do
 	while read line; do
 		testarray[$i]="$line"
 	done < ./Tests/Tests/Test$i/Test$i.txt
 done
 
-for i in {1..14}
+for i in {1..13}
 do
 	if [[ "${testarray[$i]}" == *"-o"* ]];
 	then

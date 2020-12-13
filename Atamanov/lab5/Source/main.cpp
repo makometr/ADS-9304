@@ -22,7 +22,7 @@ public:
             return tree;
         }
         while (true) {
-            if ((left.second + map[stringWithWeight.first[0]]) > (stringWithWeight.second / 2) && left.second == 0) {
+            if ((left.second + map[stringWithWeight.first[0]]) > (stringWithWeight.second) && left.second == 0) {
                 right.first += stringWithWeight.first[0];
                 right.second += map[stringWithWeight.first[0]];
                 stringWithWeight.second -= map[stringWithWeight.first[0]];
@@ -31,7 +31,7 @@ public:
                 left.second = stringWithWeight.second;
                 break;
             }
-            else if((left.second + map[stringWithWeight.first[0]]) > (stringWithWeight.second / 2))
+            else if((left.second + map[stringWithWeight.first[0]]) > (stringWithWeight.second))
                 break;
             else {
                 left.first += stringWithWeight.first[0];
@@ -45,6 +45,8 @@ public:
             right.second = stringWithWeight.second;
         }
 
+        if(left.second > right.second)
+            std::swap(left, right);
         if (left.second != 0) {
             tree->left = std::make_shared<BinTreeNode>();
             tree->left = getShannonFanoTree(left, map, codes, code + '0');
@@ -73,9 +75,27 @@ void getListOfElem(std::map<char, int>& map, std::string::iterator iterator){
 void getStringWithWeigh(std::map<char, int> stringMap, std::pair<std::string, int>& weightString){
     auto iterBeg = stringMap.begin();
     auto iterEnd = stringMap.end();
-    for(iterBeg;iterBeg != iterEnd;iterBeg++){
-        weightString.first += iterBeg->first;
-        weightString.second += iterBeg->second;
+    std::pair<char, int> max;
+    std::map<char, int> finder;
+    int flag;
+    while(1){
+        flag = 0;
+        for(;iterBeg != iterEnd;iterBeg++){
+            if(iterBeg->second > max.second && finder.find((*iterBeg).first) == finder.end()){
+                max.first = (*iterBeg).first;
+                max.second = (*iterBeg).second;
+                flag = 1;
+            }
+        }
+        iterBeg = stringMap.begin();
+        if(flag == 1){
+            weightString.first += max.first;
+            weightString.second += max.second;
+            finder.insert({max.first, max.second});
+            max.second = 0;
+            continue;
+        }
+        break;
     }
 }
 
@@ -131,7 +151,7 @@ std::map<std::string, char> getCodesFromFile(const std::string& fileName){
     std::ifstream file;
     file.open(fileName);
 	if(!file.is_open()){
-		 std::cout << "Error: Undeclared codeFile\n";
+		 std::cout << "Error: Undeclared codeFile";
 		 exit(EXIT_FAILURE);
 	}
     while(!file.eof()){
@@ -214,6 +234,7 @@ struct Configuration{
 };
 
 int main(int argc, char* argv[]){
+    setlocale(LC_ALL, "ru_RU");
     Configuration config;
     char* opts = "e?:d:f:o?:";
     struct option longOpts[]{
