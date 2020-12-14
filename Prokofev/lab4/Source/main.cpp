@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include <iostream>
 #include <fstream>
 #include "string.h"
@@ -40,20 +41,17 @@ void sVstavkami(int *a_local, int left, int right)
 {
     int time_int,
         time_iter;
-    if(left+1==right)
-        swap_int(&a_local[left+1], &a_local[right]);
-    else
-        for (int i = left+1; i < right; i++)
+    for (int i = left+1; i < right; i++)
+    {
+        time_int = a_local[i];
+        time_iter = i-1;
+        while(time_iter >= left && a_local[time_iter] > time_int)
         {
-            time_int = a_local[i];
-            time_iter = i-1;
-            while(time_iter >= left && a_local[time_iter] > time_int)
-            {
-                a_local[time_iter + 1] = a_local[time_iter];
-                a_local[time_iter] = time_int;
-                time_iter--;
-            }
+            a_local[time_iter + 1] = a_local[time_iter];
+            a_local[time_iter] = time_int;
+            time_iter--;
         }
+    }
 }
 
 void sFast(int* a_local, int left, int right, int min)
@@ -84,11 +82,13 @@ void sFast(int* a_local, int left, int right, int min)
 
 int main(int argc, char* argv[])
 {
-    std::string input1, input2;
+	std::string input1, input2;
     std::ifstream in("input.txt");
     getline(in, input1);
     getline(in, input2);
 	int size=0;
+	input1 = "1";
+	input2 = "10 4 2 14 5 4 3 2 1 ";
 	for(int i=0; i<input2.length(); i++) 
 		if(input2[i]==' ') 
 			size++;
@@ -97,6 +97,8 @@ int main(int argc, char* argv[])
 	a = (int*)malloc(size * sizeof(int));
 	TextToInt(input2, a, &warning_global);
 	int min = atoi(input1.c_str());
+
+
 	if((min>size)||(warning_global)) std::cout << "Incorrect!";
 	else
 	{
