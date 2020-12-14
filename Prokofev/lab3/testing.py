@@ -12,7 +12,7 @@ class TestLab(unittest.TestCase):
 			while True:
 				ln = file.readline()
 				ln2 = file.readline()
-				fl = open('input.txt', 'w')
+				fl = open('Source/input.txt', 'w')
 				fl.write(ln)
 				fl.write(ln2)
 				fl.close()
@@ -28,7 +28,7 @@ class TestLab(unittest.TestCase):
 			while True:
 				ln = file.readline()
 				ln2 = file.readline()
-				fl = open('input.txt', 'w')
+				fl = open('Source/input.txt', 'w')
 				fl.write(ln)
 				fl.write(ln2)
 				fl.close()
