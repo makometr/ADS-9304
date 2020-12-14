@@ -1,0 +1,10 @@
+Forest
+a
+	b
+	c
+Binary tree
+a
+	b
+		c
+Elements in horizontal search:
+a b c 
