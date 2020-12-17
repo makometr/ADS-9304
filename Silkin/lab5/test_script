@@ -1,0 +1,20 @@
+for i in {1..5}
+do
+    echo "Test $i: "
+    ./lab5.exe <"./tests/test_$i.txt"> "./tests/out_$i.txt"
+    echo ""
+    cat "./tests/test_$i.txt"
+    echo ""
+    echo ""
+    echo "Output:"
+    echo ""
+    echo ""
+    cat "./tests/out_$i.txt"
+    echo ""
+    echo ""
+    echo "File \"tree.txt\" output:"
+    cat "./tree.txt"
+    echo ""
+    echo ""
+    rm "./tree.txt"
+done
