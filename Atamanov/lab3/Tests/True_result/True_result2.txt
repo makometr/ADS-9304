@@ -1,0 +1,32 @@
+Forest
+a
+	b
+	c
+		e
+	d
+f
+	g
+		i
+	h
+		j
+		k
+		l
+m
+	n
+Binary tree
+a
+	b
+		c
+			e
+			d
+	f
+		g
+			i
+			h
+				j
+					k
+						l
+		m
+			n
+Elements in horizontal search:
+a b c e d f g i h j k l m n 
