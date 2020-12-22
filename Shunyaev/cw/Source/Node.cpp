@@ -1,4 +1,5 @@
 #include "Node.h"
+#include "AVLTree.h"
 
 //Методы класса Node
 Node::Node(int key, std::shared_ptr<Node> left, std::shared_ptr<Node> right)
@@ -292,7 +293,8 @@ std::shared_ptr<Node> Node::RotateLeft(std::shared_ptr<Node> node, DemoState sta
 std::shared_ptr<Node> Node::NodeBalancing(std::shared_ptr<Node> node, DemoState state)
 {
 	if (state != DemoState::NoDemo) {
-	
+		std::cout << "\n ---< Tree before balancing node with key " << node->key_ << " >--- \n\n";
+		AVLTree::PrintTree(AVLTree::GetTree()->Front());
 		std::cout << "\n Start balansing node with key " << node->key_ << "\n";
 	}
 

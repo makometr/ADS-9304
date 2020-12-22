@@ -7,7 +7,7 @@
 
 int main() {
 	
-	AVLTree tree;
+	AVLTree::GetTree();
 	
 	int input = 0;
 	char c = 'y';
@@ -19,13 +19,13 @@ int main() {
 
 		system("cls");
 		std::cout << "\n --- < Tree > ---\n";
-		tree.PrintTree(tree.Front());
+		AVLTree::PrintTree(AVLTree::GetTree()->Front());
 
 		if (state_input == 'I') {
-			tree.Demonstration(DemoState::InsertDemo);
+			AVLTree::GetTree()->Demonstration(DemoState::InsertDemo);
 		}
 		else if (state_input == 'R') {
-			tree.Demonstration(DemoState::RemoveDemo);
+			AVLTree::GetTree()->Demonstration(DemoState::RemoveDemo);
 		}
 		else {
 			std::cout << "\nWrong input!";
@@ -37,7 +37,7 @@ int main() {
 
 	} while (c == 'y');
 
-	tree.~AVLTree();
+	AVLTree::DeleteTree();
 	_CrtDumpMemoryLeaks();
 	return 0;
 }

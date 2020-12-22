@@ -6,10 +6,15 @@ class Node;
 class AVLTree
 {
 public:
+	static AVLTree* ptr_tree_;
+	
 	AVLTree();
 	~AVLTree();
 
-	void PrintTree(std::shared_ptr<Node> node, int tab = 1); 
+	static AVLTree* GetTree();
+	static void DeleteTree();
+
+	static void PrintTree(std::shared_ptr<Node> node, int tab = 1); 
 	void Demonstration(DemoState state);
 
 	std::shared_ptr<Node> Front();
@@ -20,5 +25,6 @@ public:
 
 private:
 	std::shared_ptr<Node> head_ = nullptr;
+	
 };
 

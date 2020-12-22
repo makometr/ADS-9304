@@ -1,12 +1,35 @@
 #include "AVLTree.h"
 #include "Node.h"
 
+AVLTree* AVLTree::ptr_tree_ = nullptr;
+
 AVLTree::AVLTree()
 {
 	std::string str;
+	bool is_correct = true;
 
-	std::cout << "Enter set of digits: ";
-	std::getline(std::cin, str);
+	do {
+		std::cout << "Enter set of digits: ";
+		std::getline(std::cin, str);
+
+		int counter = 0;
+
+		for (int i = 0; i < str.size(); i++) {
+			if ((str[i] >= 'A' && str[i] <= 'Z') || (str[i] >= 'a' && str[i] <= 'z')) {
+				counter++;
+			}
+		}
+
+		if (counter > 0) {
+			is_correct = false;
+			std::cout << "Wrong input!\n";
+		}
+		else {
+			is_correct = true;
+		}
+
+	} while (!is_correct);
+
 	std::istringstream iss(str);
 	
 	int digit;
@@ -17,6 +40,21 @@ AVLTree::AVLTree()
 
 AVLTree::~AVLTree()
 {
+	
+}
+
+AVLTree* AVLTree::GetTree()
+{
+	if (ptr_tree_ == nullptr) {
+		ptr_tree_ = new AVLTree();
+	}
+	return ptr_tree_;
+}
+
+void AVLTree::DeleteTree()
+{
+	delete ptr_tree_;
+	ptr_tree_ = nullptr;
 }
 
 // Demonstation
@@ -24,6 +62,7 @@ void AVLTree::PrintTree(std::shared_ptr<Node> node, int tab)
 {
 	int temp = tab;
 	std::string str = "";
+
 	while (temp != 0) {
 		str += "  ";
 		temp--;
@@ -32,10 +71,10 @@ void AVLTree::PrintTree(std::shared_ptr<Node> node, int tab)
 	if(node != nullptr) {
 		std::cout << str << node->key_ << '\n';
 		if (node->left_ != nullptr) {
-			this->PrintTree(node->left_, tab + 1);
+			AVLTree::PrintTree(node->left_, tab + 1);
 		}
 		if (node->right_ != nullptr) {
-			this->PrintTree(node->right_, tab + 1);
+			AVLTree::PrintTree(node->right_, tab + 1);
 		}
 	}
 	else {
