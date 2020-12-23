@@ -1,0 +1,4 @@
+Enter elements of tree: Enter element to add: Enter element to delete: 
+4 
+2 6 
+1 _ 5 _ 
