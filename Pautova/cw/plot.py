@@ -4,7 +4,7 @@ import numpy as np
 
 file = sys.argv[1]
 f = open(file, 'r')
-x, y, z, w, log = [], [], [], [], []
+x, y, z, w = [], [], [], []
 
 for l in f:
     row = l.split()
@@ -14,7 +14,6 @@ for l in f:
         z.append(float(row[2]))
         if(file == "results/res_ta.txt" or file == "results/res_tw.txt"):
             w.append(float(row[3]))
-            log.append(float(row[4]))
 
 f.close()
 
@@ -27,8 +26,6 @@ if (file == "results/res_ha.txt" or file == "results/res_hw.txt"):
     ax.plot(t, np.log2(t+1), label = 'log2 N+1', color = 'yellow')
 else:
     ax.plot(x, w, label = 'std::map', color = 'green')
-    if (file == "results/res_ta.txt"):
-        ax.plot(x, log, label = 'log2 N', color = 'k')
 
 ax.grid(which='major',color='k')
 ax.minorticks_on()

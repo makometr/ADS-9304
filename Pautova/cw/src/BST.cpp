@@ -101,15 +101,10 @@ void BST::search(std::shared_ptr<BinTreeNode<int>>& cur){
                 this->is_find = true;
                 return;
             }
-            else{
-                if (this->is_find){
-                    return;
-                }
-                if(this->E < cur->data)
-                    search(cur->left);
-                else
-                    search(cur->right);
-            }
+            if(this->E < cur->data)
+                search(cur->left);
+            else
+                search(cur->right);   
         }
 }
 

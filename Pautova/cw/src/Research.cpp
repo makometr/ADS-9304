@@ -83,20 +83,14 @@ void Research::research_time(bool is_average){
         map.find(elem_to_find);
         auto end_find_in_map = std::chrono::steady_clock::now();
 
-        auto start_log = std::chrono::steady_clock::now();
-        log2(i);
-        auto end_log = std::chrono::steady_clock::now();
-
         auto find_in_ibst_mks = std::chrono::duration_cast<std::chrono::microseconds>(end_find_in_ibst-start_find_in_ibst);
         auto find_in_bst_mks = std::chrono::duration_cast<std::chrono::microseconds>(end_find_in_bst-start_find_in_bst);
         auto find_in_map_mks = std::chrono::duration_cast<std::chrono::microseconds>(end_find_in_map-start_find_in_map);
-        auto log_mks = std::chrono::duration_cast<std::chrono::microseconds>(end_log-start_log);
 
         out << sequence.size() << ' ';
         out << find_in_ibst_mks.count() << ' ';
         out << find_in_bst_mks.count() << ' ';
-        out << find_in_map_mks.count() << ' ';
-        out << log_mks.count() << '\n';
+        out << find_in_map_mks.count() << '\n';
 
         sequence.clear();
         map.clear();
