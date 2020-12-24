@@ -2,7 +2,7 @@ import sys
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 import math
-from numpy import *
+import numpy as num
  
 file = sys.argv[1]
 
@@ -16,10 +16,8 @@ l = 0
  
 for l in f:
     row = l.split()
-    tempx = int(row[0])
-    tempy = int(row[1])
-    x.append(tempx)
-    y.append(tempy)
+    x.append(float(row[0]))
+    y.append(float(row[1]))
  
  
 f.close()
@@ -29,8 +27,8 @@ fig, ax1 = plt.subplots(
     figsize=(12, 12)
 )
  
-t = linspace(0, max(x), max(x))
-a = log(t)/log(2)
+t = num.linspace(0.1, max(x))
+a = num.log(t+1)/num.log(2)
  
 x.pop(0)
 y.pop(0)
@@ -52,10 +50,14 @@ ax1.set_xlabel('Количество элементов в дереве')
  
 if(file == "resAdd"):
     ax1.set_ylabel('Количество операций для вставки')
-else:
+if(file == "resDelete"):
     ax1.set_ylabel('Количество операций для удаления')
+if(file == "timeDelete"):
+    ax1.set_ylabel('Время удаления, мс')
+if(file == "timeAdd"):
+    ax1.set_ylabel('Время вставки, мс')        
 fig.set_figwidth(15)
 fig.set_figheight(10)
  
-plt.title("Cредний случай")
+plt.title("Худший случай")
 plt.show()

@@ -10,6 +10,7 @@
 #include <iomanip>
 #include <numeric>
 #include <chrono>
+#include <ctime>
 
 #define inputSize 1000
 static int operationCount = 0;
@@ -394,6 +395,12 @@ public:
     
     template<typename T>
     void runDelete(Tree<T> tree);
+    
+    template<typename T>
+    void timeAdd(Tree<T> tree);
+    
+    template<typename T>
+    void timeDelete(Tree<T> tree);
  
 };
  
@@ -418,7 +425,7 @@ void Research::runAdd(Tree<T> tree) {
     int treeSize = 0;
     std::ofstream outAdd, outRot;
     outAdd.open("resAdd.txt");
-    outRot.open("resRotate.txt");
+    //outRot.open("resRotate.txt");
     std::vector<int> indices = this->input;
     for (auto x : indices) {
         treeSize++;
@@ -430,6 +437,42 @@ void Research::runAdd(Tree<T> tree) {
     }
     outAdd.close();
     outRot.close();
+}
+
+template<typename T> 
+void Research::timeAdd(Tree<T> tree){
+    int treeSize = 0;
+    std::ofstream out;
+    out.open("timeAdd.txt");
+    std::vector<int> indices = this->input;
+    for (auto x : indices) {
+    	treeSize++;
+	clock_t t = clock();
+        tree.insert(x);
+        double s = difftime(clock(),t);
+        out << treeSize << ' ' << s/CLOCKS_PER_SEC*100000<< "\n";
+    }
+ 
+    out.close();
+ 
+}
+
+template<typename T> 
+void Research::timeDelete(Tree<T> tree){
+    std::ofstream out;
+    int treeSize = inputSize;
+    out.open("timeDelete.txt");
+    std::vector<int> indices = this->input;
+    for (auto x : indices) {
+	clock_t t = clock();
+        tree.findAndDelete(x);
+        double s = difftime(clock(),t);
+        out << treeSize << ' ' << s/CLOCKS_PER_SEC*1000000<< "\n";
+        treeSize--;
+    }
+ 
+    out.close();
+ 
 }
 
 template<typename T> 
@@ -452,7 +495,7 @@ void Research::runDelete(Tree<T> tree) {
 typedef int elem;
  
 int main(int argc, char* argv[]) {
-    std::vector<elem> vec;
+    /*std::vector<elem> vec;
     std::string str;
     if (argc == 1) {
         std::getline(std::cin, str);
@@ -489,7 +532,7 @@ int main(int argc, char* argv[]) {
     //std::cout <<"This is copied tree:\n";
     /*if (!tree1.print()) {
         return 0;
-    }*/
+    } commit
     std::string toInsert;
     std::string toDelete;
     int DoI;
@@ -581,16 +624,18 @@ int main(int argc, char* argv[]) {
                  return 0;
              }
     	}
-    }
+    }*/
     
-    /*std::vector<elem> vec;
+    std::vector<elem> vec;
     vec.push_back(1);
     Tree<elem> tree(vec);
     Research res;
-    //res.generateRandom(res.input, 0, inputSize);
-    res.generateAscendance();
+    res.generateRandom(res.input, 0, inputSize);
+    
+    //res.generateAscendance();
+    res.runAdd(tree);
     Tree<elem> tree1(res.input);
-    res.runDelete(tree1);*/
+    res.timeDelete(tree1);
     std::cout << "Finished right\n";
     return 0;
 }
