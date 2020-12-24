@@ -200,6 +200,9 @@ private:
     }
  
     bool findElem(std::shared_ptr<Node<T>> cur, T e) {
+    	if(cur == nullptr){
+    		return false;
+    	}
         else if (cur->data > e) {
             return findElem(cur->left, e);
         }
