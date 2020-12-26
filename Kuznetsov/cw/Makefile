@@ -1,4 +1,4 @@
-.PHONY: test clean
+.PHONY: test clean worst average best
 
 compile:
 	@echo "Compiling program..."

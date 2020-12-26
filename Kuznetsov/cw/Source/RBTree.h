@@ -7,7 +7,7 @@
 
 /*<--------------------------[ Declaration ]---------------------------->*/
 
-enum RBColor {
+enum class RBColor {
 	RED,
 	BLACK
 };

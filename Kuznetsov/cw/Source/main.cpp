@@ -13,20 +13,20 @@ int main(int argc, char** argv) {
 #endif
 	RBTree<int> tree;
 #ifdef GRAPH
-		RBTester tester(tree);
-		if(argc==2 && !std::strcmp(argv[1], "worst"))
-			tester.insertWorst();
-		else if (argc==2 && !std::strcmp(argv[1], "average"))
-			tester.insertAverage();
-		else if(argc==2 && !std::strcmp(argv[1], "best"))
-			tester.insertBest();
-		else {
-			tester.insertWorst();
-			tester.insertAverage();
-			tester.insertBest();
-		}
-		return 0;
-#endif
+	RBTester tester(tree);
+	if(argc==2 && !std::strcmp(argv[1], "worst"))
+		tester.insertWorst();
+	else if (argc==2 && !std::strcmp(argv[1], "average"))
+		tester.insertAverage();
+	else if(argc==2 && !std::strcmp(argv[1], "best"))
+		tester.insertBest();
+	else {
+		tester.insertWorst();
+		tester.insertAverage();
+		tester.insertBest();
+	}
+	return 0;
+#else
 	while (true) {
 		std::string userInput;
 		std::getline(std::cin, userInput);
@@ -44,4 +44,5 @@ int main(int argc, char** argv) {
 #endif
 	}
 	return 0;
+#endif
 }
