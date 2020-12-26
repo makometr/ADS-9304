@@ -1,29 +1,31 @@
-#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
-#include <fstream>
-#include <memory>
-#include <queue>
-#include <cstdio>
-#include "RBTree.h"
+#include <string>
+#include <cstring>
+#include <sstream>
 
-int main() {
+#include "RBTree.h"
+#include "RBTester.h"
+
+int main(int argc, char** argv) {
 #ifdef _WIN32
 	std::system("color 80");
 #endif
-	std::cout << "\033[30;48m";
-	std::ofstream fstr;
-	fstr.open("res.txt");
 	RBTree<int> tree;
-	int tmp;
-	char c = ' ';
-	while (c != '\n' && c != EOF) {
-		scanf(" %d%c", &tmp, &c);
-		tree.insert(tmp);
+	if (argc == 2 && !std::strcmp(argv[1], "TEST")) {
+		RBTester tester(tree);
+		tester.insertWorst();
+		tester.insertAverage();
+		tester.insertBest();
+		return 0;
 	}
-	tree.outputSorted(fstr);
-	fstr.close();
-#ifdef _DEBUG
-	tree.outputLayers(std::cout);
-#endif
+	while (true) {
+		std::string userInput;
+		std::getline(std::cin, userInput);
+		std::stringstream sstr(userInput);
+		int value;
+		while (sstr >> value)
+			tree.insert(value);
+		tree.outputLayers(std::cout);
+	}
 	return 0;
 }

@@ -34,11 +34,13 @@ struct RBNode {
 
 template <typename T>
 class RBTree {
+#define op(x) x; op_counter++
 public:
 	RBTree() = default;
 	RBTree(const std::initializer_list<T>& list);
 	size_t size();
-	void insert(T value);
+	int insert(T value);
+	void clear();
 	void outputSorted(std::ostream& out);
 	void outputLayers(std::ostream& out);
 private:
@@ -48,6 +50,7 @@ private:
 	void insert_2(RBNodeSptr<T> node);
 	RBNodeSptr<T> root = nullptr;
 	size_t treeSize = 0;
+	int op_counter = 0;
 };
 
 /*<--------------------------[ Definition ]---------------------------->*/
@@ -67,6 +70,7 @@ RBNodeSptr<T> uncle(RBNodeSptr<T> node) {
 
 template <typename T>
 void RBTree<T>::RLeft(RBNodeSptr<T> node) {
+	op();
 	RBNodeSptr<T> pivot = node->right;
 	pivot->parent = node->parent;
 	if (pivot->parent.expired())
@@ -86,6 +90,7 @@ void RBTree<T>::RLeft(RBNodeSptr<T> node) {
 
 template <typename T>
 void RBTree<T>::RRight(RBNodeSptr<T> node) {
+	op();
 	RBNodeSptr<T> pivot = node->left;
 	pivot->parent = node->parent;
 	if (pivot->parent.expired())
@@ -117,6 +122,7 @@ size_t RBTree<T>::size()
 
 template <typename T>
 void RBTree<T>::insert_1(RBNodeSptr<T> node) {
+	op();
 	if (node->parent.expired())
 		node->color = RBColor::BLACK;
 	else {
@@ -128,6 +134,7 @@ void RBTree<T>::insert_1(RBNodeSptr<T> node) {
 
 template <typename T>
 void RBTree<T>::insert_2(RBNodeSptr<T> node) {
+	op();
 	RBNodeSptr<T> U = uncle(node);
 	if (U && U->color == RBColor::RED) {
 		node->parent.lock()->color = RBColor::BLACK;
@@ -157,7 +164,7 @@ void RBTree<T>::insert_2(RBNodeSptr<T> node) {
 }
 
 template <typename T>
-void RBTree<T>::insert(T value) {
+int RBTree<T>::insert(T value) {
 	RBNodeSptr<T> node = std::make_shared<RBNode<T>>(value, RBColor::RED);
 	treeSize++;
 	if (treeSize == 1)
@@ -165,7 +172,7 @@ void RBTree<T>::insert(T value) {
 	else {
 		RBNodeSptr<T> it = root, father = nullptr;
 		while (it) {
-			father = it;
+			op(father = it);
 			it = (it->data < node->data) ? it->right : it->left;
 		}
 		node->parent = father;
@@ -175,6 +182,16 @@ void RBTree<T>::insert(T value) {
 			father->left = node;
 	}
 	insert_1(node);
+	auto ops = op_counter;
+	op_counter = 0;
+	return ops;
+}
+
+template<typename T>
+inline void RBTree<T>::clear()
+{
+	root.reset();
+	treeSize = 0;
 }
 
 template <typename T>
@@ -198,20 +215,21 @@ void RBTree<T>::outputLayers(std::ostream & out) {
 				out << (s & 1 ? "|  " : "   ");
 				s /= 2;
 			}
-			out<< c;
+			out << c;
 		};
 		if (!root) return;
-		out << (root->color==RBColor::RED?"\033[31m":"")<<root->data << "\033[30m\n";
+		out << (root->color == RBColor::RED ? "\033[31m" : "") << root->data << "\033[30m\n";
 		if (root->left) {
-			showLine("|\n", p, s); 
+			showLine("|\n", p, s);
 			showLine("L: ", p, s);
 			showTree(root->left, showTree, p + 1, s + ((root->right == NULL ? 0 : 1) << p));
 		}
 		if (root->right) {
-			showLine("|\n", p, s); 
+			showLine("|\n", p, s);
 			showLine("R: ", p, s);
 			showTree(root->right, showTree, p + 1, s);
 		}
 	};
 	showTree(root, showTree);
+	out << '\n'<<'\n';
 }
