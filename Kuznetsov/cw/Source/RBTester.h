@@ -43,7 +43,6 @@ void RBTester::insertBest() {
 			f << tree.size() << ' ' << tree.insert(cur) << '\n';
 	}
 	f << tree.size() << ' ' << tree.insert(1 << 20) << '\n';
-	f.close();
 }
 
 void RBTester::insertAverage()
@@ -52,12 +51,11 @@ void RBTester::insertAverage()
 	std::vector<int>values;
 	values.resize(1 << 20);
 	for (int i = 0; i < 1 << 20; i++)
-		values[i] = i;
+		values[i] = i+1;
 	std::shuffle(values.begin(), values.end(), std::mt19937(std::random_device()()));
 	std::ofstream f("insertAverage.txt", std::fstream::out);
 	for (int i = 0; i < 1 << 20; i++)
 		f << tree.size() << ' ' << tree.insert(values[i]) << '\n';
-	f.close();
 }
 
 void RBTester::insertWorst() {
@@ -66,5 +64,4 @@ void RBTester::insertWorst() {
 	for (int i = 1; i <= 1<<20; i++) {
 		f << tree.size() << ' ' << tree.insert(i) << '\n';
 	}
-	f.close();
 }

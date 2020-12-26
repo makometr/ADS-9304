@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <cstring>
+#include <fstream>
 #include <sstream>
 
 #include "RBTree.h"
@@ -26,6 +27,10 @@ int main(int argc, char** argv) {
 		while (sstr >> value)
 			tree.insert(value);
 		tree.outputLayers(std::cout);
+		std::ofstream file("res.txt", std::ofstream::out);
+#ifdef _DEBUG
+		tree.outputSorted(file);
+#endif
 	}
 	return 0;
 }
