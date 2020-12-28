@@ -48,19 +48,25 @@ int main() {
 		hesh_table HT(HTS, MKS);
 		int Res = 0;
 		std::string Key;
+		
+		// описание интерфейса
+		std::cout << "1)Press enter to exit\n";
+		std::cout << "2)To delete or add an element, enter the key and press enter\n";
+		std::cout << "3)To delete an element, press enter after entering the key\n";
+		std::cout << "3)To add an element, enter the data after entering the key. Press enter\n\n";
+
+		std::cout << "The key consists of characters '0'...'9', 'a'...'z' or 'A'...'Z' \n";
+		std::cout << "The data consists of any characters\n\n";
+
 		while (1) {
 			Key = "";
+			std::cout << "1)";
 			std::stringstream Stream = GetLine();
 			char C = 0;
-			if (Stream.get(C).eof())
-				break;
-			if (C != '1')
-				throw std::invalid_argument("Error while entering expression");
-			if ((C = Stream.get()) != ')')
-				throw std::invalid_argument("Error while entering expression");
 			// считывание ключа
 			HT.ReadKey(Key, Stream);
 			// считывание данных
+			std::cout << "2)";
 			std::stringstream Stream2 = GetLine();
 			if (Stream2.get(C).eof()) {
 				// чистка экрана
@@ -72,11 +78,7 @@ int main() {
 			}
 			else {
 				std::string Data;
-				if ((C) != '2')
-					throw std::invalid_argument("Error while entering expression");
-				if ((C = Stream2.get()) != ')')
-					throw std::invalid_argument("Error while entering expression");
-				Data = Stream2.str().erase(0, 2);
+				Data = Stream2.str();// .erase(0, 2);
 				// чистка экрана
 				std::cout << "\x1B[2J\x1B[H";
 				// вывод самой таблицы

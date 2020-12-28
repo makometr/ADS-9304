@@ -134,8 +134,8 @@ int hesh_table::H(std::string Name) {
 }
 void hesh_table::ReadKey(std::string& Key, std::stringstream& Stream) {
 	char C = 0;
-	if (!Stream.get(C))
-		throw std::invalid_argument("Error while entering expression");
+	if (Stream.get(C).eof())
+		exit(0);
 	for (int i = 0; (std::isdigit(C) || (C >= 'a' && C <= 'z') || (C >= 'A' && C <= 'Z')) && (i < KeySize); i++) {
 		Key += C;
 		// выход если ключ закончился
