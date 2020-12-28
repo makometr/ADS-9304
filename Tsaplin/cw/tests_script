@@ -1,0 +1,20 @@
+#! /bin/bash
+
+printf "\nRunning tests...\n\n"
+for n in {1..7}
+do
+    ./cw < "./Tests/tests/test$n.txt" > "./Tests/out/out$n.txt"
+    printf "\e[1;34mTest$n:\e[0m\n"
+    cat "./Tests/tests/test$n.txt"
+    if cmp "./Tests/out/out$n.txt" "./Tests/true/true_out$n.txt" > /dev/null; then
+	    printf "\e[1;32m - Passed\e[0m\n"
+    else
+            printf "\e[1;31m - Failed\e[0m\n"
+    fi
+    printf "\nDesired result:\n"
+    cat "./Tests/true/true_out$n.txt"
+    printf "\nActual result:\n"
+    cat "./Tests/out/out$n.txt"
+    printf "\n"
+done
+rm ./Tests/out/out*
