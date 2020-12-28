@@ -16,7 +16,7 @@ void generator(const size_t count, std::vector<int>& arr){      //Данная �
     for (size_t i = 0; i < count; i++){
         arr.push_back(rand() % 1000001);
     }
-    //std::sort(arr.begin(), arr.end());
+    std::sort(arr.begin(), arr.end());
 }
 
 
