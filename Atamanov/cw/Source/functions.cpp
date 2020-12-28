@@ -61,29 +61,44 @@ void getCodesFromHuffman(std::shared_ptr<BinTreeNode> huffmanTree, std::map<char
     }
 }
 
-void printTree(std::shared_ptr<BinTreeNode> tree, int level, std::string code, bool debug, bool left){
-    if(level == 0)
+void printTree(std::shared_ptr<BinTreeNode> tree, int level, std::string code, bool debug, bool left, int& step){
+    if(level == 0) {
         std::cout << "Head: " << tree->data.first << "(" << tree->data.second << ")" << "\n";
+        if (debug)
+            std::cout << "\n";
+    }
     else {
         for (int i = 1; i < level; i++) {
             std::cout << "|\t";
         }
-        if(left)
-            std::cout << "|--- L: \'" << tree->data.first << "\'(" << tree->data.second << ") Code = \'" << code << "\'" << "\n";
-        else
-            std::cout << "|--- R: \'" << tree->data.first << "\'(" << tree->data.second << ") Code = \'" << code << "\'" << "\n";
+        if(left) {
+            std::cout << "|--- L: \'" << tree->data.first << "\'(" << tree->data.second << ") Code = \'" << code << "\'"
+                      << "\n";
+            if (level == 1 && debug)
+                std::cout << "\n";
+        }
+        else {
+            std::cout << "|--- R: \'" << tree->data.first << "\'(" << tree->data.second << ") Code = \'" << code << "\'"
+                      << "\n";
+            if(debug)
+                std::cout << "\n";
+        }
     }
     if(debug){
         if(tree->left && tree->right) {
-            std::cout << "Узел со строкой " << tree->data.first << " и весом " << tree->data.second;
+            step++;
+            std::cout << "Шаг " << step;
+            std::cout << " Узел со строкой " << tree->data.first << " и весом " << tree->data.second;
             std::cout << " делится на узел со строкой \'" << tree->left->data.first << "\' и весом " << tree->left->data.second << ", который идет в левое поддерево";
             std::cout << ", а также узел со строкой \'" << tree->right->data.first << "\' и весом " << tree->right->data.second << ", который идет в правое поддерево\n";
         }
     }
-    if (tree->left)
-        printTree(tree->left, level + 1, code + '0', debug, true);
-    if (tree->right)
-        printTree(tree->right, level + 1, code + '1', debug, false);
+    if (tree->left) {
+        printTree(tree->left, level + 1, code + '0', debug, true, step);
+    }
+    if (tree->right) {
+        printTree(tree->right, level + 1, code + '1', debug, false, step);
+    }
 }
 
 
@@ -94,8 +109,8 @@ static bool HuffmanStringComparator(char a1, char a2){
         return true;
 }
 
-void printHuffman(std::pair<std::string, int> stringWithWeight, std::map<char, int> usingSymbols, bool debug){
-    std::cout << "\n------------------------------------------------------------------------------------------------------\n";
+void printHuffman(std::pair<std::string, int> stringWithWeight, std::map<char, int> usingSymbols, bool debug, int& step){
+    std::cout << "\n------------------------------------------------------------------------------------------------------\n\n";
     std::cout << "Ход алгоритма Хаффмана\n";
     std::pair<std::string, int> temp;
     std::vector<std::pair<std::string, int>> huffmanString;
@@ -113,10 +128,12 @@ void printHuffman(std::pair<std::string, int> stringWithWeight, std::map<char, i
             else
                 std::cout << huffmanString[i].first << "(" << huffmanString[i].second << "), ";
         }
+        std::cout << "\n";
         if(debug && huffmanString.size() != 2){
-            std::cout << "Первые два узла: \'" << huffmanString[0].first << "\'(" << huffmanString[0].second << ") и \'" << huffmanString[1].first << "\'(" << huffmanString[1].second << ")";
+            std::cout << "Шаг " << ++step;
+            std::cout << " первые два узла: \'" << huffmanString[0].first << "\'(" << huffmanString[0].second << ") и \'" << huffmanString[1].first << "\'(" << huffmanString[1].second << ")";
             std::cout << " складываются вместе: складываются сами строки, сортируются в лексикографическом порядке, а также складываются их веса.\n";
-            std::cout << "Получается узел \'" << temp.first << "\' с весом " << temp.second << "\n";
+            std::cout << "Получается узел \'" << temp.first << "\' с весом " << temp.second << "\n\n";
         }
         if(huffmanString.size() == 2) {
             huffmanString.erase(huffmanString.begin(), huffmanString.begin() + 2);
@@ -131,9 +148,10 @@ void printHuffman(std::pair<std::string, int> stringWithWeight, std::map<char, i
         }
     }
     if(debug){
-        std::cout << "На последнем шаге оставшиеся два узла: " << huffmanString[0].first << "(" << huffmanString[0].second << ") и " << huffmanString[1].first << "(" << huffmanString[1].second << ")";
+        std::cout << "Шаг " << ++step;
+        std::cout << " на последнем шаге оставшиеся два узла: " << huffmanString[0].first << "(" << huffmanString[0].second << ") и " << huffmanString[1].first << "(" << huffmanString[1].second << ")";
         std::cout << " складываются вместе: складываются сами строки, сортируются в лексикографическом порядке, а также складываются их веса.\n";
-        std::cout << "Получается узел " << temp.first << " с весом " << temp.second << ", который и является головой полученного дерева\n";
+        std::cout << "Получается узел " << temp.first << " с весом " << temp.second << ", который и является головой полученного дерева\n\n";
     }
     std::sort(huffmanString.begin(), huffmanString.end(), HuffmanComparator);
     std::cout << huffmanString[0].first << "(" << huffmanString[0].second << ")\n\n";
@@ -185,6 +203,7 @@ void encode(std::string::iterator encodeString, std::string& shannonString, std:
     std::pair<std::string, int> stringWithWeight; //Строка с общим весом символов
     std::string code; //Служебная переменная для передачи в функцию
     std::string outputShannon, outputHuffman; //Строка для вывода
+    int step = 0;
 
     //Получение деревьев и файлов с кодами
     getListOfElem(map, encodeString);
@@ -207,15 +226,18 @@ void encode(std::string::iterator encodeString, std::string& shannonString, std:
     std::cout << "Строка, полученная сложением всех символов, поседующей сортировки, и сложении их весов\n";
     std::cout << stringWithWeight.first << "(" << stringWithWeight.second << ")\n\n";
     std::cout << "Построение дерева Шано-Феннона\n";
-    printTree(shannonTree, 0, code, true, false);
+    printTree(shannonTree, 0, code, true, false, step);
     std::cout << "Полученное дерево:\n";
-    printTree(shannonTree, 0, code, false, false);
+    step = 0;
+    printTree(shannonTree, 0, code, false, false, step);
     std::cout << "Полученная таблица кодов для символов:\n";
     printCodeTable(codesShannon);
-    printHuffman(stringWithWeight, map, true);
+    step = 0;
+    printHuffman(stringWithWeight, map, true, step);
     std::cout << "Дерево Хаффмана, полученное при работе алгоритма Хаффмана\n";
-    printTree(huffmanTree, 0, code, false, false);
-    std::cout << "Полученная таблица кодов для символов:\n";
+    step = 0;
+    printTree(huffmanTree, 0, code, false, false, step);
+    std::cout << "\nПолученная таблица кодов для символов:\n";
     printCodeTable(codesHuffman);
     std::cout
             << "------------------------------------------------------------------------------------------------------\n";
@@ -225,35 +247,43 @@ void encode(std::string::iterator encodeString, std::string& shannonString, std:
     std::cout
             << "Шифрование происходит путем обращения к кодам, созданным ранее. Берется символ, её код ищется в таблице и заменяется в тексте на этот символ\n";
     std::string demonstrate;
-    std::cout << "С помощью таблицы Фано-Шеннона:\n";
+    std::cout << "\nС помощью таблицы Фано-Шеннона:\n";
+    step = 0;
     auto temp = encodeString;
     auto save = encodeString;
     for (; *encodeString != '\0'; encodeString++) {
         temp = encodeString;
         for (; *temp != '\0'; temp++)
             demonstrate += *temp;
-        std::cout << demonstrate << "\n";
-        std::cout << "Текущий символ: " << *encodeString << " ,его код: " << codesShannon[*encodeString] << "\n";
+        std::cout << demonstrate << "\n\n";
+        std::cout << "Шаг " << ++step << ": Текущий символ: " << *encodeString << " ,его код: " << codesShannon[*encodeString] << "\n";
         outputShannon += codesShannon[*encodeString];
         demonstrate.clear();
         demonstrate += outputShannon;
     }
+    std::cout << outputShannon << "\n\n";
+    std::cout << "Окончательная закодированная строка:\n";
+    std::cout << outputShannon << "\n\n";
+    std::cout
+            << "------------------------------------------------------------------------------------------------------\n";
 
     std::cout << "\nС помощью таблицы Хаффмана:\n";
     encodeString = save;
     demonstrate.clear();
+    step = 0;
     for (; *encodeString != '\0'; encodeString++) {
         temp = encodeString;
         for (; *temp != '\0'; temp++)
             demonstrate += *temp;
-        std::cout << demonstrate << "\n";
-        std::cout << "Текущий символ: " << *encodeString << " ,его код: " << codesHuffman[*encodeString] << "\n";
+        std::cout << demonstrate << "\n\n";
+        std::cout << "Шаг " << ++step << ": Текущий символ: " << *encodeString << " ,его код: " << codesHuffman[*encodeString] << "\n";
         outputHuffman += codesHuffman[*encodeString];
         demonstrate.clear();
         demonstrate += outputHuffman;
     }
+    std::cout << outputShannon << "\n\n";
     std::cout << "Окончательная закодированная строка:\n";
-    std::cout << outputShannon << "\n";
+    std::cout << outputShannon << "\n\n";
     std::cout
             << "------------------------------------------------------------------------------------------------------\n";
 
@@ -270,12 +300,13 @@ void encode(std::string::iterator encodeString, std::string& shannonString, std:
     outputShannonFile.close();
     outputHuffmanFile.close();
 
-    std::cout << "Декодирование:\n";
+    std::cout << "\nДекодирование:\n";
     std::map<std::string, char> decodesShannon = getCodesFromFile("./CodesShannon.txt");
     std::map<std::string, char> decodesHuffman = getCodesFromFile("./CodesHuffman.txt");
     std::cout << "Декодирование происходит в порядке, обратном кодированию: код заменяется соответствующим символом\n";
 
     std::cout << "С помощью таблицы Шеннона-Фано:\n";
+    step = 0;
     auto decodeIter = outputShannon.begin();
     demonstrate.clear();
     std::string output;
@@ -293,18 +324,22 @@ void encode(std::string::iterator encodeString, std::string& shannonString, std:
             }
         }
         std::cout << demonstrate;
-        std::cout << "\nТекущий код: \'" << code << "\', символ, соответствующий коду: \'" << decodesShannon[code] << "\'\n";
+        std::cout << "\n\nШаг " << ++step << ": Текущий код: \'" << code << "\', символ, соответствующий коду: \'" << decodesShannon[code] << "\'\n";
         output += decodesShannon[code];
         demonstrate.clear();
         demonstrate += output;
         code.clear();
     }
+    std::cout << output << "\n\n";
     std::cout << "Окончательный вариант:\n" << output << "\n";
+    std::cout
+            << "------------------------------------------------------------------------------------------------------\n";
 
     std::cout << "\nС помощью таблицы Хаффмена:\n";
     decodeIter = outputHuffman.begin();
     demonstrate.clear();
     output.clear();
+    step = 0;
     for (; decodeIter != outputHuffman.end(); decodeIter++) {
         temp = decodeIter;
         for(;*temp != '\0'; temp++)
@@ -319,11 +354,14 @@ void encode(std::string::iterator encodeString, std::string& shannonString, std:
             }
         }
         std::cout << demonstrate;
-        std::cout << "\nТекущий код: \'" << code << "\', символ, соответствующий коду: \'" << decodesHuffman[code] << "\'\n";
+        std::cout << "\n\nШаг " << ++step << ": Текущий код: \'" << code << "\', символ, соответствующий коду: \'" << decodesHuffman[code] << "\'\n";
         output += decodesHuffman[code];
         demonstrate.clear();
         demonstrate += output;
         code.clear();
     }
+    std::cout << output << "\n\n";
     std::cout << "Окончательный вариант:\n" << output << "\n";
+    std::cout
+            << "------------------------------------------------------------------------------------------------------\n";
 }

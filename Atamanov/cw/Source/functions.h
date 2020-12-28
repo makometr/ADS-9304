@@ -19,11 +19,11 @@ void getStringWithWeigh(std::map<char, int> stringMap, std::pair<std::string, in
 
 void getCodesFromHuffman(std::shared_ptr<BinTreeNode> huffmanTree, std::map<char, std::string>& codesHuffman, std::string code);
 
-void printTree(std::shared_ptr<BinTreeNode> tree, int level, std::string code, bool debug, bool left);
+void printTree(std::shared_ptr<BinTreeNode> tree, int level, std::string code, bool debug, bool left, int& step);
 
 static bool HuffmanStringComparator(char a1, char a2);
 
-void printHuffman(std::pair<std::string, int> stringWithWeight, std::map<char, int> usingSymbols, bool debug);
+void printHuffman(std::pair<std::string, int> stringWithWeight, std::map<char, int> usingSymbols, bool debug, int& step);
 
 void printCodeTable(std::map<char, std::string> codes);
 
