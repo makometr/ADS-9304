@@ -1,0 +1,9 @@
+#!/bin/bash
+
+for n in {1..7}
+do
+    arg=$(cat Tests/test$n.txt)
+    echo -e "\nTest $n:"
+    echo "Начальная строка = $arg"
+    ./cw < Tests/test$n.txt
+done
