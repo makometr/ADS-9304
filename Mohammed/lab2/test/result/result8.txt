@@ -1,0 +1,4 @@
+Error! You entered incorrect data:
+Symbol № 1 - 'd'.
+Symbol expected - '('.
+The program has ended.

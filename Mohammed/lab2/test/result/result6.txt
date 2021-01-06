@@ -1,0 +1,4 @@
+Error! You entered incorrect data:
+Symbol № 7 - '('.
+Gap expected.
+The program has ended.

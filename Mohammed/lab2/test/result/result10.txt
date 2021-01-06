@@ -1,0 +1,3 @@
+Error! You entered incorrect data:
+There are extra characters after the №12 character.
+The program has ended.
